@@ -67,7 +67,8 @@ class _CSMConsumerState<TData> extends State<CSMConsumer<TData>> {
   /// Applies the [widget.delay] given to the [widget.consume] given.
   Future<TData> _delayConsume() async {
     if (widget.delay != null) await Future<void>.delayed(widget.delay as Duration);
-    return widget.consume;
+    TData data = await widget.consume;
+    return data;
   }
 
   @override
