@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:csm_foundation_view/src/common/common_module.dart';
 import 'package:csm_foundation_view/src/widgets/agents/csm_consumer_agent.dart';
 import 'package:flutter/material.dart';
@@ -67,7 +69,10 @@ class _CSMConsumerState<TData> extends State<CSMConsumer<TData>> {
   /// Applies the [widget.delay] given to the [widget.consume] given.
   Future<TData> _delayConsume() async {
     if (widget.delay != null) await Future<void>.delayed(widget.delay as Duration);
-    return widget.consume;
+    Completer<TData> completer = Completer<TData>();
+    widget.consume.then((TData value) => completer.complete(value));
+
+    return completer.future;
   }
 
   @override
