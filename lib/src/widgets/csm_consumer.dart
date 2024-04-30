@@ -11,7 +11,7 @@ part 'private/csm_consumer_loading.dart';
 /// [TData] - The type of data to be consumed.
 ///
 /// [CSMConsumer] concept: draws a complex UI based on a network request consuming.
-final class CSMConsumer<TData> extends StatelessWidget {
+final class CSMConsumer<TData> extends StatefulWidget {
   /// Native implementation asynchronouse abtraction of service call.
   final Future<TData> consume;
 
@@ -41,9 +41,33 @@ final class CSMConsumer<TData> extends StatelessWidget {
     required this.successBuilder,
   });
 
-  /// Applies the [delay] given to the [consume] given.
+  @override
+  State<CSMConsumer<TData>> createState() => _CSMConsumerState<TData>();
+}
+
+class _CSMConsumerState<TData> extends State<CSMConsumer<TData>> {
+  // --> State properties
+  late Future<TData> consume;
+
+  @override
+  void initState() {
+    super.initState();
+    consume = widget.consume;
+  }
+
+  @override
+  void didUpdateWidget(covariant CSMConsumer<TData> oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (consume != widget.consume) {
+      setState(() {
+        consume = widget.consume;
+      });
+    }
+  }
+
+  /// Applies the [widget.delay] given to the [widget.consume] given.
   Future<TData> delayConsume() async {
-    if (delay != null) await Future<void>.delayed(delay as Duration);
+    if (widget.delay != null) await Future<void>.delayed(widget.delay as Duration);
     return consume;
   }
 
@@ -55,18 +79,18 @@ final class CSMConsumer<TData> extends StatelessWidget {
         late final Widget display;
 
         // --> The consumer has reached an exception/error.
-        if (snapshot.hasError || (emptyAsError && snapshot.data == null)) {
-          if (errorBuilder == null) return const _CSMConsumerError();
-          return errorBuilder!(context, snapshot.error, snapshot.data);
+        if (snapshot.hasError || (widget.emptyAsError && snapshot.data == null)) {
+          if (widget.errorBuilder == null) return const _CSMConsumerError();
+          return widget.errorBuilder!(context, snapshot.error, snapshot.data);
         }
         // --> The consumer has reached a success.
         if (snapshot.connectionState == ConnectionState.done) {
-          display = successBuilder(context, snapshot.data as TData);
+          display = widget.successBuilder(context, snapshot.data as TData);
         }
         // --> The consumer is loading.
         else {
-          if (loadingBuilder == null) return const _CSMConsumerLoading();
-          return loadingBuilder!(context);
+          if (widget.loadingBuilder == null) return const _CSMConsumerLoading();
+          return widget.loadingBuilder!(context);
         }
 
         return AnimatedSwitcher(
