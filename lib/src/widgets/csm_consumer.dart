@@ -16,7 +16,7 @@ part 'private/csm_consumer_loading.dart';
 /// [CSMConsumer] concept: draws a complex UI based on a network request consuming.
 final class CSMConsumer<TData> extends StatefulWidget {
   /// Native implementation asynchronouse abtraction of service call.
-  final Future<TData> consume;
+  final Future<TData> Function() consume;
 
   /// Forced time to await before perfoming the consumption.
   final Duration? delay;
@@ -53,12 +53,10 @@ final class CSMConsumer<TData> extends StatefulWidget {
 }
 
 class _CSMConsumerState<TData> extends State<CSMConsumer<TData>> {
-  late Future<TData> inner;
   late Future<TData> consume;
 
   @override
   void initState() {
-    inner = widget.consume;
     consume = _delayConsume();
     widget.agent?.addListener(_refreshConsume);
 
@@ -67,7 +65,6 @@ class _CSMConsumerState<TData> extends State<CSMConsumer<TData>> {
 
   @override
   void didUpdateWidget(covariant CSMConsumer<TData> oldWidget) {
-    inner = widget.consume;
     if (oldWidget.agent != widget.agent) {
       widget.agent?.addListener(_refreshConsume);
     }
@@ -85,7 +82,7 @@ class _CSMConsumerState<TData> extends State<CSMConsumer<TData>> {
   Future<TData> _delayConsume() async {
     if (widget.delay != null) await Future<void>.delayed(widget.delay as Duration);
 
-    return inner;
+    return widget.consume();
   }
  
   @override
