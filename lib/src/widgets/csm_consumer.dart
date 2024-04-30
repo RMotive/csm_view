@@ -60,11 +60,7 @@ class _CSMConsumerState<TData> extends State<CSMConsumer<TData>> {
   void initState() {
     inner = widget.consume;
     consume = _delayConsume();
-
-
-    widget.agent?.addListener(() {
-      setState(() {});
-    });
+    widget.agent?.addListener(_refreshConsume);
 
     super.initState();
   }
@@ -73,19 +69,23 @@ class _CSMConsumerState<TData> extends State<CSMConsumer<TData>> {
   void didUpdateWidget(covariant CSMConsumer<TData> oldWidget) {
     inner = widget.consume;
     if (oldWidget.agent != widget.agent) {
-      widget.agent?.addListener(() {
-        setState(() {});
-      });
+      widget.agent?.addListener(_refreshConsume);
     }
 
     super.didUpdateWidget(oldWidget);
+  }
+
+  void _refreshConsume() {
+    setState(() {
+      consume = _delayConsume();
+    });
   }
 
   /// Applies the [widget.delay] given to the [widget.consume] given.
   Future<TData> _delayConsume() async {
     if (widget.delay != null) await Future<void>.delayed(widget.delay as Duration);
 
-    return widget.consume;
+    return inner;
   }
  
   @override
