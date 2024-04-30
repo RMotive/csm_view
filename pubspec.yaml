@@ -1,6 +1,6 @@
 name: csm_foundation_view
 description: A package to improve view development for csm applications.
-version: 2.0.1
+version: 2.1.1
 homepage:
 
 environment:

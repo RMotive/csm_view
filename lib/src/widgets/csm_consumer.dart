@@ -20,7 +20,7 @@ final class CSMConsumer<TData> extends StatefulWidget {
   final Duration? delay;
 
   /// Wheter consider an empty object as error.
-  final bool emptyAsError;
+  final bool Function(TData data)? emptyCheck;
 
   /// Custom [Widget] builder to display when the [CSMConsumer] is awaiting for the response.
   final Widget Function(BuildContext ctx)? loadingBuilder;
@@ -31,6 +31,7 @@ final class CSMConsumer<TData> extends StatefulWidget {
   /// [Widget] UI built when the [CSMConsumer] gets the consumption resolved as success.
   final Widget Function(BuildContext ctx, TData data) successBuilder;
 
+  /// Agent to perform actions to the component state instance.
   final CSMConsumerAgent? agent;
 
   /// Generates a new [CSMConsumer] widget.
@@ -40,7 +41,7 @@ final class CSMConsumer<TData> extends StatefulWidget {
     this.errorBuilder,
     this.delay,
     this.agent,
-    this.emptyAsError = false,
+    this.emptyCheck,
     required this.consume,
     required this.successBuilder,
   });
@@ -63,7 +64,6 @@ class _CSMConsumerState<TData> extends State<CSMConsumer<TData>> {
     });
   }
 
-
   /// Applies the [widget.delay] given to the [widget.consume] given.
   Future<TData> delayConsume() async {
     if (widget.delay != null) await Future<void>.delayed(widget.delay as Duration);
@@ -77,19 +77,16 @@ class _CSMConsumerState<TData> extends State<CSMConsumer<TData>> {
       builder: (BuildContext context, AsyncSnapshot<TData> snapshot) {
         late final Widget display;
 
-        // --> The consumer has reached an exception/error.
-        if (snapshot.hasError || (widget.emptyAsError && snapshot.data == null)) {
-          if (widget.errorBuilder == null) return const _CSMConsumerError();
-          return widget.errorBuilder!(context, snapshot.error, snapshot.data);
-        }
-        // --> The consumer has reached a success.
-        if (snapshot.connectionState == ConnectionState.done) {
-          display = widget.successBuilder(context, snapshot.data as TData);
-        }
-        // --> The consumer is loading.
-        else {
-          if (widget.loadingBuilder == null) return const _CSMConsumerLoading();
-          return widget.loadingBuilder!(context);
+        // --> Connection state is loading.
+        if (snapshot.connectionState != ConnectionState.done) {
+          display = widget.loadingBuilder?.call(context) ?? const _CSMConsumerLoading();
+        } else {
+          // --> The consumer has reached an exception/error.
+          if (snapshot.hasError || (widget.emptyCheck != null && (snapshot.data == null || widget.emptyCheck!.call(snapshot.data as TData)))) {
+            display = widget.errorBuilder?.call(context, snapshot.error, snapshot.data) ?? const _CSMConsumerError();
+          } else {
+            display = widget.successBuilder(context, snapshot.data as TData);
+          }
         }
 
         return AnimatedSwitcher(
