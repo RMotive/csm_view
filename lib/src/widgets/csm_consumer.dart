@@ -54,23 +54,33 @@ final class CSMConsumer<TData> extends StatefulWidget {
 
 class _CSMConsumerState<TData> extends State<CSMConsumer<TData>> {
   late Future<TData> inner;
+  late CSMConsumerAgent? agent;
   late Future<TData> consume;
 
   @override
   void initState() {
-    widget.agent?.addListener(() {
-      setState(() {
-        consume = _delayConsume();
-      });
-    });
     inner = widget.consume;
+    agent = widget.agent;
     consume = _delayConsume();
+
+
+    agent?.addListener(() {
+      setState(() {});
+    });
+    
     super.initState();
   }
 
   @override
   void didUpdateWidget(covariant CSMConsumer<TData> oldWidget) {
     inner = widget.consume;
+    if (widget.agent != agent) {
+      agent = widget.agent;
+      agent?.addListener(() {
+        setState(() {});
+      });
+    }
+
     super.didUpdateWidget(oldWidget);
   }
 
