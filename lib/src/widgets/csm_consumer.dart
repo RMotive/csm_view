@@ -46,30 +46,14 @@ final class CSMConsumer<TData> extends StatefulWidget {
 }
 
 class _CSMConsumerState<TData> extends State<CSMConsumer<TData>> {
-  // --> State properties
-  late Future<TData> consume;
-
-  @override
-  void initState() {
-    super.initState();
-    consume = widget.consume;
-  }
-
-  @override
-  void didUpdateWidget(covariant CSMConsumer<TData> oldWidget) {
-    super.didUpdateWidget(oldWidget);
-    if (consume != widget.consume) {
-      setState(() {
-        consume = widget.consume;
-      });
-    }
-  }
 
   /// Applies the [widget.delay] given to the [widget.consume] given.
   Future<TData> delayConsume() async {
     if (widget.delay != null) await Future<void>.delayed(widget.delay as Duration);
-    return consume;
+    return widget.consume;
   }
+
+  
 
   @override
   Widget build(BuildContext context) {
