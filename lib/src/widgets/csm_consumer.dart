@@ -55,13 +55,11 @@ class _CSMConsumerState<TData> extends State<CSMConsumer<TData>> {
 
   @override
   void initState() {
-    super.initState();
-    widget.consume;
     widget.agent?.addListener(() {
-      setState(() {
-        consume = _delayConsume();
-      });
+      setState(() {});
     });
+    consume = _delayConsume();
+    super.initState();
   }
 
   /// Applies the [widget.delay] given to the [widget.consume] given.
