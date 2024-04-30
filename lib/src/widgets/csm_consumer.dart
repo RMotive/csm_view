@@ -59,21 +59,21 @@ class _CSMConsumerState<TData> extends State<CSMConsumer<TData>> {
     widget.consume;
     widget.agent?.addListener(() {
       setState(() {
-        consume = widget.consume;
+        consume = _delayConsume();
       });
     });
   }
 
   /// Applies the [widget.delay] given to the [widget.consume] given.
-  Future<TData> delayConsume() async {
+  Future<TData> _delayConsume() async {
     if (widget.delay != null) await Future<void>.delayed(widget.delay as Duration);
-    return consume;
+    return widget.consume;
   }
 
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<TData>(
-      future: delayConsume(),
+      future: consume,
       builder: (BuildContext context, AsyncSnapshot<TData> snapshot) {
         late final Widget display;
 
