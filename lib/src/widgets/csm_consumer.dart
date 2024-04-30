@@ -1,4 +1,5 @@
 import 'package:csm_foundation_view/src/common/common_module.dart';
+import 'package:csm_foundation_view/src/widgets/controllers/csm_consumer_agent.dart';
 import 'package:flutter/material.dart';
 
 part 'private/csm_consumer_error.dart';
@@ -30,12 +31,15 @@ final class CSMConsumer<TData> extends StatefulWidget {
   /// [Widget] UI built when the [CSMConsumer] gets the consumption resolved as success.
   final Widget Function(BuildContext ctx, TData data) successBuilder;
 
+  final CSMConsumerAgent? agent;
+
   /// Generates a new [CSMConsumer] widget.
   const CSMConsumer({
     super.key,
     this.loadingBuilder,
     this.errorBuilder,
     this.delay,
+    this.agent,
     this.emptyAsError = false,
     required this.consume,
     required this.successBuilder,
@@ -52,6 +56,11 @@ class _CSMConsumerState<TData> extends State<CSMConsumer<TData>> {
   void initState() {
     super.initState();
     widget.consume;
+    widget.agent?.addListener(() {
+      setState(() {
+        consume = widget.consume;
+      });
+    });
   }
 
 
