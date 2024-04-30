@@ -1,3 +1,4 @@
+export 'agents/widgets_agents_module.dart';
 export 'bases/widgets_bases_module.dart';
 export 'csm_adaptative_view.dart';
 export 'csm_color_box.dart';
