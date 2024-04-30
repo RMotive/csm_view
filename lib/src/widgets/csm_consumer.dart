@@ -1,5 +1,5 @@
 import 'package:csm_foundation_view/src/common/common_module.dart';
-import 'package:csm_foundation_view/src/widgets/controllers/csm_consumer_agent.dart';
+import 'package:csm_foundation_view/src/widgets/agents/csm_consumer_agent.dart';
 import 'package:flutter/material.dart';
 
 part 'private/csm_consumer_error.dart';
