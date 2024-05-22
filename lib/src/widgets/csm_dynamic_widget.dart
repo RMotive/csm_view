@@ -14,7 +14,7 @@ import 'package:flutter/material.dart';
 /// needs to be dynamic with this specific [state] context scope.
 final class CSMDynamicWidget<T extends CSMStateBase> extends CSMDynamicWidgetBase<T> {
   /// UI desginer, how the widget will look like.
-  final Widget Function(BuildContext ctx, CSMStateBase state) designer;
+  final Widget Function(BuildContext ctx, T state) designer;
 
   /// Generates a new [CSMDynamicWidget] widget.
   const CSMDynamicWidget({
@@ -24,5 +24,5 @@ final class CSMDynamicWidget<T extends CSMStateBase> extends CSMDynamicWidgetBas
   });
 
   @override
-  Widget compose(BuildContext ctx, CSMStateBase state) => designer(ctx, state);
+  Widget compose(BuildContext ctx, T state) => designer(ctx, state);
 }
