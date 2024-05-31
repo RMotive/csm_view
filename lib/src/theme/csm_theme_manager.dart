@@ -1,5 +1,6 @@
 import 'dart:convert';
-import 'package:csm_foundation_view/src/theme/theme_module.dart';
+
+import 'package:csm_foundation_view/csm_foundation_view.dart';
 import 'package:flutter/material.dart';
 
 /// Stores the provate reference for the static change notifier for the Theming handling.
@@ -162,7 +163,7 @@ void disposeEffect<TTheme extends CSMThemeBase>(VoidCallback updateEffect) {
 /// '''
 ValueNotifier<CSMThemeBase> get listenTheme => _validNotifier;
 
-void initTheme<TThemeBase extends CSMThemeBase>(TThemeBase? defaultTheme, List<TThemeBase> themes) {
+void initTheme<TThemeBase extends CSMThemeBase>(TThemeBase defaultTheme, List<TThemeBase> themes) {
   _themes = themes;
   _Theme.loadTheme(defaultTheme);
 }
@@ -170,20 +171,14 @@ void initTheme<TThemeBase extends CSMThemeBase>(TThemeBase? defaultTheme, List<T
 final class _Theme<TThemeBase extends CSMThemeBase> {
   static _Theme<CSMThemeBase>? ins;
 
-  late final TThemeBase? _defaultTheme;
-  TThemeBase get defaultTheme {
-    if (_defaultTheme == null) throw Exception("The theme is not configured");
-    return _defaultTheme;
+  late final TThemeBase defTheme;
+
+  _Theme._(TThemeBase defaultTheme) {
+    defTheme = defaultTheme;
   }
 
-  _Theme._(TThemeBase? defaultTheme) {
-    if (defaultTheme == null) return;
-    _defaultTheme = defaultTheme;
-  }
-
-  static loadTheme<TThemeBase extends CSMThemeBase>(TThemeBase? defaultTheme) {
-    _Theme<CSMThemeBase> manager = ins ?? _Theme<TThemeBase>._(defaultTheme);
-    ins = manager;
-    _notifier = ValueNotifier<CSMThemeBase>(manager.defaultTheme);
+  static loadTheme<TThemeBase extends CSMThemeBase>(TThemeBase defaultTheme) {
+    ins ??= _Theme<TThemeBase>._(defaultTheme);
+    _notifier = ValueNotifier<CSMThemeBase>(ins!.defTheme);
   }
 }

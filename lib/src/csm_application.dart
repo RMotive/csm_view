@@ -1,5 +1,6 @@
-import 'package:csm_foundation_view/src/common/common_module.dart';
-import 'package:csm_foundation_view/src/theme/theme_module.dart';
+import 'package:csm_foundation_view/csm_foundation_view.dart';
+import 'package:csm_foundation_view/src/core/theme/csm_theme.dart';
+import 'package:csm_foundation_view/src/widgets/private/csm_landing.dart';
 import 'package:flutter/material.dart' hide Theme;
 import 'package:flutter/material.dart';
 
@@ -83,47 +84,45 @@ final class CSMApplication<ThemeBase extends CSMThemeBase> extends StatefulWidge
 }
 
 class _CSMApplicationState extends State<CSMApplication<CSMThemeBase>> {
-  late final Widget? byHome;
-  bool get _usesRouter => widget.routerDelegate != null || widget.routerConfig != null;
+  late Widget? byHome;
 
   late ValueNotifier<CSMThemeBase> listener;
+
+  @override
+  void didUpdateWidget(covariant CSMApplication<CSMThemeBase> oldWidget) {
+    super.didUpdateWidget(oldWidget);
+
+    byHome = widget.home ?? widget.homeBuilder?.call(context);
+  }
 
   @override
   void initState() {
     super.initState();
     WidgetsFlutterBinding.ensureInitialized();
-    initTheme(widget.defaultTheme, widget.themes);
+    initTheme(widget.defaultTheme ?? const CSMTheme(), widget.themes);
     listener = listenTheme;
-    if (widget.home != null) byHome = widget.home;
-    if (widget.homeBuilder != null) byHome = widget.homeBuilder?.call(context);
+    byHome = widget.home ?? widget.homeBuilder?.call(context);
 
     const CSMAdvisor('COSMOS').message('Starting engines⚙️⚙️⚙️');
   }
 
   @override
-  void didUpdateWidget(covariant CSMApplication<CSMThemeBase> oldWidget) {
-    super.didUpdateWidget(oldWidget);
+  Widget build(BuildContext context) {
+    return (widget.routerDelegate != null || widget.routerConfig != null) ? _buildFromRouter() : _build();
   }
-
-  Widget buildApp() {
-    return _usesRouter ? _buildFromRouter() : _build();
-  }
-
-  @override
-  Widget build(BuildContext context) => buildApp();
 
   Widget _build() {
     return MaterialApp(
       home: byHome,
-      builder: frameListener,
+      builder: _frameListener,
       restorationScopeId: 'scope-main',
-      debugShowCheckedModeBanner: widget.useLegacyDebugBanner,
+      debugShowCheckedModeBanner: false,
     );
   }
 
   Widget _buildFromRouter() {
     return MaterialApp.router(
-      builder: frameListener,
+      builder: _frameListener,
       routerConfig: widget.routerConfig,
       routerDelegate: widget.routerDelegate,
       restorationScopeId: 'scope-main-router',
@@ -131,10 +130,18 @@ class _CSMApplicationState extends State<CSMApplication<CSMThemeBase>> {
     );
   }
 
-  Widget frameListener(BuildContext ctx, Widget? child) {
-    if (!widget.listenFrame) {
-      return widget.builder!(context, child);
-    }
+  Widget _frameListener(BuildContext ctx, Widget? child) {
+    child ??= const CSMLanding();
+    child = DefaultTextStyle(
+      style: const TextStyle(
+        decoration: TextDecoration.none,
+        fontSize: 15,
+        fontWeight: FontWeight.w500,
+      ),
+      child: child,
+    );
+
+    if (!widget.listenFrame) return child;
 
     return ValueListenableBuilder<CSMThemeBase>(
       valueListenable: listener,
