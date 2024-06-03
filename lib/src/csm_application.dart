@@ -141,6 +141,7 @@ class _CSMApplicationState extends State<CSMApplication<CSMThemeBase>> {
       child: child,
     );
 
+    child = widget.builder!(context, child);
     if (!widget.listenFrame) return child;
 
     return ValueListenableBuilder<CSMThemeBase>(
@@ -149,7 +150,7 @@ class _CSMApplicationState extends State<CSMApplication<CSMThemeBase>> {
         return Stack(
           textDirection: TextDirection.ltr,
           children: <Widget>[
-            widget.builder!(context, child),
+            child!,
             const Padding(
               padding: EdgeInsets.only(
                 top: 16,
