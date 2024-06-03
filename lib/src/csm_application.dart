@@ -132,6 +132,8 @@ class _CSMApplicationState extends State<CSMApplication<CSMThemeBase>> {
 
   Widget _frameListener(BuildContext ctx, Widget? child) {
     child ??= const CSMLanding();
+
+    child = widget.builder?.call(context, child) ?? child;
     child = DefaultTextStyle(
       style: const TextStyle(
         decoration: TextDecoration.none,
@@ -140,8 +142,6 @@ class _CSMApplicationState extends State<CSMApplication<CSMThemeBase>> {
       ),
       child: child,
     );
-
-    child = widget.builder!(context, child);
     if (!widget.listenFrame) return child;
 
     return ValueListenableBuilder<CSMThemeBase>(
