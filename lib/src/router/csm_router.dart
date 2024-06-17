@@ -259,6 +259,25 @@ class CSMRouter {
     }
   }
 
+  /// Pops the current top-most inmediate route node.
+  ///
+  /// [canLog]: If disabled won´t show any warning/error messaging catched.
+  void pop({bool canLog = true}) {
+    final NavigatorState? navState = _nav.currentState;
+    final BuildContext? navCtx = navState?.context;
+    final BuildContext? navigation = _nav.currentContext;
+    if (navCtx == null || !navCtx.mounted || navigation == null || !navigation.mounted) {
+      if (canLog) {
+        _advisor.warning('Can\'t perform driving cause the Navigator is defunct');
+      }
+      return;
+    }
+
+    if (navigation.canPop()) {
+      navigation.pop();
+    }
+  }
+
   /// Removes all the route history until the current route node.
   void cleanHistory() {
     _nav.currentState?.popUntil(
