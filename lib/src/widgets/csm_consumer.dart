@@ -36,9 +36,14 @@ final class CSMConsumer<TData> extends StatefulWidget {
   /// Agent to perform actions to the component state instance.
   final CSMConsumerAgent? agent;
 
+  /// Dart doesn't have a way to determine a Future<T> Function is a Future<void>, it has to be
+  /// set manually tho.
+  final bool isVoid;
+
   /// Generates a new [CSMConsumer] widget.
   const CSMConsumer({
     super.key,
+    this.isVoid = false,
     this.loadingBuilder,
     this.errorBuilder,
     this.delay,
@@ -97,9 +102,7 @@ class _CSMConsumerState<TData> extends State<CSMConsumer<TData>> {
           display = widget.loadingBuilder?.call(context) ?? const _CSMConsumerLoading();
         } else {
           // --> The consumer has reached an exception/error.
-
-          final bool consumerVoid = widget.consume() is Future<void> Function();
-          if (snapshot.hasError || ((snapshot.data == null && (!consumerVoid)) || (widget.emptyCheck != null && widget.emptyCheck!.call(snapshot.data as TData)))) {
+          if (snapshot.hasError || ((snapshot.data == null && (!widget.isVoid)) || (widget.emptyCheck != null && widget.emptyCheck!.call(snapshot.data as TData)))) {
             display = widget.errorBuilder?.call(context, snapshot.error, snapshot.data) ?? const _CSMConsumerError();
           } else {
             display = widget.successBuilder(context, snapshot.data as TData);
