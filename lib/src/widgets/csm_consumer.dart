@@ -84,7 +84,7 @@ class _CSMConsumerState<TData> extends State<CSMConsumer<TData>> {
 
     return widget.consume();
   }
- 
+
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<TData>(
@@ -97,7 +97,7 @@ class _CSMConsumerState<TData> extends State<CSMConsumer<TData>> {
           display = widget.loadingBuilder?.call(context) ?? const _CSMConsumerLoading();
         } else {
           // --> The consumer has reached an exception/error.
-          if (snapshot.hasError || ((snapshot.data == null) || (widget.emptyCheck != null && widget.emptyCheck!.call(snapshot.data as TData)))) {
+          if (snapshot.hasError || ((snapshot.data == null && (widget.consume is! Future<void>)) || (widget.emptyCheck != null && widget.emptyCheck!.call(snapshot.data as TData)))) {
             display = widget.errorBuilder?.call(context, snapshot.error, snapshot.data) ?? const _CSMConsumerError();
           } else {
             display = widget.successBuilder(context, snapshot.data as TData);
