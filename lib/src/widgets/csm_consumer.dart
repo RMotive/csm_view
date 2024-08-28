@@ -98,7 +98,7 @@ class _CSMConsumerState<TData> extends State<CSMConsumer<TData>> {
         } else {
           // --> The consumer has reached an exception/error.
 
-          final bool consumerVoid = widget.consume is Future<void> Function();
+          final bool consumerVoid = widget.consume() is Future<void> Function();
           if (snapshot.hasError || ((snapshot.data == null && (!consumerVoid)) || (widget.emptyCheck != null && widget.emptyCheck!.call(snapshot.data as TData)))) {
             display = widget.errorBuilder?.call(context, snapshot.error, snapshot.data) ?? const _CSMConsumerError();
           } else {
