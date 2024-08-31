@@ -1,4 +1,4 @@
-name: csm_foundation_view
+name: csm_view
 description: A package to improve view development for csm applications.
 version: 2.3.0
 homepage:
@@ -10,8 +10,9 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  go_router: ^14.0.1
 
+  go_router: ^14.0.1
+  
 dev_dependencies:
   flutter_test:
     sdk: flutter

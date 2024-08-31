@@ -1,4 +1,4 @@
-import 'package:csm_foundation_view/src/common/common_module.dart';
+import 'package:csm_view/src/common/common_module.dart';
 
 /// Provides utilities to handle jObjects such read and write.
 extension JUtils on JObject {

@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:csm_foundation_view/csm_foundation_view.dart';
+import 'package:csm_view/csm_view.dart';
 import 'package:flutter/material.dart';
 
 /// Stores the provate reference for the static change notifier for the Theming handling.

@@ -1,5 +1,5 @@
-import 'package:csm_foundation_view/src/common/common_module.dart';
-import 'package:csm_foundation_view/src/common/enums/csm_platforms.dart';
+import 'package:csm_view/src/common/common_module.dart';
+import 'package:csm_view/src/common/enums/csm_platforms.dart';
 import 'package:flutter/foundation.dart';
 
 /// Tool class for [CSMTerraformer].

@@ -1,4 +1,4 @@
-library csm_foundation_view;
+library csm_view;
 
 export 'src/common/common_module.dart';
 export 'src/csm_application.dart';

@@ -1,4 +1,4 @@
-import 'package:csm_foundation_view/src/common/common_module.dart';
+import 'package:csm_view/src/common/common_module.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';

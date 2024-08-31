@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## CURRENT
+
+    - Dependencies Upgrade:
+
+        1. go_router ([14.2.0] -> [14.2.7])
+
 ## 2.3.0
 
 * Added the [pop()] function to the native application Router.

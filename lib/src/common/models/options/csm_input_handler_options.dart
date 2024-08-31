@@ -1,4 +1,4 @@
-import 'package:csm_foundation_view/src/common/common_module.dart';
+import 'package:csm_view/src/common/common_module.dart';
 import 'package:flutter/widgets.dart';
 
 /// Options class for [CSMInputHandler].

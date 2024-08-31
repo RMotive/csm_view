@@ -10,7 +10,7 @@ dependencies:
   flutter:
     sdk: flutter
 
-  csm_foundation_view:
+  csm_view:
     path: ../
 dev_dependencies:
   flutter_test:

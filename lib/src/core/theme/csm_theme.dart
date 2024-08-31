@@ -1,4 +1,4 @@
-import 'package:csm_foundation_view/src/core/theme/csm_def_theme_base.dart';
+import 'package:csm_view/src/core/theme/csm_def_theme_base.dart';
 
 final class CSMTheme extends CSMDefThemeBase {
   const CSMTheme()

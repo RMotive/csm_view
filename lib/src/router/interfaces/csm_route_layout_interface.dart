@@ -1,5 +1,5 @@
-import 'package:csm_foundation_view/src/common/common_module.dart';
-import 'package:csm_foundation_view/src/router/router_module.dart';
+import 'package:csm_view/src/common/common_module.dart';
+import 'package:csm_view/src/router/router_module.dart';
 import 'package:flutter/material.dart';
 
 /// Interface for [CSMRouteLayout].

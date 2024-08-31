@@ -1,4 +1,4 @@
-import 'package:csm_foundation_view/src/widgets/interfaces/csm_state_interface.dart';
+import 'package:csm_view/src/widgets/interfaces/csm_state_interface.dart';
 import 'package:flutter/foundation.dart';
 
 /// Base for [CSMState].

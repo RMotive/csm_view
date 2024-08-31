@@ -1,4 +1,4 @@
-import 'package:csm_foundation_view/src/router/router_module.dart';
+import 'package:csm_view/src/router/router_module.dart';
 import 'package:flutter/foundation.dart';
 import 'package:go_router/go_router.dart';
 
