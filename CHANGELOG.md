@@ -4,6 +4,16 @@
 
 - Notes:
 
+    1. Template
+
+- Dependencies Upgrade:
+
+    1. Template
+
+## 3.1.0
+
+- Notes:
+
     1. Updates in [tws_consumer]
 
         - Added [isVoid] to indicate the [consumer] property is expected to return null and avoid the component
@@ -11,7 +21,7 @@
 
 - Dependencies Upgrade:
 
-    1. Template
+    [NO CHANGES]
 
 ## 3.0.0
 
