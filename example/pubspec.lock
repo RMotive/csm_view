@@ -41,7 +41,7 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.18.0"
-  csm_foundation_view:
+  csm_view:
     dependency: "direct main"
     description:
       path: ".."
@@ -83,10 +83,10 @@ packages:
     dependency: transitive
     description:
       name: go_router
-      sha256: cdae1b9c8bd7efadcef6112e81c903662ef2ce105cbd220a04bbb7c3425b5554
+      sha256: "2ddb88e9ad56ae15ee144ed10e33886777eb5ca2509a914850a5faa7b52ff459"
       url: "https://pub.dev"
     source: hosted
-    version: "14.2.0"
+    version: "14.2.7"
   leak_tracker:
     dependency: transitive
     description:
@@ -230,4 +230,4 @@ packages:
     version: "14.2.5"
 sdks:
   dart: ">=3.3.4 <4.0.0"
-  flutter: ">=3.18.0-18.0.pre.54"
+  flutter: ">=3.19.0"

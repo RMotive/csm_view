@@ -1,4 +1,4 @@
-import 'package:csm_foundation_view/src/common/common_module.dart';
+import 'package:csm_view/src/common/common_module.dart';
 
 /// Extension class.
 /// Creates an extension from a list of specific class object.

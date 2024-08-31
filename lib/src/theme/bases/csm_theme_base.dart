@@ -1,4 +1,4 @@
-import 'package:csm_foundation_view/src/theme/theme_module.dart';
+import 'package:csm_view/src/theme/theme_module.dart';
 import 'package:flutter/material.dart';
 
 /// Base for [CSMTheme].

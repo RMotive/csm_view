@@ -1,4 +1,4 @@
-import 'package:csm_foundation_view/src/widgets/bases/widgets_bases_module.dart';
+import 'package:csm_view/src/widgets/bases/widgets_bases_module.dart';
 import 'package:flutter/material.dart';
 
 /// Widget class for [CSMSpacingRow].

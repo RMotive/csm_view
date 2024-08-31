@@ -1,5 +1,5 @@
-import 'package:csm_foundation_view/src/widgets/bases/csm_state_base.dart';
-import 'package:csm_foundation_view/src/widgets/interfaces/csm_dynamic_widget_interface.dart';
+import 'package:csm_view/src/widgets/bases/csm_state_base.dart';
+import 'package:csm_view/src/widgets/interfaces/csm_dynamic_widget_interface.dart';
 import 'package:flutter/widgets.dart';
 
 /// Widget class for [CSMDynamicWidget].

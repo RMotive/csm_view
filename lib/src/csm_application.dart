@@ -1,6 +1,6 @@
-import 'package:csm_foundation_view/csm_foundation_view.dart';
-import 'package:csm_foundation_view/src/core/theme/csm_theme.dart';
-import 'package:csm_foundation_view/src/widgets/private/csm_landing.dart';
+import 'package:csm_view/csm_view.dart';
+import 'package:csm_view/src/core/theme/csm_theme.dart';
+import 'package:csm_view/src/widgets/private/csm_landing.dart';
 import 'package:flutter/material.dart' hide Theme;
 import 'package:flutter/material.dart';
 

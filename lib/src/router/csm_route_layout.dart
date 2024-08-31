@@ -1,4 +1,4 @@
-import 'package:csm_foundation_view/src/router/router_module.dart';
+import 'package:csm_view/src/router/router_module.dart';
 
 /// Class for [CSMRouteLayout]
 ///

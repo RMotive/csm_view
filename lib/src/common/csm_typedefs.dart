@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'package:csm_foundation_view/src/router/router_module.dart';
+import 'package:csm_view/src/router/router_module.dart';
 import 'package:flutter/material.dart';
 
 /// Type definition for the navigation state key.
