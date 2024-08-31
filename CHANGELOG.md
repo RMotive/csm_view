@@ -4,7 +4,10 @@
 
 - Notes:
 
-    1. Template
+    1. Updates in [tws_consumer]
+
+        - Added [isVoid] to indicate the [consumer] property is expected to return null and avoid the component
+        detects an error when is actually an expected behavior.
 
 - Dependencies Upgrade:
 
