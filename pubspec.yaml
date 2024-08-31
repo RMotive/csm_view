@@ -1,6 +1,6 @@
 name: csm_view
 description: A package to improve view development for csm applications.
-version: 2.3.0
+version: 3.0.0
 homepage:
 
 environment:
