@@ -3,6 +3,8 @@
 
 //! --> Exporting modules
 export 'abstractions/widgets_abstractions_module.dart';
+export 'dialog_widgets/widgets_dialog_widgets_module.dart';
+export 'business_widgets/widgets_business_widgets_module.dart';
 
 //! --> Exporting widgets
 export 'drop_up.dart';

@@ -46,10 +46,10 @@ packages:
     description:
       path: csm_client_core
       ref: HEAD
-      resolved-ref: "4f08bd38dd4e8811312d499b5a95bf01695d8af2"
+      resolved-ref: afe00412ce4d3c2db4bd79b810bd04ea08d78d32
       url: "https://github.com/Cosmos-CSM/csm_client"
     source: git
-    version: "8.2.0"
+    version: "9.0.4"
   csm_view:
     dependency: "direct main"
     description:
@@ -85,10 +85,10 @@ packages:
     dependency: transitive
     description:
       name: ffi
-      sha256: "289279317b4b16eb2bb7e271abccd4bf84ec9bdcbe999e278a94b804f5630418"
+      sha256: d07d37192dbf97461359c1518788f203b0c9102cfd2c35a716b823741219542c
       url: "https://pub.dev"
     source: hosted
-    version: "2.1.4"
+    version: "2.1.5"
   file:
     dependency: transitive
     description:
