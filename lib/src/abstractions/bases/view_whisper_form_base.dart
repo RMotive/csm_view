@@ -2,7 +2,6 @@ import 'dart:async';
 import 'dart:ui';
 
 import 'package:csm_view/csm_view.dart' hide LayoutBuilder;
-import 'package:csm_view/src/abstractions/interfaces/iview_whisper_form.dart';
 import 'package:flutter/material.dart' hide Router, Route;
 
 /// Represents a { View } whisper that is a modal view page.
