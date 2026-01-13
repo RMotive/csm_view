@@ -5,6 +5,7 @@ import 'package:flutter/material.dart' hide Router, Dialog;
 import 'package:go_router/go_router.dart';
 
 export 'create_entity_form_controller.dart';
+export 'create_entity_form_record.dart';
 export 'create_entity_form_record_field.dart';
 export 'create_entity_form_record_reactor.dart';
 
