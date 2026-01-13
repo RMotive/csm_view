@@ -1,4 +1,4 @@
-import 'package:csm_view/csm_view.dart' hide RouteData;
+import 'package:csm_view/csm_view.dart' hide RouteData, Dialog;
 import 'package:flutter/material.dart';
 
 /// Represents a [RoutingGraphBase] application's whisper route, a whisper is a modal routed page.

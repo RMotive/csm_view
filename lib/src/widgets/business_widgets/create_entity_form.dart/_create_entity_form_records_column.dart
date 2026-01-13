@@ -3,7 +3,7 @@ part of 'create_entity_form.dart';
 /// {widget} class.
 ///
 /// [_CreateEntityFormRecordsColumn] Section to display the [TModel] item value based on [itemDesigner] method.
-final class _CreateEntityFormRecordsColumn<TEntity extends EntityI<TEntity>> extends StatefulWidget {
+final class _CreateEntityFormRecordsColumn<TEntity extends IEntity<TEntity>> extends StatefulWidget {
   /// Section width.
   final double width;
 
@@ -39,10 +39,10 @@ final class _CreateEntityFormRecordsColumn<TEntity extends EntityI<TEntity>> ext
 /// {state} class.
 ///
 /// Handles [State] for [_CreateEntityFormRecordsColumn].
-final class _CreateEntityFormRecordsColumnState<TEntity extends EntityI<TEntity>>
+final class _CreateEntityFormRecordsColumnState<TEntity extends IEntity<TEntity>>
     extends State<_CreateEntityFormRecordsColumn<TEntity>> {
   ///
-  late FoundationThemeB theming = Theming.get<FoundationThemeB>(context);
+  late IThemeData themeData = ThemingUtils.get(context);
 
   ///
   late List<CreateEntityFormRecordReactor<TEntity>> recordReactors = widget.recordReactors;
@@ -52,14 +52,14 @@ final class _CreateEntityFormRecordsColumnState<TEntity extends EntityI<TEntity>
 
   @override
   void didChangeDependencies() {
+    themeData = ThemingUtils.get(context);
     super.didChangeDependencies();
 
-    theming = Theming.get<FoundationThemeB>(context);
   }
 
   @override
   Widget build(BuildContext context) {
-    SimpleTheming dangerTheme = theming.error;
+    ThemingData errorTheming = themeData.controlError;
 
     return Padding(
       padding: const EdgeInsets.symmetric(
@@ -81,7 +81,7 @@ final class _CreateEntityFormRecordsColumnState<TEntity extends EntityI<TEntity>
                   child: Text(
                     'Records: (${recordReactors.length})',
                     style: TextStyle(
-                      color: theming.page.fore,
+                      color: themeData.page.fore,
                     ),
                   ),
                 ),
@@ -95,7 +95,7 @@ final class _CreateEntityFormRecordsColumnState<TEntity extends EntityI<TEntity>
                   child: Icon(
                     Icons.add_circle,
                     size: 24,
-                    color: theming.page.fore,
+                    color: themeData.page.fore,
                   ),
                 ),
                 // --> Remove selection
@@ -105,7 +105,7 @@ final class _CreateEntityFormRecordsColumnState<TEntity extends EntityI<TEntity>
                   child: Icon(
                     Icons.remove_circle,
                     size: 24,
-                    color: dangerTheme.fore,
+                    color: errorTheming.fore,
                   ),
                 ),
               ],

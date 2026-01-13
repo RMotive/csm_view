@@ -1,11 +1,11 @@
-import 'dart:async';
 
 import 'package:csm_client_core/csm_client_core.dart';
 import 'package:csm_view/csm_view.dart' hide LayoutBuilder;
-import 'package:csm_view/src/widgets/business_widgets/create_entity_form.dart/create_entity_form_controller.dart';
 import 'package:flutter/material.dart' hide Router, Dialog;
+import 'package:go_router/go_router.dart';
 
 export 'create_entity_form_controller.dart';
+export 'create_entity_form_record_field.dart';
 export 'create_entity_form_record_reactor.dart';
 
 part '_create_entity_form_records_column.dart';
@@ -48,9 +48,6 @@ final class CreateEntityForm<TEntity extends IEntity<TEntity>, TServiceI extends
   /// Form designer.
   final Widget Function(CreateEntityFormRecordReactor<TEntity>? itemState) formDesigner;
 
-  /// A [FutureOr] list for the submit of the added items, returning the result [EntityCreationFormFeedback] status.
-  final FutureOr<List<UserFeedback>> Function(List<TEntity> entities)? onCreate;
-
   /// Builds a user-friendly message that identifies the entity that failed during record creation on the {server} side.
   ///
   /// e.g: "Truck - {economic} - {plates} - etc..".
@@ -66,7 +63,6 @@ final class CreateEntityForm<TEntity extends IEntity<TEntity>, TServiceI extends
     this.isMultiple = true,
     this.controller,
     this.validator,
-    this.onCreate,
     this.onClose,
     this.recordDesigner,
     this.buildEntityTag,
@@ -85,16 +81,13 @@ final class CreateEntityForm<TEntity extends IEntity<TEntity>, TServiceI extends
 ///
 /// Handles [State] for [CreateEntityForm].
 final class _CreateEntityFormState<TEntity extends IEntity<TEntity>, TService extends ICreateService<TEntity, IResponseResolver<BatchOperationOutput<TEntity>>>> extends State<CreateEntityForm<TEntity, TService>> {
-  /// Application routing service.
-  final IRouter _router = InjectorUtils.get();
+  /// Current application's theme data.
+  late IThemeData themeData;
 
-  /// Color pallet for the component.
-  late ThemingData themingData;
-
-  ///
+  /// Current record reactor.
   late CreateEntityFormRecordReactor<TEntity> currRecordReactor;
 
-  ///
+  /// Creation form context records reactors.
   List<CreateEntityFormRecordReactor<TEntity>> recordReactors = <CreateEntityFormRecordReactor<TEntity>>[];
 
   @override
@@ -111,7 +104,7 @@ final class _CreateEntityFormState<TEntity extends IEntity<TEntity>, TService ex
 
   @override
   void didChangeDependencies() {
-    themingData = ThemingUtils.get(context).control;
+    themeData = ThemingUtils.get(context);
     super.didChangeDependencies();
   }
 
@@ -128,7 +121,7 @@ final class _CreateEntityFormState<TEntity extends IEntity<TEntity>, TService ex
   ///
   /// Return a boolean with the validation results.
   ///
-  /// If any entity not pass the [TEntity.evaluation] method, return a false.
+  /// If any entity not pass the [IEntity.evaluate] method, return a false.
   (List<TEntity>, bool) validateEntities(List<CreateEntityFormRecordReactor<TEntity>> recordReactor) {
     List<TEntity> entities = <TEntity>[];
     int index = 0;
@@ -175,13 +168,13 @@ final class _CreateEntityFormState<TEntity extends IEntity<TEntity>, TService ex
 
   /// Performs the {create} operation for the current managed [TEntity] records.
   void performCreate() async {
+    /// Flag for any invalidated entity in entities list.
+    late bool isValid;
+
     /// Stores the entities to create when
     late List<TEntity> entities;
 
-    /// Flag for any invalidated entity in entities list.
-    late bool isValid;
     (entities, isValid) = validateEntities(recordReactors);
-    List<UserFeedback> userFeedbacks = <UserFeedback>[];
 
     /// Return if any entity is invalid.
     if (!isValid) {
@@ -189,95 +182,62 @@ final class _CreateEntityFormState<TEntity extends IEntity<TEntity>, TService ex
       return;
     }
 
-    if (widget.onCreate != null) {
-      userFeedbacks = await widget.onCreate!(entities);
-    }
-    String? errMessage;
     TService creationService = InjectorUtils.get();
-    String token = widget.authFactory.call(context);
+    String authToken = widget.authFactory.call(context);
 
-    IResponseResolver<BatchOperationOutput<TEntity>> resolver = await creationService
-        .create(
-      entities,
-      token,
-    )
-        .onError((_, _) {
-      errMessage = Core.unknownServerException;
-      showDialog(
-        context: context,
-        useRootNavigator: true,
-        barrierDismissible: false,
-        builder: (BuildContext context) {
-          return Dialog(
-            showCancelButton: false,
-            title: 'Error',
-            content: Text(FoundationMessages.unknownServerException),
-            theming: Theming.get<FoundationThemeB>(context).error,
-            onAccept: () {
-              _router.pop();
-            },
-          );
-        },
-      );
-      return Future<FoundationResponseResolver<BatchOperationOutput<TEntity>>>.delayed(Duration.zero);
-    });
+    IResponseResolver<BatchOperationOutput<TEntity>> resolver = await creationService.create(entities, authToken);
 
-    RichText? failureEntitiesMessage;
+    String errorMessage = "";
     resolver.resolve(
-      objectBuilder: () => BatchOperationOutput<TEntity>(widget.entityFactory),
+      factory: () => BatchOperationOutput<TEntity>(widget.entityFactory),
       onSuccess: (SuccessFrame<BatchOperationOutput<TEntity>> success) {
-        List<EntityOperationFailure<TEntity>> failures = success.content.failures;
-        if (failures.isNotEmpty) {
-          errMessage = FoundationMessages.unknownServerException;
-          failureEntitiesMessage = RichText(
-            text: TextSpan(
-              text: 'Cannot create some of the items, please verify the data and try again:\n\n',
-              children: widget.buildEntityTag != null
-                  ? List<InlineSpan>.generate(failures.length, (int index) {
-                      return TextSpan(
-                        text: "${index + 1}.- ${widget.buildEntityTag!(failures[index].entity)}\n",
-                        children: <InlineSpan>[
-                          TextSpan(
-                            text: 'Error: ${failures[index].message}\n\n',
-                          ),
-                        ],
-                      );
-                    })
-                  : null,
-            ),
-          );
+        List<EntityOperationError<TEntity>> failures = success.content.failures;
+        if (failures.isEmpty) return;
 
-          showDialog(
-            context: context,
-            useRootNavigator: true,
-            barrierDismissible: false,
-            builder: (BuildContext context) {
-              return Dialog(
-                showCancelButton: false,
-                title: 'Error Creating records.',
-                richContent: failureEntitiesMessage!,
-                onAccept: () {
-                  _router.pop();
-                },
-              );
-            },
-          );
-        }
+        showDialog(
+          context: context,
+          useRootNavigator: true,
+          barrierDismissible: false,
+          builder: (BuildContext context) {
+            return Dialog(
+              onAccept: context.pop,
+              showCancelButton: false,
+              title: 'Error Creating records.',
+              richContent: RichText(
+                text: TextSpan(
+                  text: 'Cannot create some of the items, please verify the data and try again:\n\n',
+                  children: widget.buildEntityTag != null
+                      ? List<InlineSpan>.generate(
+                          failures.length,
+                          (int index) {
+                            return TextSpan(
+                              text: "${index + 1}.- ${widget.buildEntityTag!(failures[index].entity)}\n",
+                              children: <InlineSpan>[
+                                TextSpan(
+                                  text: 'Error: ${failures[index].message}\n\n',
+                                ),
+                              ],
+                            );
+                          },
+                        )
+                      : null,
+                ),
+              ),
+            );
+          },
+        );
       },
       onFailure: (FailureFrame failure, int status) {
-        errMessage = failure.content.advise;
+        errorMessage = failure.content.advise;
       },
       onException: (TracedException exception) {
-        errMessage = FoundationMessages.unknownServerException;
+        errorMessage = CoreViewMessages.serverError;
       },
       onConnectionFailure: () {
-        errMessage = FoundationMessages.connectionError;
+        errorMessage = CoreViewMessages.connectionError;
       },
       onFinally: () {
-        if (errMessage == null && failureEntitiesMessage == null) {
-          _router.pop();
-          return;
-        }
+        if (errorMessage.isEmpty) return;
 
         showDialog(
           context: context,
@@ -288,20 +248,13 @@ final class _CreateEntityFormState<TEntity extends IEntity<TEntity>, TService ex
               showCancelButton: false,
               title: 'Error Creating records.',
               content: Text(
-                errMessage!,
+                errorMessage,
                 style: TextStyle(
                   fontSize: 16,
                 ),
               ),
-              theming: Theming.get<FoundationThemeB>(context).error,
-              onAccept: () {
-                if (userFeedbacks.isEmpty) {
-                  _router.pop();
-                  widget.onClose?.call();
-                  return;
-                }
-                _router.pop();
-              },
+              themingData: themeData.controlError,
+              onAccept: context.pop,
             );
           },
         );
@@ -336,7 +289,7 @@ final class _CreateEntityFormState<TEntity extends IEntity<TEntity>, TService ex
               /// --> Entity edition form
               SizedBox.fromSize(
                 size: sizeFactor,
-                child: SectionWidget(
+                child: SectionBox(
                   title: 'Properties',
                   child: widget.formDesigner(currRecordReactor),
                 ),

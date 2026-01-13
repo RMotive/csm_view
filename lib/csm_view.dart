@@ -6,6 +6,7 @@ library;
 export 'package:device_info_plus/device_info_plus.dart' show AndroidDeviceInfo, IosDeviceInfo, LinuxDeviceInfo, WindowsDeviceInfo, WebBrowserInfo, BaseDeviceInfo;
 
 //! --> Exporting modules
+export 'src/core/core_module.dart';
 export 'src/widgets/widgets_module.dart';
 export 'src/abstractions/abstractions_module.dart';
 

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:tws_foundation_view/tws_foundation_view.dart';
 
 /// {model} class.
 ///
