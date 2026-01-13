@@ -25,9 +25,8 @@ abstract interface class ICategoryLayoutPage {
 
   /// Composes customly a [Widget] to replace the default [CategoryLayout] page selection button icon decorator.
   ///
-  ///
-  /// [recomdColor] recommended fore icon [Color] calculated based on the current {CSM} foundation theming management.
-  Widget? composeIcon(Color? recomdColor);
+  /// [fgColor] recommended fore icon [Color] calculated based on the current {CSM} foundation theming management.
+  Widget? composeIcon(BuildContext context, Color? fgColor);
 
   /// Composes the [PageI] implementation that will be drawn into this [CategoryLayout] page entry.
   IViewPage composePage(BuildContext buildContext, RoutingData routingData);

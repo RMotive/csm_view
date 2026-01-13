@@ -25,11 +25,12 @@ abstract class CategoryEntityViewPageBase<TEntity extends IEntity<TEntity>, TEnt
 
   /// Creates a new instance.
   CategoryEntityViewPageBase({
+    required BuildContext context,
     required this.title,
     required this.routeData,
   }) {
     adapter = composeAdapter();
-    actions = composeActions(adapter);
+    actions = composeActions(context, adapter);
   }
 
   /// Composes the authentication token for the server request.
@@ -39,7 +40,11 @@ abstract class CategoryEntityViewPageBase<TEntity extends IEntity<TEntity>, TEnt
   TEntityTableAdapter composeAdapter();
 
   /// Composes the required {controller} for the inner [CategoryLayout] ribbon actions controlling.
-  List<IActionsRibbonNode> composeActions(TEntityTableAdapter adapter);
+  /// 
+  /// [context] - Application build context.
+  ///
+  /// [adapter] - [EntityTable] adapter proxy.
+  List<IActionsRibbonNode> composeActions(BuildContext context, TEntityTableAdapter adapter);
 
   @override
   List<IRoutingGraphData> composeRoutes() => <IRoutingGraphData>[];

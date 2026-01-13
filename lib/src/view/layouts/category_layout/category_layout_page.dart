@@ -12,7 +12,7 @@ final class CategoryLayoutPage extends CategoryLayoutPageBase {
   /// Button icon builder.
   ///
   /// [foreColor] recommended current theme fore color.
-  final Widget Function(Color? foreColor) iconBuilder;
+  final Widget Function(BuildContext context, Color? fgColor) iconBuilder;
 
   /// Builds inner [CategoryLayoutPage] nested [RouteB] implementations to be accessable.
   final List<IRoutingGraphData> Function()? routesBuilder;
@@ -31,7 +31,7 @@ final class CategoryLayoutPage extends CategoryLayoutPageBase {
   List<IRoutingGraphData> composeRoutes() => routesBuilder?.call() ?? <IRoutingGraphData>[];
 
   @override
-  Widget? composeIcon(Color? recomdColor) => iconBuilder(recomdColor);
+  Widget? composeIcon(BuildContext context, Color? fgColor) => iconBuilder(context, fgColor);
 
   @override
   IViewPage composePage(BuildContext buildContext, RoutingData routingData) => pageBuilder(buildContext, routingData);
