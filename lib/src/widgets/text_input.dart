@@ -220,13 +220,13 @@ final class _TextInputState extends State<TextInput> {
 
   @override
   void didChangeDependencies() {
-    super.didChangeDependencies();
 
     IThemeData currentThemeData = ThemingUtils.get(context);
 
     theme = widget.controlTheming ?? currentThemeData.control;
     errorTheme = widget.controlErrorTheming ?? currentThemeData.controlError;
     successTheme = widget.controlsSuccessTheming ?? currentThemeData.controlSuccess;
+    super.didChangeDependencies();
   }
 
   @override

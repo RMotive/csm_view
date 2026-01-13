@@ -28,8 +28,8 @@ class PackageLandingThemeLight extends PackageLandingThemeBase {
             accent: Colors.white70,
           ),
           control: ThemingData(
-            back: Colors.black,
-            fore: Colors.white,
+            back: Colors.white60,
+            fore: Colors.black,
             accent: Colors.grey,
           ),
           controlError: ThemingData(
