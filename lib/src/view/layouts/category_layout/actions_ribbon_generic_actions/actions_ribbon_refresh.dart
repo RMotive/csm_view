@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 /// Draws a generic {Refresh} action button for [CategoryLayoutPageI] acitons ribbon.
 final class ActionsRisbbonRefresh extends ActionsRibbonActionBase {
   /// Callback invoked when the action is requested.
-  final FutureOr<void> Function() onRefresh;
+  final FutureOr<void> Function(BuildContext context) onRefresh;
 
   /// Creates a new [ActionsRisbbonRefresh] instance.
   const ActionsRisbbonRefresh({
@@ -17,13 +17,13 @@ final class ActionsRisbbonRefresh extends ActionsRibbonActionBase {
         );
 
   @override
-  FutureOr<void> perform() => onRefresh();
+  FutureOr<void> perform(BuildContext context) => onRefresh(context);
 
   @override
-  Icon composeIcon(Color foreColor) {
+  Icon composeIcon(Color fgColor) {
     return Icon(
       Icons.refresh_outlined,
-      color: foreColor,
+      color: fgColor,
     );
   }
 }

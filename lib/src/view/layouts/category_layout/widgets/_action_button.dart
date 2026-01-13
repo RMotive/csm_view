@@ -64,7 +64,7 @@ final class _ActionButtonState extends State<_ActionButton> {
       state = CSMStates.selected;
     });
 
-    await widget.actionData.perform();
+    await widget.actionData.perform(context);
 
     setState(() {
       isLoading = false;
@@ -83,7 +83,7 @@ final class _ActionButtonState extends State<_ActionButton> {
     setState(() {
       isLoading = true;
     });
-    FutureOr<List<UserFeedback>>? invokation = widget.actionData.canExecute();
+    FutureOr<List<UserFeedback>>? invokation = widget.actionData.canExecute(context);
 
     if (invokation == null) {
       setState(() {

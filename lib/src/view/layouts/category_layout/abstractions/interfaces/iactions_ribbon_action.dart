@@ -21,12 +21,16 @@ abstract interface class IActionsRibbonAction implements IActionsRibbonNode {
   /// Composes the [Icon] to display for this [IActionsRibbonAction].
   ///
   ///
-  /// [foreColor] current theme data recommended fore color.
-  Icon composeIcon(Color foreColor);
+  /// [fgColor] current theme data recommended fore color.
+  Icon composeIcon(Color fgColor);
 
   /// Validates if can be executed, if not will be displayed as disabled but when user clicks on it will display [messageBus] information.
-  FutureOr<List<UserFeedback>>? canExecute();
+  /// 
+  /// [context] - Application build context.
+  FutureOr<List<UserFeedback>>? canExecute(BuildContext context);
 
   /// Performs the [IActionsRibbonAction] implementation functionality when the button [canExecute].
-  FutureOr<void> perform();
+  /// 
+  /// [context] - Application build context.
+  FutureOr<void> perform(BuildContext context);
 }

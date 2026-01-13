@@ -17,15 +17,15 @@ abstract class ActionsRibbonActionBase implements IActionsRibbonAction {
   });
 
   @override
-  Icon composeIcon(Color foreColor) {
+  Icon composeIcon(Color fgColor) {
     return Icon(
       Icons.check_box_outline_blank_outlined,
-      color: foreColor,
+      color: fgColor,
     );
   }
 
   @override
-  FutureOr<List<UserFeedback>>? canExecute() => null;
+  FutureOr<List<UserFeedback>>? canExecute(BuildContext context) => null;
 
   @override
   Widget compose(GlobalKey<CategoryLayoutMessengerState> messengerRef) {

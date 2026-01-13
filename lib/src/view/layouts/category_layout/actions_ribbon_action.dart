@@ -20,7 +20,7 @@ final class ActionsRibbonAction extends ActionsRibbonActionBase {
   ///
   ///
   /// [messageBus] collection [String] reference to store all user feedback messages about why the action can't be executed.
-  final FutureOr<List<UserFeedback>> Function()? onCanExecute;
+  final FutureOr<List<UserFeedback>> Function(BuildContext context)? onCanExecute;
 
   /// Creates a new [ActionsRibbonActionI] instance.
   const ActionsRibbonAction({
@@ -31,21 +31,21 @@ final class ActionsRibbonAction extends ActionsRibbonActionBase {
   });
 
   @override
-  FutureOr<void> perform() => onPerform;
+  FutureOr<void> perform(BuildContext context) => onPerform;
 
   @override
-  Icon composeIcon(Color foreColor) {
+  Icon composeIcon(Color fgColor) {
     if (iconBuilder == null) {
-      return super.composeIcon(foreColor);
+      return super.composeIcon(fgColor);
     }
 
-    return iconBuilder!.call(foreColor);
+    return iconBuilder!.call(fgColor);
   }
 
   @override
-  FutureOr<List<UserFeedback>>? canExecute() {
+  FutureOr<List<UserFeedback>>? canExecute(BuildContext context) {
     if (onCanExecute == null) return null;
 
-    return onCanExecute?.call();
+    return onCanExecute?.call(context);
   }
 }

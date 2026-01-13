@@ -25,12 +25,11 @@ abstract class CategoryEntityViewPageBase<TEntity extends IEntity<TEntity>, TEnt
 
   /// Creates a new instance.
   CategoryEntityViewPageBase({
-    required BuildContext context,
     required this.title,
     required this.routeData,
   }) {
     adapter = composeAdapter();
-    actions = composeActions(context, adapter);
+    actions = composeActions(adapter);
   }
 
   /// Composes the authentication token for the server request.
@@ -44,7 +43,7 @@ abstract class CategoryEntityViewPageBase<TEntity extends IEntity<TEntity>, TEnt
   /// [context] - Application build context.
   ///
   /// [adapter] - [EntityTable] adapter proxy.
-  List<IActionsRibbonNode> composeActions(BuildContext context, TEntityTableAdapter adapter);
+  List<IActionsRibbonNode> composeActions(TEntityTableAdapter adapter);
 
   @override
   List<IRoutingGraphData> composeRoutes() => <IRoutingGraphData>[];

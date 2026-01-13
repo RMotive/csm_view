@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 /// Draws a generic {Create} action button for [CategoryLayoutPageI] acitons ribbon.
 final class ActionsRisbbonCreate extends ActionsRibbonActionBase {
   /// Callback invoked when the action is requested.
-  final FutureOr<void> Function() onCreate;
+  final FutureOr<void> Function(BuildContext context) onCreate;
 
   /// Callback invoked to validate if the action can be executed at the current context.
   final FutureOr<List<UserFeedback>> Function()? onCanExecute;
@@ -22,20 +22,20 @@ final class ActionsRisbbonCreate extends ActionsRibbonActionBase {
         );
 
   @override
-  FutureOr<void> perform() => onCreate();
+  FutureOr<void> perform(BuildContext context) => onCreate(context);
 
   @override
-  FutureOr<List<UserFeedback>>? canExecute() {
+  FutureOr<List<UserFeedback>>? canExecute(BuildContext context) {
     if (onCanExecute == null) return null;
 
     return onCanExecute?.call();
   }
 
   @override
-  Icon composeIcon(Color foreColor) {
+  Icon composeIcon(Color fgColor) {
     return Icon(
       Icons.add_box_outlined,
-      color: foreColor,
+      color: fgColor,
     );
   }
 }
