@@ -341,10 +341,19 @@ final class _TextInputState extends State<TextInput> {
                     ],
                   )
                 : null,
-            counterStyle: TextStyle(color: counterColor),
-            labelStyle: TextStyle(color: theme.fore),
-            errorStyle: TextStyle(color: errorTheme.fore),
-            hintStyle: TextStyle(color: theme.fore.withValues(alpha: .7)),
+            counterStyle: TextStyle(
+              color: counterColor,
+            ),
+            labelStyle: TextStyle(
+              color: theme.fore,
+            ),
+            errorStyle: TextStyle(
+              color: errorTheme.fore,
+              fontSize: 14,
+            ),
+            hintStyle: TextStyle(
+              color: theme.fore.withValues(alpha: .7),
+            ),
             enabledBorder: OutlineInputBorder(
               borderSide: BorderSide(
                 color: widget.showErrorColor
