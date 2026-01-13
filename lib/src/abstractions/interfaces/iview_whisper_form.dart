@@ -21,5 +21,5 @@ abstract interface class IViewWhisperForm implements IViewPage {
   FutureOr<void> onPerform();
 
   /// Composes the form.
-  Widget composeForm(GlobalKey<FormState> formState);
+  Widget composeForm(GlobalKey<FormState> formState, BuildContext context, Size windowSize, Size pageSize);
 }

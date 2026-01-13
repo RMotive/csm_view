@@ -30,7 +30,7 @@ abstract class ViewWhisperFormBase extends ViewPageBase implements IViewWhisperF
 
   /// Composes the form.
   @override
-  Widget composeForm(GlobalKey<FormState> formState);
+  Widget composeForm(GlobalKey<FormState> formState, BuildContext context, Size windowSize, Size pageSize);
 
   @override
   @Deprecated('Dont override this method, use composeForm instead')
@@ -96,7 +96,7 @@ abstract class ViewWhisperFormBase extends ViewPageBase implements IViewWhisperF
                     Expanded(
                       child: Form(
                         key: formStateKey,
-                        child: composeForm(formStateKey),
+                        child: composeForm(formStateKey, context, windowSize, pageSize),
                       ),
                     ),
 
