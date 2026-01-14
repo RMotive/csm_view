@@ -23,7 +23,7 @@ final class CreateEntityFormRecordField<TValue> extends StatelessWidget {
     super.key,
     this.minWidth,
     this.maxWidth,
-    this.fontSize = 12,
+    this.fontSize = 14,
     required this.label,
     required this.value,
   });
@@ -44,7 +44,7 @@ final class CreateEntityFormRecordField<TValue> extends StatelessWidget {
           Text(
             '$label:',
             style: TextStyle(
-              fontSize: fontSize + 4,
+              fontSize: fontSize + 2,
               fontWeight: FontWeight.bold,
             ),
           ),
@@ -60,12 +60,10 @@ final class CreateEntityFormRecordField<TValue> extends StatelessWidget {
 
           /// --> Property is a [bool]
           if (value case bool boolVal) ...<Widget>[
-            Center(
-              child: Icon(
-                !boolVal ? Icons.close : Icons.check,
-                size: fontSize * 1.5,
-                color: theming.fore,
-              ),
+            Icon(
+              !boolVal ? Icons.close : Icons.check,
+              size: fontSize * 1.5,
+              color: theming.fore,
             ),
           ],
 
