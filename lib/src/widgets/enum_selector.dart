@@ -59,6 +59,12 @@ final class _EnumSelectorState<TEnum extends Enum> extends State<EnumSelector<TE
 
   @override
   void initState() {
+    if (currValue != null) {
+      textController.value = TextEditingValue(
+        text: converEnumToString(currValue!),
+      );
+    }
+
     focusNode.addListener(
       () {
         if (focusNode.hasFocus) return;
@@ -75,6 +81,12 @@ final class _EnumSelectorState<TEnum extends Enum> extends State<EnumSelector<TE
   void didUpdateWidget(covariant EnumSelector<TEnum> oldWidget) {
     if (oldWidget.value != widget.value) {
       currValue = widget.value;
+    }
+
+    if (currValue != null) {
+      textController.value = TextEditingValue(
+        text: converEnumToString(currValue!),
+      );
     }
 
     super.didUpdateWidget(oldWidget);
@@ -107,11 +119,6 @@ final class _EnumSelectorState<TEnum extends Enum> extends State<EnumSelector<TE
       child: Autocomplete<TEnum>(
         focusNode: focusNode,
         textEditingController: textController,
-        initialValue: currValue == null
-            ? null
-            : TextEditingValue(
-                text: converEnumToString(currValue!),
-              ),
         optionsBuilder: (TextEditingValue textEditingValue) {
           return widget.values.where(
             (TEnum element) {
