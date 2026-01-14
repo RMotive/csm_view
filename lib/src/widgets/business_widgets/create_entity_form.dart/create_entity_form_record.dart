@@ -9,7 +9,7 @@ final class CreateEntityFormRecord extends StatelessWidget {
   final bool selected;
 
   /// Fields to display as summary.
-  final List<CreateEntityFormRecordField> fields;
+  final List<CreateEntityFormRecordField<Object>> fields;
 
   /// Layout expansion behavior flag.
   final bool expand;

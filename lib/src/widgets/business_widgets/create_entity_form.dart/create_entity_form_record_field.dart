@@ -1,15 +1,14 @@
+import 'package:csm_view/csm_view.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:intl/intl.dart';
 
-/// {model} class.
-///
-/// Data model class that stores information about how to display a field summary at a [CreateEntityFormRecord].
-final class CreateEntityFormRecordField extends StatelessWidget {
+/// Draws a [Widget] that displays a [CreateEntityFormRecord] property value.
+final class CreateEntityFormRecordField<TValue> extends StatelessWidget {
   /// Propertie title.
   final String label;
 
   /// Propertie value.
-  final String? value;
+  final TValue? value;
 
   /// Min text component width.
   final double? minWidth;
@@ -27,7 +26,7 @@ final class CreateEntityFormRecordField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String val = (value?.isEmpty ?? true) ? '---' : value!;
+    ThemingData theming = ThemingUtils.get(context).page;
 
     return ConstrainedBox(
       constraints: BoxConstraints(
@@ -38,8 +37,35 @@ final class CreateEntityFormRecordField extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         spacing: 6,
         children: <Widget>[
-          Text('$label:'),
-          Text(val, style: const TextStyle(fontWeight: FontWeight.w500)),
+          Text(
+            '$label:',
+          ),
+          if (value case String? stringVal)
+            Text(
+              stringVal ?? '---',
+              style: TextStyle(
+                color: theming.fore,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+
+          /// --> Property is a [bool]
+          if (value case bool boolVal) ...<Widget>[
+            Icon(
+              !boolVal ? Icons.close : Icons.check,
+              color: theming.fore,
+            ),
+          ],
+
+          /// --> Property is a [DateTime]
+          if (value case DateTime dateTimeVal) ...<Widget>[
+            Text(
+              DateFormat.yMMMd().add_jms().format(dateTimeVal),
+              style: TextStyle(
+                color: theming.fore,
+              ),
+            ),
+          ],
         ],
       ),
     );
