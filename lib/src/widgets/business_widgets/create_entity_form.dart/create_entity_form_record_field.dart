@@ -63,7 +63,7 @@ final class CreateEntityFormRecordField<TValue> extends StatelessWidget {
           if (value case bool boolVal) ...<Widget>[
             Icon(
               !boolVal ? Icons.close : Icons.check,
-              size: fontSize * 1.5,
+              size: fontSize,
               color: theming.fore,
             ),
           ],
