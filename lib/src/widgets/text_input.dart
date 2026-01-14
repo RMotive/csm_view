@@ -359,7 +359,7 @@ final class _TextInputState extends State<TextInput> {
                 color: widget.showErrorColor
                     ? errorTheme.fore
                     : theme.accent.withValues(
-                        alpha: .25,
+                        alpha: .5,
                       ),
                 width: _borderWidth,
               ),
@@ -389,7 +389,7 @@ final class _TextInputState extends State<TextInput> {
             focusedBorder: OutlineInputBorder(
               borderSide: BorderSide(
                 color: theme.accent,
-                width: _borderWidth,
+                width: _borderWidth + 3,
               ),
             ),
           ),
