@@ -38,6 +38,7 @@ final class CreateEntityFormRecordField<TValue> extends StatelessWidget {
         maxWidth: maxWidth ?? double.maxFinite,
       ),
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.start,
         spacing: 6,
         children: <Widget>[
