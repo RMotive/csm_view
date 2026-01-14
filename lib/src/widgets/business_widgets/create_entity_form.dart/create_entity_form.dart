@@ -1,4 +1,3 @@
-
 import 'package:csm_client_core/csm_client_core.dart';
 import 'package:csm_view/csm_view.dart' hide LayoutBuilder;
 import 'package:flutter/material.dart' hide Router, Dialog;
@@ -28,8 +27,8 @@ const double _kColWidthLimit = 300;
 ///
 /// Handles the creation and submit of [TEntity] entites, displaying a custom creation form for items and display a list of added items and it's current values.
 final class CreateEntityForm<TEntity extends IEntity<TEntity>, TServiceI extends ICreateService<TEntity, IResponseResolver<BatchOperationOutput<TEntity>>>> extends StatefulWidget {
-  /// [TEntity] default object factory.
-  final TEntity Function() entityFactory;
+  /// Handled [TEntity] object factory.
+  final TEntity Function() factory;
 
   /// Whether this form supports multiple records creation.
   final bool isMultiple;
@@ -40,33 +39,45 @@ final class CreateEntityForm<TEntity extends IEntity<TEntity>, TServiceI extends
   /// [TEntity] validation function.
   final bool Function(TEntity entity)? validator;
 
-  /// Controller.
+  /// Form controller.
   final CreateEntityFormController? controller;
+
+  /// Form scroll controller.
+  final ScrollController? scrollController;
 
   /// Function to build the summary [Widget] to show at the created entity stack as summary data.
   final RecordDesigner<TEntity>? recordDesigner;
 
+  /// Inner [FormArea] padding.
+  final EdgeInsets formPadding;
+
   /// Form designer.
-  final Widget Function(CreateEntityFormRecordReactor<TEntity>? itemState) formDesigner;
+  ///
+  /// [itemState] - When the creation [isMultiple] is enabled a record stack is used to handle multiple item creation, in that case the item state is proxied to handle the record summary state.
+  ///
+  /// [scrollController] - Automatically the [CreateEntityForm] handles a vertical [SingleChildScrollView] this proxies the [scrollController].
+  final Widget Function(CreateEntityFormRecordReactor<TEntity>? itemState, ScrollController scrollController) formDesigner;
 
   /// Builds a user-friendly message that identifies the entity that failed during record creation on the {server} side.
   ///
   /// e.g: "Truck - {economic} - {plates} - etc..".
-  final String Function(TEntity entity)? buildEntityTag;
+  final String Function(TEntity entity)? errorDesigner;
 
   /// Builds the authentication token.
   final String Function(BuildContext context) authFactory;
 
-  /// Creates a new [CreateEntityForm] instance.
+  /// Creates a new instance.
   const CreateEntityForm({
     super.key,
-    required this.entityFactory,
-    this.isMultiple = true,
+    required this.factory,
     this.controller,
     this.validator,
     this.onClose,
+    this.errorDesigner,
     this.recordDesigner,
-    this.buildEntityTag,
+    this.scrollController,
+    this.isMultiple = true,
+    this.formPadding = const EdgeInsets.all(16),
     required this.formDesigner,
     required this.authFactory,
   }) : assert(
@@ -82,6 +93,9 @@ final class CreateEntityForm<TEntity extends IEntity<TEntity>, TServiceI extends
 ///
 /// Handles [State] for [CreateEntityForm].
 final class _CreateEntityFormState<TEntity extends IEntity<TEntity>, TService extends ICreateService<TEntity, IResponseResolver<BatchOperationOutput<TEntity>>>> extends State<CreateEntityForm<TEntity, TService>> {
+  /// Child form scroll controller.
+  late final ScrollController scrollController = widget.scrollController ?? ScrollController();
+
   /// Current application's theme data.
   late IThemeData themeData;
 
@@ -97,7 +111,7 @@ final class _CreateEntityFormState<TEntity extends IEntity<TEntity>, TService ex
     widget.controller?.addListener(performCreate);
 
     currRecordReactor = CreateEntityFormRecordReactor<TEntity>(
-      widget.entityFactory(),
+      widget.factory(),
     );
 
     recordReactors.add(currRecordReactor);
@@ -160,7 +174,7 @@ final class _CreateEntityFormState<TEntity extends IEntity<TEntity>, TService ex
         return EntityErrorsDialog(
           context: context,
           title: 'Wrong or missing information on record',
-          header: 'Invalid information in ${widget.buildEntityTag?.call(entity)}.',
+          header: 'Invalid information in ${widget.errorDesigner?.call(entity)}.',
           errors: invalidations,
         );
       },
@@ -190,7 +204,7 @@ final class _CreateEntityFormState<TEntity extends IEntity<TEntity>, TService ex
 
     String errorMessage = "";
     resolver.resolve(
-      factory: () => BatchOperationOutput<TEntity>(widget.entityFactory),
+      factory: () => BatchOperationOutput<TEntity>(widget.factory),
       onSuccess: (SuccessFrame<BatchOperationOutput<TEntity>> success) {
         List<EntityOperationError<TEntity>> failures = success.content.failures;
         if (failures.isEmpty) return;
@@ -207,12 +221,12 @@ final class _CreateEntityFormState<TEntity extends IEntity<TEntity>, TService ex
               richContent: RichText(
                 text: TextSpan(
                   text: 'Cannot create some of the items, please verify the data and try again:\n\n',
-                  children: widget.buildEntityTag != null
+                  children: widget.errorDesigner != null
                       ? List<InlineSpan>.generate(
                           failures.length,
                           (int index) {
                             return TextSpan(
-                              text: "${index + 1}.- ${widget.buildEntityTag!(failures[index].entity)}\n",
+                              text: "${index + 1}.- ${widget.errorDesigner!(failures[index].entity)}\n",
                               children: <InlineSpan>[
                                 TextSpan(
                                   text: 'Error: ${failures[index].message}\n\n',
@@ -292,7 +306,13 @@ final class _CreateEntityFormState<TEntity extends IEntity<TEntity>, TService ex
                 size: sizeFactor,
                 child: SectionBox(
                   title: 'Properties',
-                  child: widget.formDesigner(currRecordReactor),
+                  child: SingleChildScrollView(
+                    controller: scrollController,
+                    child: Padding(
+                      padding: widget.formPadding,
+                      child: widget.formDesigner(currRecordReactor, scrollController),
+                    ),
+                  ),
                 ),
               ),
 
@@ -307,7 +327,7 @@ final class _CreateEntityFormState<TEntity extends IEntity<TEntity>, TService ex
                     onAdd: () {
                       setState(() {
                         CreateEntityFormRecordReactor<TEntity> record = CreateEntityFormRecordReactor<TEntity>(
-                          widget.entityFactory(),
+                          widget.factory(),
                         );
                         currRecordReactor = record;
                         recordReactors.add(record);

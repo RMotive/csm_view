@@ -3,12 +3,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
-/// [controller] class for [FormWidget].
-///
-///
-/// Defines options for the [FormWidget] behaviors and provides communication and direct interaction with the [FormWidget]
-/// this [FormWidgetController] is linked to.
-final class FormWidgetController with ConsoleMixin {
+/// Represents a [FormArea] controller, wich handles operations and proxies with the [FormArea] is linked to.
+final class FormController with ConsoleMixin {
   /// latest calculated [key] to handle the [Form].
   static GlobalKey<FormState>? _key;
 
@@ -48,8 +44,8 @@ final class FormWidgetController with ConsoleMixin {
   /// [didPop] - wheter the operation has been performed successfuly or not.
   final PopInvokedWithResultCallback<Object?>? onPop;
 
-  /// Generates a new [FormWidgetController] options.
-  FormWidgetController({
+  /// Generates a new [FormController] options.
+  FormController({
     String? name,
     GlobalKey<FormState>? key,
     this.validateMode,
