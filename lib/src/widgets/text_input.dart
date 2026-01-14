@@ -389,7 +389,7 @@ final class _TextInputState extends State<TextInput> {
             focusedBorder: OutlineInputBorder(
               borderSide: BorderSide(
                 color: theme.accent,
-                width: _borderWidth + 3,
+                width: _borderWidth + 1.5,
               ),
             ),
           ),
