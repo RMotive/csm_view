@@ -86,12 +86,6 @@ final class _EnumSelectorState<TEnum extends Enum> extends State<EnumSelector<TE
     super.didChangeDependencies();
   }
 
-  @override
-  void dispose() {
-    focusNode.dispose();
-    super.dispose();
-  }
-
   /// Converts the seelction [TEnum] values into user-friendly strings.
   String converEnumToString(TEnum value) {
     String spacedValue = value.name.replaceAllMapped(
@@ -113,6 +107,11 @@ final class _EnumSelectorState<TEnum extends Enum> extends State<EnumSelector<TE
       child: Autocomplete<TEnum>(
         focusNode: focusNode,
         textEditingController: textController,
+        initialValue: currValue == null
+            ? null
+            : TextEditingValue(
+                text: converEnumToString(currValue!),
+              ),
         optionsBuilder: (TextEditingValue textEditingValue) {
           return widget.values.where(
             (TEnum element) {
