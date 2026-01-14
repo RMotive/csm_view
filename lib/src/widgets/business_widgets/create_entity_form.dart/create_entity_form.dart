@@ -128,8 +128,15 @@ final class _CreateEntityFormState<TEntity extends IEntity<TEntity>, TService ex
     super.didUpdateWidget(oldWidget);
 
     if (widget.controller != oldWidget.controller) {
+      oldWidget.controller?.removeListener(performCreate);
       widget.controller?.addListener(performCreate);
     }
+  }
+
+  @override
+  void dispose() {
+    widget.controller?.removeListener(performCreate);
+    super.dispose();
   }
 
   /// Validate the creation content based on [TEntity.evaluation] method.
