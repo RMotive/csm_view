@@ -16,10 +16,14 @@ final class CreateEntityFormRecordField<TValue> extends StatelessWidget {
   /// Max text component width.
   final double? maxWidth;
 
+  /// Font size.
+  final double fontSize;
+
   const CreateEntityFormRecordField({
     super.key,
     this.minWidth,
     this.maxWidth,
+    this.fontSize = 12,
     required this.label,
     required this.value,
   });
@@ -39,21 +43,29 @@ final class CreateEntityFormRecordField<TValue> extends StatelessWidget {
         children: <Widget>[
           Text(
             '$label:',
+            style: TextStyle(
+              fontSize: fontSize + 4,
+              fontWeight: FontWeight.bold,
+            ),
           ),
           if (value case String? stringVal)
             Text(
               stringVal ?? '---',
               style: TextStyle(
                 color: theming.fore,
+                fontSize: fontSize,
                 fontWeight: FontWeight.w500,
               ),
             ),
 
           /// --> Property is a [bool]
           if (value case bool boolVal) ...<Widget>[
-            Icon(
-              !boolVal ? Icons.close : Icons.check,
-              color: theming.fore,
+            Center(
+              child: Icon(
+                !boolVal ? Icons.close : Icons.check,
+                size: fontSize * 1.5,
+                color: theming.fore,
+              ),
             ),
           ],
 
@@ -63,6 +75,7 @@ final class CreateEntityFormRecordField<TValue> extends StatelessWidget {
               DateFormat.yMMMd().add_jms().format(dateTimeVal),
               style: TextStyle(
                 color: theming.fore,
+                fontSize: fontSize,
               ),
             ),
           ],
