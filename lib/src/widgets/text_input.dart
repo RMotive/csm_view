@@ -359,7 +359,7 @@ final class _TextInputState extends State<TextInput> {
                 color: widget.showErrorColor
                     ? errorTheme.fore
                     : theme.accent.withValues(
-                        alpha: .5,
+                        alpha: .25,
                       ),
                 width: _borderWidth,
               ),
