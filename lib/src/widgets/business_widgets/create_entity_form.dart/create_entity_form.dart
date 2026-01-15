@@ -107,7 +107,7 @@ final class _CreateEntityFormState<TEntity extends IEntity<TEntity>, TService ex
 
   @override
   void initState() {
-    super.initState();
+    debugPrint('Recreated Create Form');
     widget.controller?.addListener(performCreate);
 
     currRecordReactor = CreateEntityFormRecordReactor<TEntity>(
@@ -115,6 +115,7 @@ final class _CreateEntityFormState<TEntity extends IEntity<TEntity>, TService ex
     );
 
     recordReactors.add(currRecordReactor);
+    super.initState();
   }
 
   @override
