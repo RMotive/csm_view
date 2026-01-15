@@ -13,7 +13,7 @@ final class ValidationUtils {
   /// [minLength] - Value min length requirement.
   ///
   /// [maxLength] - Value max length restriction.
-  String? stringValidator(
+  static String? stringValidator(
     String messageLabel,
     String? value, [
     bool isOptional = false,
@@ -46,7 +46,7 @@ final class ValidationUtils {
   /// [phone] - Phone value to validate.
   ///
   /// [isOptional] - Whether the phone value is optional.
-  String? phoneValidator(
+  static String? phoneValidator(
     String messageLabel,
     String? phone, [
     bool isOptional = false,
@@ -72,7 +72,7 @@ final class ValidationUtils {
   /// [email] - eMail value to validate.
   ///
   /// [isOptional] - Whether the eMail value is optional.
-  String? emailValidator(
+  static String? emailValidator(
     String messageLabel,
     String? email, [
     bool isOptional = false,
