@@ -16,6 +16,8 @@ final class _NavigationLayoutLargeView extends _NavigationLayoutViewBase with Th
 
   @override
   Widget build(BuildContext context) {
+    debugPrint('Not recalled');
+    const double menuWidth = 250;
     final _NavigationLayoutMenuReactor navReactor = _NavigationLayoutMenuReactor();
 
     return Row(
@@ -33,7 +35,6 @@ final class _NavigationLayoutLargeView extends _NavigationLayoutViewBase with Th
                 child: ReactiveWidget<_NavigationLayoutMenuReactor>(
                   reactor: navReactor,
                   builder: (BuildContext buildContext, _NavigationLayoutMenuReactor reactor) {
-                    const double menuWidth = 250;
                     final double currMenuWidth = reactor._isOpen ? menuWidth : 0;
                     final ThemingData themingData = getTheme<INavigationLayoutThemeData>(context).navigationLayout;
 
@@ -80,3 +81,4 @@ final class _NavigationLayoutLargeView extends _NavigationLayoutViewBase with Th
     );
   }
 }
+
