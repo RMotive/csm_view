@@ -214,7 +214,11 @@ final class _CreateEntityFormState<TEntity extends IEntity<TEntity>, TService ex
       factory: () => BatchOperationOutput<TEntity>(widget.factory),
       onSuccess: (SuccessFrame<BatchOperationOutput<TEntity>> success) {
         List<EntityOperationError<TEntity>> failures = success.content.failures;
-        if (failures.isEmpty) return;
+        if (failures.isEmpty) {
+          context.pop();
+          widget.onClose?.call();
+          return;
+        }
 
         showDialog(
           context: context,
