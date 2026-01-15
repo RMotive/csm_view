@@ -1,5 +1,10 @@
 part of '../navigation_layout.dart';
 
+/// Manu width space.
+const double _menuWidth = 250;
+
+final _NavigationLayoutMenuReactor _navReactor = _NavigationLayoutMenuReactor();
+
 /// Draws the [NavigationLayout] on large devices view.
 final class _NavigationLayoutLargeView extends _NavigationLayoutViewBase with ThemingMixin {
   /// Creates a new instance.
@@ -16,9 +21,7 @@ final class _NavigationLayoutLargeView extends _NavigationLayoutViewBase with Th
 
   @override
   Widget build(BuildContext context) {
-    debugPrint('Not recalled');
-    const double menuWidth = 250;
-    final _NavigationLayoutMenuReactor navReactor = _NavigationLayoutMenuReactor();
+    ThemingData themingData = getTheme<INavigationLayoutThemeData>(context).navigationLayout;
 
     return Row(
       children: <Widget>[
@@ -28,15 +31,14 @@ final class _NavigationLayoutLargeView extends _NavigationLayoutViewBase with Th
               _NavigationLayoutHeader(
                 logo: appLogo,
                 user: userData,
-                navReactor: navReactor,
+                navReactor: _navReactor,
                 homeRouteData: homeRouteData,
               ),
               Expanded(
                 child: ReactiveWidget<_NavigationLayoutMenuReactor>(
-                  reactor: navReactor,
+                  reactor: _navReactor,
                   builder: (BuildContext buildContext, _NavigationLayoutMenuReactor reactor) {
-                    final double currMenuWidth = reactor._isOpen ? menuWidth : 0;
-                    final ThemingData themingData = getTheme<INavigationLayoutThemeData>(context).navigationLayout;
+                    double menuWidth = reactor._isOpen ? _menuWidth : 0;
 
                     return Stack(
                       children: <Widget>[
@@ -46,7 +48,7 @@ final class _NavigationLayoutLargeView extends _NavigationLayoutViewBase with Th
                           child: AnimatedSize(
                             duration: 200.miliseconds,
                             child: SizedBox(
-                              width: pageSize.width - currMenuWidth,
+                              width: pageSize.width - menuWidth,
                               child: page,
                             ),
                           ),
@@ -55,12 +57,12 @@ final class _NavigationLayoutLargeView extends _NavigationLayoutViewBase with Th
                         // --> Application menu section
                         AnimatedPositioned(
                           duration: 200.miliseconds,
-                          left: reactor._isOpen ? 0 : -menuWidth,
-                          width: menuWidth,
+                          left: reactor._isOpen ? 0 : -_menuWidth,
+                          width: _menuWidth,
                           child: ColoredBox(
                             color: themingData.back,
                             child: SizedBox(
-                              width: menuWidth,
+                              width: _menuWidth,
                               height: pageSize.height,
                               child: _NavigationLayoutMenu(
                                 navigationNodes: navigationNodes,

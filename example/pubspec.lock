@@ -42,7 +42,7 @@ packages:
     source: hosted
     version: "1.19.1"
   csm_client_core:
-    dependency: transitive
+    dependency: "direct main"
     description:
       path: csm_client_core
       ref: HEAD

@@ -1,3 +1,4 @@
+import 'package:csm_client_core/csm_client_core.dart';
 import 'package:csm_view/csm_view.dart';
 import 'package:example/theme/view_package_theme_base.dart';
 import 'package:flutter/material.dart' hide Route;
@@ -51,7 +52,58 @@ final class NavigationLayoutEntry extends PackageLandingEntryBase<ViewPackageThe
         absolutePath: '',
       ),
       homeRouteData: homeRouteData,
-      page: SizedBox(),
+      page: SizedBox(
+        child: CreateEntityForm<EntityEx, IServiceEx>(
+          factory: () => EntityEx(),
+          authFactory: (BuildContext context) => '',
+          recordDesigner: (EntityEx entity, bool selected, bool valid) {
+            return CreateEntityFormRecord(
+              selected: selected,
+              fields: <CreateEntityFormRecordField<Object>>[
+                CreateEntityFormRecordField<String>(
+                  label: 'Value One',
+                  value: entity.valueOne,
+                ),
+                CreateEntityFormRecordField<String>(
+                  label: 'Value Two',
+                  value: entity.vlaueTwo,
+                ),
+              ],
+            );
+          },
+          formDesigner: (CreateEntityFormRecordReactor<EntityEx>? itemState, ScrollController scrollController) {
+            return Column(
+              children: <Widget>[
+                /// properties.
+                FormInputGroup(
+                  children: <Widget>[
+                    TextInput(
+                      label: 'Input 1',
+                      controller: TextEditingController(text: itemState?.entity.valueOne),
+                      onChanged: (String text) {
+                        if (itemState == null) return;
+
+                        itemState.entity.valueOne = text;
+                        itemState.react();
+                      },
+                    ),
+                    TextInput(
+                      label: 'Input 2',
+                      controller: TextEditingController(text: itemState?.entity.vlaueTwo),
+                      onChanged: (String text) {
+                        if (itemState == null) return;
+
+                        itemState.entity.vlaueTwo = text;
+                        itemState.react();
+                      },
+                    )
+                  ],
+                ),
+              ],
+            );
+          },
+        ),
+      ),
       navigationNodes: <INavigationLayoutNode>[
         NavigationLayoutNode(
           title: 'Business',
@@ -66,6 +118,20 @@ final class NavigationLayoutEntry extends PackageLandingEntryBase<ViewPackageThe
       ],
     );
   }
+}
+
+abstract interface class IServiceEx extends ServiceBase implements ICreateService<EntityEx, IResponseResolver<BatchOperationOutput<EntityEx>>> {
+  /// Creates a new instace.
+  IServiceEx(
+    super.host,
+    super.servicePath,
+  );
+}
+
+final class EntityEx extends EntityBase<EntityEx> {
+  String valueOne = '';
+
+  String vlaueTwo = '';
 }
 
 final class EXPage extends ViewPageBase {
