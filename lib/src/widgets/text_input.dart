@@ -334,13 +334,7 @@ final class _TextInputState extends State<TextInput> {
             errorText: errorText,
             isDense: true,
             suffixIcon: widget.suffixIcon,
-            suffixIconColor: widget.showErrorColor
-                ? errorTheme.fore
-                : focusNode.hasFocus
-                    ? theme.fore
-                    : theme.accent.withValues(
-                        alpha: .5,
-                      ),
+            suffixIconColor: theme.fore,
             label: !showSuffix
                 ? Row(
                     mainAxisSize: MainAxisSize.min,

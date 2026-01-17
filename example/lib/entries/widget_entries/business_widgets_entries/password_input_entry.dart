@@ -14,7 +14,9 @@ class PasswordInputEntry extends PackageLandingEntryBase<ViewPackageThemeBase> {
   @override
   Widget composeEntry(BuildContext buildContext, Size windowSize, ViewPackageThemeBase theme) {
     return Center(
-      child: PasswordInput(),
+      child: PasswordInput(
+        onChanged: (String newValue) {},
+      ),
     );
   }
 }
