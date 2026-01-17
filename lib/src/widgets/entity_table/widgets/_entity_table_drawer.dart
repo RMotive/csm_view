@@ -60,6 +60,12 @@ final class _EntityTableDrawerState<TEntity extends IEntity<TEntity>> extends St
   }
 
   @override
+  void initState() {
+    composeAdaption();
+    super.initState();
+  }
+
+  @override
   void didChangeDependencies() {
     errTheming = ThemingUtils.get(context).controlError;
     super.didChangeDependencies();
