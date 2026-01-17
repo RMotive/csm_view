@@ -137,7 +137,6 @@ final class _EntityTableDrawerState<TEntity extends IEntity<TEntity>> extends St
                             
                             /// --> Close Action
                             _EntityTableDrawerAction(
-                              fore: errTheming.fore,
                               action: 'Close Details',
                               onClick: widget.onCloseDrawer,
                               icon: Icons.arrow_right_sharp,
@@ -157,7 +156,7 @@ final class _EntityTableDrawerState<TEntity extends IEntity<TEntity>> extends St
                             _EntityTableDrawerAction(
                               action: 'Canel Edition',
                               icon: Icons.cancel_outlined,
-                              fore: errTheming.accent,
+                              fore: errTheming.fore,
                               onClick: () {
                                 setState(() {
                                   editMode = false;
