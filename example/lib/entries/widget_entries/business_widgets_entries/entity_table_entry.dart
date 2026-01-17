@@ -23,7 +23,7 @@ class EntityTableEntry extends PackageLandingEntryBase<ViewPackageThemeBase> {
   @override
   Widget composeEntry(BuildContext buildContext, Size windowSize, ViewPackageThemeBase theme) {
     return EntityTable<EntityEx, IResponseResolver<ViewOutput<EntityEx>>, IServiceEx>(
-      entityFactory: () => EntityEx(),
+      factory: () => EntityEx(),
       adapter: EntityTableEntryAdapter(),
       columns: <EntityTableColumnData<EntityEx>>[
         EntityTableColumnData<EntityEx>(
@@ -45,6 +45,46 @@ class EntityTableEntryAdapter extends EntityTableAdapterBase<EntityEx> {
 
   @override
   Widget composeViewer(BuildContext buildContext, EntityEx entity) {
-    throw UnimplementedError();
+    return Column(
+      spacing: 16,
+      children: <Widget>[
+        PropertyViewer<String>(
+          label: 'Value One',
+          value: entity.valueOne,
+        ),
+        PropertyViewer<String>(
+          label: 'Value Two',
+          value: entity.vlaueTwo,
+        ),
+      ],
+    );
+  }
+
+  @override
+  EntityTableAdapterEditor<EntityEx>? composeEditor() {
+    return EntityTableAdapterEditor<EntityEx>(
+      onUpdate: (BuildContext buildContext, EntityEx entity) {},
+      formBuilder: (BuildContext buildContext, EntityEx entity) {
+        return Column(
+          spacing: 16,
+          children: <Widget>[
+            TextInput(
+              label: 'Value One',
+              controller: TextEditingController(
+                text: entity.valueOne,
+              ),
+              onChanged: (String text) => entity.valueOne = text,
+            ),
+            TextInput(
+              label: 'Value Two',
+              controller: TextEditingController(
+                text: entity.vlaueTwo,
+              ),
+              onChanged: (String text) => entity.vlaueTwo = text,
+            ),
+          ],
+        );
+      },
+    );
   }
 }

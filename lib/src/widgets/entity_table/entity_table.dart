@@ -38,7 +38,7 @@ final class EntityTable<TEntity extends IEntity<TEntity>, TResponseResolver exte
   final List<int> ranges;
 
   /// [TEntity] factory method for encoding.
-  final TEntity Function() entityFactory;
+  final TEntity Function() factory;
 
   /// Table adapter.
   final IEntityTableAdapter<TEntity> adapter;
@@ -76,7 +76,7 @@ final class EntityTable<TEntity extends IEntity<TEntity>, TResponseResolver exte
     this.callView,
     required this.adapter,
     required this.columns,
-    required this.entityFactory,
+    required this.factory,
     this.composeFiltersView,
     this.composeFilterDatas,
   })  : assert(ranges.length > 0, 'Paging ranges must have at least one configured'),
@@ -133,7 +133,7 @@ final class _EntityTableState<TEntity extends IEntity<TEntity>, TResponseResolve
     );
 
     widget.adapter.listenRefresh(refreshView);
-    filterSet = widget.entityFactory();
+    filterSet = widget.factory();
     dateInterval = ViewDateFilter<TEntity>();
     dateInterval.from = DateTime(1);
     super.initState();
@@ -265,7 +265,7 @@ final class _EntityTableState<TEntity extends IEntity<TEntity>, TResponseResolve
     }
 
     final ViewOutput<TEntity> viewOutput = viewOutputResolver.resolveDirect(
-      () => ViewOutput<TEntity>(widget.entityFactory),
+      () => ViewOutput<TEntity>(widget.factory),
     );
 
     setState(() {
@@ -353,7 +353,7 @@ final class _EntityTableState<TEntity extends IEntity<TEntity>, TResponseResolve
                                               label: 'Clear',
                                               disabled: isLoading,
                                               onClick: () {
-                                                filterSet = widget.entityFactory();
+                                                filterSet = widget.factory();
                                                 dateInterval.from = DateTime(1);
                                                 dateInterval.to = null;
                                                 refreshView();
@@ -498,6 +498,7 @@ final class _EntityTableState<TEntity extends IEntity<TEntity>, TResponseResolve
                       ),
                       child: _EntityTableDrawer<TEntity>(
                         selReference: selItem,
+                        factory: widget.factory,
                         adapter: widget.adapter,
                         onCloseDrawer: () => onEntitySelectionChange(null),
                         viewInvokation: asyncInvokation,

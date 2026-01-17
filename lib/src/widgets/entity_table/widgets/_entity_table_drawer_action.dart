@@ -40,17 +40,20 @@ final class _EntityTableDrawerActionState extends State<_EntityTableDrawerAction
   late Color bgColor;
 
   @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
   void didChangeDependencies() {
     themeData = ThemingUtils.get(context);
     fgColor = widget.fore ?? themeData.control.back;
     bgColor = themeData.control.fore;
 
     super.didChangeDependencies();
+  }
+
+  @override
+  void didUpdateWidget(covariant _EntityTableDrawerAction oldWidget) {
+    if (oldWidget.fore != widget.fore) {
+      fgColor = widget.fore ?? themeData.control.back;
+    }
+    super.didUpdateWidget(oldWidget);
   }
 
   @override

@@ -13,4 +13,12 @@ final class EntityEx extends EntityBase<EntityEx> {
 
     super.decode(encode);
   }
+
+  @override
+  DataMap encode([DataMap? entityObject]) {
+    return super.encode(<String, Object?>{
+      "valueOne": valueOne,
+      "valueTwo": vlaueTwo,
+    });
+  }
 }

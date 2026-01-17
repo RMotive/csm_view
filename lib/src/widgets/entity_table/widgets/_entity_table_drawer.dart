@@ -12,6 +12,9 @@ final class _EntityTableDrawer<TEntity extends IEntity<TEntity>> extends Statefu
   /// [EntityTable] adapter to handle every possible interaction with the entities displayed.
   final IEntityTableAdapter<TEntity> adapter;
 
+  /// [TEntity] factory.
+  final TEntity Function() factory;
+
   /// Event callback when close drawer action button is invoked.
   final void Function() onCloseDrawer;
 
@@ -21,6 +24,7 @@ final class _EntityTableDrawer<TEntity extends IEntity<TEntity>> extends Statefu
   /// Creates a new [_EntityTableDrawer] instance.
   const _EntityTableDrawer({
     required this.adapter,
+    required this.factory,
     required this.selReference,
     required this.onCloseDrawer,
     required this.viewInvokation,
@@ -56,12 +60,6 @@ final class _EntityTableDrawerState<TEntity extends IEntity<TEntity>> extends St
   }
 
   @override
-  void initState() {
-    super.initState();
-    composeAdaption();
-  }
-
-  @override
   void didChangeDependencies() {
     errTheming = ThemingUtils.get(context).controlError;
     super.didChangeDependencies();
@@ -85,7 +83,14 @@ final class _EntityTableDrawerState<TEntity extends IEntity<TEntity>> extends St
         errorBuilder: (_, __, ___) => _EntityTableErrorIndicator(),
         loadingBuilder: (_) => _EntityTableLoadingIndicator(),
         successBuilder: (BuildContext buildContext, ViewOutput<TEntity> data) {
-          final TEntity? entityRef = widget.selReference == null ? null : data.entities[widget.selReference as int];
+          final TEntity? entityObj = widget.selReference == null ? null : data.entities[widget.selReference as int];
+
+          TEntity? entityRef;
+          Map<String, Object?>? objectData = entityObj?.encode();
+          if (objectData != null) {
+            entityRef = widget.factory();
+            entityRef.decode(objectData);
+          }
 
           return Column(
             spacing: 30,
@@ -132,9 +137,9 @@ final class _EntityTableDrawerState<TEntity extends IEntity<TEntity>> extends St
                                 icon: Icons.delete_forever_outlined,
                                 action: 'Delete',
                                 fore: errTheming.fore,
-                                onClick: () => deleterAdaption?.callback(buildContext, entityRef),
-                              ),                            
-                            
+                                onClick: () => deleterAdaption?.callback(buildContext, entityRef!),
+                              ),
+
                             /// --> Close Action
                             _EntityTableDrawerAction(
                               action: 'Close Details',
@@ -149,12 +154,12 @@ final class _EntityTableDrawerState<TEntity extends IEntity<TEntity>> extends St
                             _EntityTableDrawerAction(
                               action: 'Save Edition',
                               icon: Icons.save_as_outlined,
-                              onClick: () => editorAdaption?.onUpdate(context, entityRef),
+                              onClick: () => editorAdaption?.onUpdate(context, entityRef!),
                             ),
 
                             /// --> Cancel Edit Mode Action
                             _EntityTableDrawerAction(
-                              action: 'Canel Edition',
+                              action: 'Cancel Edition',
                               icon: Icons.cancel_outlined,
                               fore: errTheming.fore,
                               onClick: () {
@@ -175,7 +180,11 @@ final class _EntityTableDrawerState<TEntity extends IEntity<TEntity>> extends St
                 Expanded(
                   child: Visibility(
                     visible: editMode,
-                    child: editorAdaption?.formBuilder.call(buildContext, entityRef) ?? SizedBox(),
+                    child: editorAdaption?.formBuilder.call(
+                          buildContext,
+                          entityRef,
+                        ) ??
+                        SizedBox(),
                     replacement: widget.adapter.composeViewer(buildContext, entityRef),
                   ),
                 ),

@@ -75,15 +75,6 @@ final class _ViewModuleBaseState extends State<ViewModuleBase> {
       redirect: widget.boostrapRedirection,
     );
   }
-  
-  @override
-  void didUpdateWidget(covariant ViewModuleBase oldWidget) {
-    if (widget.bootstrapRouting != oldWidget.bootstrapRouting) {
-      debugPrint('Routing has changed');
-    }
-
-    super.didUpdateWidget(oldWidget);
-  }
 
   @override
   Widget build(BuildContext context) {
