@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:developer';
 
 import 'package:csm_view/csm_view.dart';
 import 'package:example/entries/layout_entries/navigation_layout_entry.dart';

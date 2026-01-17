@@ -98,10 +98,10 @@ final class _EntityTableDrawerState<TEntity extends IEntity<TEntity>> extends St
                 children: <Widget>[
                   /// --> Drawer header title.
                   Text(
-                    '$TEntity ${editMode ? 'Edition' : 'Details'}',
+                    editMode ? 'Editing $TEntity' : '$TEntity Details',
                     style: TextStyle(
-                      fontWeight: FontWeight.w900,
                       fontSize: 15,
+                      fontWeight: FontWeight.w900,
                     ),
                   ),
 
@@ -133,10 +133,11 @@ final class _EntityTableDrawerState<TEntity extends IEntity<TEntity>> extends St
                                 action: 'Delete',
                                 fore: errTheming.fore,
                                 onClick: () => deleterAdaption?.callback(buildContext, entityRef),
-                              ),
-
+                              ),                            
+                            
                             /// --> Close Action
                             _EntityTableDrawerAction(
+                              fore: errTheming.fore,
                               action: 'Close Details',
                               onClick: widget.onCloseDrawer,
                               icon: Icons.arrow_right_sharp,
