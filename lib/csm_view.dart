@@ -86,6 +86,8 @@ export 'src/widgets/abstractions/interfaces/ireactor.dart';
 export 'src/widgets/abstractions/bases/reactive_widget_base.dart';
 export 'src/widgets/abstractions/interfaces/ireactive_widget.dart';
 
+export 'src/widgets/business_widgets/password_input.dart';
+
 export 'src/widgets/text_input.dart';
 export 'src/widgets/button_flat.dart';
 export 'src/widgets/bordered_box.dart';

@@ -180,6 +180,15 @@ final class _TextInputState extends State<TextInput> {
     if (widget.focusEvents) setFocus();
 
     showSuffix = !widget.isOptional || widget.suffixLabel == null;
+
+    if (showSuffix) {
+      focusNode.addListener(
+        () {
+          setState(() {});
+        },
+      );
+    }
+
     super.initState();
   }
 
@@ -220,7 +229,6 @@ final class _TextInputState extends State<TextInput> {
 
   @override
   void didChangeDependencies() {
-
     IThemeData currentThemeData = ThemingUtils.get(context);
 
     theme = widget.controlTheming ?? currentThemeData.control;
@@ -326,6 +334,13 @@ final class _TextInputState extends State<TextInput> {
             errorText: errorText,
             isDense: true,
             suffixIcon: widget.suffixIcon,
+            suffixIconColor: widget.showErrorColor
+                ? errorTheme.fore
+                : focusNode.hasFocus
+                    ? theme.fore
+                    : theme.accent.withValues(
+                        alpha: .5,
+                      ),
             label: !showSuffix
                 ? Row(
                     mainAxisSize: MainAxisSize.min,

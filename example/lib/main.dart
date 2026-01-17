@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:csm_view/csm_view.dart';
 import 'package:example/entries/layout_entries/navigation_layout_entry.dart';
 import 'package:example/entries/widget_entries/business_widgets_entries/entity_table_entry.dart';
+import 'package:example/entries/widget_entries/business_widgets_entries/password_input_entry.dart';
 import 'package:example/entries/widget_entries/checkbox_entry.dart';
 import 'package:example/entries/widget_entries/enum_selector.entry.dart';
 import 'package:example/entries/widget_entries/form_input_group_entry.dart';
@@ -47,6 +48,7 @@ final class ViewPackageLanding extends PackageLandingViewBase<ViewPackageThemeBa
             FormInputGroupEntry(),
             PropertyGroupViewerEntry(),
             EntityTableEntry(),
+            PasswordInputEntry(),
           ],
         );
 
