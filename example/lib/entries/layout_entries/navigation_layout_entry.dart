@@ -1,5 +1,6 @@
-import 'package:csm_client_core/csm_client_core.dart';
 import 'package:csm_view/csm_view.dart';
+import 'package:example/mocks/entity_mock.dart';
+import 'package:example/mocks/service_mock.dart';
 import 'package:example/theme/view_package_theme_base.dart';
 import 'package:flutter/material.dart' hide Route;
 
@@ -118,20 +119,6 @@ final class NavigationLayoutEntry extends PackageLandingEntryBase<ViewPackageThe
       ],
     );
   }
-}
-
-abstract interface class IServiceEx extends ServiceBase implements ICreateService<EntityEx, IResponseResolver<BatchOperationOutput<EntityEx>>> {
-  /// Creates a new instace.
-  IServiceEx(
-    super.host,
-    super.servicePath,
-  );
-}
-
-final class EntityEx extends EntityBase<EntityEx> {
-  String valueOne = '';
-
-  String vlaueTwo = '';
 }
 
 final class EXPage extends ViewPageBase {

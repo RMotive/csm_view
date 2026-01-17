@@ -136,6 +136,7 @@ final class _EntityTableContentState<TEntity extends IEntity<TEntity>> extends S
                                           maxLines: 2,
                                           style: TextStyle(
                                             overflow: TextOverflow.ellipsis,
+                                            color: ThemingUtils.get(context).page.fore,
                                           ),
                                         );
                                         return textWidget;

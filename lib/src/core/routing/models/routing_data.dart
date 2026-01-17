@@ -11,12 +11,20 @@ final class RoutingData {
   /// Absolute routing grapth path.
   final String absolutePath;
 
+  /// Stores routing parameters.
+  final Map<String, String> parameters;
+
+  /// Stores routing query parameters.
+  final Map<String, List<String>> queryData;
+
   /// Sub-Route page key.
   final ValueKey<String>? pageKey;
 
   /// Creates a new instance.
   const RoutingData({
     this.pageKey,
+    this.parameters = const <String, String>{},
+    this.queryData = const <String, List<String>>{},
     required this.targetRoute,
     required this.absolutePath,
   });
@@ -35,6 +43,8 @@ final class RoutingData {
       targetRoute: routeData,
       pageKey: goState.pageKey,
       absolutePath: absolutePath,
+      parameters: goState.pathParameters,
+      queryData: goState.uri.queryParametersAll,
     );
   }
 }
