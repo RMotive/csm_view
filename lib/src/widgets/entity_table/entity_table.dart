@@ -17,6 +17,7 @@ part 'widgets/_entity_table_loading_indicator.dart';
 part 'widgets/_entity_table_content.dart';
 part 'widgets/_entity_table_drawer.dart';
 part 'widgets/_entity_table_drawer_action.dart';
+part 'widgets/_entity_table_drawer_editor.dart';
 
 /// Default column width.
 const double _kColumnWidth = 200;

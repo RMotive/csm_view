@@ -85,13 +85,6 @@ final class _EntityTableDrawerState<TEntity extends IEntity<TEntity>> extends St
         successBuilder: (BuildContext buildContext, ViewOutput<TEntity> data) {
           final TEntity? entityObj = widget.selReference == null ? null : data.entities[widget.selReference as int];
 
-          TEntity? entityRef;
-          Map<String, Object?>? objectData = entityObj?.encode();
-          if (objectData != null) {
-            entityRef = widget.factory();
-            entityRef.decode(objectData);
-          }
-
           return Column(
             spacing: 30,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -111,7 +104,7 @@ final class _EntityTableDrawerState<TEntity extends IEntity<TEntity>> extends St
                   ),
 
                   /// --> Drawer header actions.
-                  if (entityRef != null)
+                  if (entityObj != null)
                     Expanded(
                       child: Row(
                         spacing: 6,
@@ -137,7 +130,7 @@ final class _EntityTableDrawerState<TEntity extends IEntity<TEntity>> extends St
                                 icon: Icons.delete_forever_outlined,
                                 action: 'Delete',
                                 fore: errTheming.fore,
-                                onClick: () => deleterAdaption?.callback(buildContext, entityRef!),
+                                onClick: () => deleterAdaption?.callback(buildContext, entityObj),
                               ),
 
                             /// --> Close Action
@@ -154,7 +147,7 @@ final class _EntityTableDrawerState<TEntity extends IEntity<TEntity>> extends St
                             _EntityTableDrawerAction(
                               action: 'Save Edition',
                               icon: Icons.save_as_outlined,
-                              onClick: () => editorAdaption?.onUpdate(context, entityRef!),
+                              onClick: () => editorAdaption?.onUpdate(context, entityObj),
                             ),
 
                             /// --> Cancel Edit Mode Action
@@ -176,16 +169,16 @@ final class _EntityTableDrawerState<TEntity extends IEntity<TEntity>> extends St
               ),
 
               // --> Details custom content
-              if (entityRef != null)
+              if (entityObj != null)
                 Expanded(
                   child: Visibility(
-                    visible: editMode,
-                    child: editorAdaption?.formBuilder.call(
-                          buildContext,
-                          entityRef,
-                        ) ??
-                        SizedBox(),
-                    replacement: widget.adapter.composeViewer(buildContext, entityRef),
+                    visible: !editMode,
+                    child: widget.adapter.composeViewer(buildContext, entityObj),
+                    replacement: _EntityTableDrawerEditor<TEntity>(
+                      entity: entityObj,
+                      factory: widget.factory,
+                      builder: editorAdaption?.formBuilder,
+                    ),
                   ),
                 ),
             ],
