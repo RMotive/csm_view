@@ -201,10 +201,12 @@ final class _TextInputState extends State<TextInput> {
     }
 
     if (oldWidget.controller != widget.controller) {
+      oldWidget.controller?.dispose();
       textInputCtrl = widget.controller ?? TextEditingController();
     }
 
     if (widget.focusNode != oldWidget.focusNode) {
+      oldWidget.focusNode?.dispose();
       focusNode = widget.focusNode ?? FocusNode();
     }
 

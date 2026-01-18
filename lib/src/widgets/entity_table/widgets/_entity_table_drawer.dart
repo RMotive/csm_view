@@ -143,7 +143,7 @@ final class _EntityTableDrawerState<TEntity extends IEntity<TEntity>> extends St
                           ),
 
                         // -> Remove action.
-                        if (deleterAdaption != null && entityObj != null)
+                            if (deleterAdaption != null)
                           _EntityTableDrawerAction(
                             icon: Icons.delete_forever_outlined,
                             action: 'Delete',
