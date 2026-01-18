@@ -46,8 +46,7 @@ final class _EntityTableDrawerActionState extends State<_EntityTableDrawerAction
   @override
   void didChangeDependencies() {
     themeData = ThemingUtils.get(context);
-    fgColor = widget.fore ?? themeData.control.back;
-    bgColor = themeData.control.fore;
+    resetColors();
 
     if (widget.isDisabled) {
       fgColor = themeData.controlDisabled.fore;
@@ -62,15 +61,23 @@ final class _EntityTableDrawerActionState extends State<_EntityTableDrawerAction
     final bool foreChanged = oldWidget.fore != widget.fore;
     final bool isDisabledChanged = oldWidget.isDisabled != widget.isDisabled;
 
+    resetColors();
+
     if (foreChanged) {
       fgColor = widget.fore ?? themeData.control.back;
     }
-    if (isDisabledChanged) {
+
+    if (isDisabledChanged && widget.isDisabled) {
       fgColor = themeData.controlDisabled.fore;
-      bgColor = themeData.controlDisabled.fore;
+      bgColor = themeData.controlDisabled.back;
     }
 
     super.didUpdateWidget(oldWidget);
+  }
+
+  void resetColors() {
+    fgColor = widget.fore ?? themeData.control.fore;
+    bgColor = themeData.control.back;
   }
 
   @override
