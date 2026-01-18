@@ -120,6 +120,7 @@ final class _DropUpState<T> extends State<DropUp<T>> with TickerProviderStateMix
 
   @override
   void dispose() {
+    overlay?.dispose();
     dropUpAnimCtrl.dispose();
     super.dispose();
   }

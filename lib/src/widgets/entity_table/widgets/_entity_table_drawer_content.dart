@@ -5,8 +5,12 @@ final class _EntityTableDrawerContent extends StatelessWidget {
   /// Content header.
   final _EntityTableDrawerHeader header;
 
+  /// Drawer content child.
+  final Widget child;
+
   /// Creates a new instance.
   const _EntityTableDrawerContent({
+    required this.child,
     required this.header,
   });
 
@@ -18,6 +22,14 @@ final class _EntityTableDrawerContent extends StatelessWidget {
       children: <Widget>[
         // -> Content header
         header,
+
+        // -> Content child.
+        Expanded(
+          child: Padding(
+            padding: const EdgeInsets.all(6),
+            child: child,
+          ),
+        ),
       ],
     );
   }

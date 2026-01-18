@@ -36,9 +36,8 @@ final class _ActionButtonState extends State<_ActionButton> {
 
   @override
   void initState() {
-    super.initState();
-
     evaluateExecution();
+    super.initState();
   }
 
   @override

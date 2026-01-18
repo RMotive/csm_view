@@ -59,7 +59,6 @@ final class _ViewModuleBaseState extends State<ViewModuleBase> {
 
   @override
   void initState() {
-    super.initState();
     WidgetsFlutterBinding.ensureInitialized();
 
     routes = widget.bootstrapRouting();
@@ -74,6 +73,12 @@ final class _ViewModuleBaseState extends State<ViewModuleBase> {
       routes: routes,
       redirect: widget.boostrapRedirection,
     );
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
   }
 
   @override

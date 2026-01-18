@@ -55,11 +55,10 @@ final class _ButtonFlatState extends State<ButtonFlat> {
 
   @override
   void initState() {
-    super.initState();
-
     if (widget.theming != null) {
       theming = widget.theming!;
     }
+    super.initState();
   }
 
   @override

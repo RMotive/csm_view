@@ -103,10 +103,20 @@ final class _EntityTableDrawerState<TEntity extends IEntity<TEntity>> extends St
             duration: 300.miliseconds,
             switchInCurve: Curves.easeOutCubic,
             switchOutCurve: Curves.easeInCubic,
-            child: isEditMode
+            child: entityObj == null
+                ? _EntityTableDrawerContent(
+                    header: _EntityTableDrawerHeader(
+                      title: 'No $TEntity content',
+                      actions: <_EntityTableDrawerAction>[],
+                    ),
+                    child: ErrorMessageWidget(
+                      message: 'No $TEntity selected to view content',
+                    ),
+                  )
+                : isEditMode
                 // -> Editing content view.
                 ? _EntityTableDrawerEditor<TEntity>(
-                    entity: entityObj!,
+                        entity: entityObj,
                     factory: widget.factory,
                     editor: editorAdaption,
                     onCancelEditing: () {
@@ -148,7 +158,9 @@ final class _EntityTableDrawerState<TEntity extends IEntity<TEntity>> extends St
                           onClick: widget.onCloseDrawer,
                         ),
                       ],
+                      
                     ),
+                        child: widget.adapter.composeViewer(buildContext, entityObj),
                   ),
           );
         },

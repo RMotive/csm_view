@@ -103,7 +103,9 @@ final class __EntityTableDrawerEditorState<TEntity extends IEntity<TEntity>> ext
             fore: ThemingUtils.get(context).controlError.fore,
           ),
         ],
+        
       ),
+      child: editor.formBuilder(data),
     );
   }
 }

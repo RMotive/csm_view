@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:csm_client_core/csm_client_core.dart';
 import 'package:csm_view/csm_view.dart' hide LayoutBuilder;
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 export 'entity_table_adapter_deleter.dart';
 export 'entity_table_adapter_editor.dart';
