@@ -14,6 +14,9 @@ final class ExpandibleSection extends StatelessWidget {
   /// Children alignment.
   final Alignment? alignemnt;
 
+  /// Whether the [Widget] should maintain their inner [children] state. 
+  final bool maintainState;
+
   /// [Widget] theming data, otherwise will use [IThemeData.page].
   final ThemingData? theming;
 
@@ -32,6 +35,7 @@ final class ExpandibleSection extends StatelessWidget {
     this.titleBuilder,
     this.spacing = 6,
     this.startExpanded = true,
+    this.maintainState = true,
     this.children = const <Widget>[],
     this.alignemnt = Alignment.topLeft,
   });
@@ -51,6 +55,7 @@ final class ExpandibleSection extends StatelessWidget {
                   color: theming.fore,
                 ),
               ),
+        maintainState: maintainState,
         childrenPadding: EdgeInsets.all(12),
         expandedAlignment: alignemnt,
         expandedCrossAxisAlignment: CrossAxisAlignment.start,
