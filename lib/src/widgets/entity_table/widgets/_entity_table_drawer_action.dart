@@ -92,7 +92,7 @@ final class _EntityTableDrawerActionState extends State<_EntityTableDrawerAction
                 setState(() {
                   if ($in) {
                     bgColor = bgColor.withValues(
-                      alpha: .75,
+                      alpha: .25,
                     );
                   }
                 });
