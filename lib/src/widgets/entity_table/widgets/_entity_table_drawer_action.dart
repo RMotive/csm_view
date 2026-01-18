@@ -90,8 +90,12 @@ final class _EntityTableDrawerActionState extends State<_EntityTableDrawerAction
             ? null
             : (bool $in) {
                 setState(() {
+                  resetColors();
                   if ($in) {
                     bgColor = bgColor.withValues(
+                      alpha: .25,
+                    );
+                    fgColor = fgColor.withValues(
                       alpha: .25,
                     );
                   }
