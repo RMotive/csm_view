@@ -20,6 +20,9 @@ final class TextInput extends StatefulWidget {
   /// Control height.
   final double? height;
 
+  /// Control initial value.
+  final String? initialValue;
+
   /// Display text on error.
   final String? errorText;
 
@@ -117,6 +120,7 @@ final class TextInput extends StatefulWidget {
     this.controller,
     this.suffixIcon,
     this.suffixLabel,
+    this.initialValue,
     this.backgroundColor,
     this.focusEvents = false,
     this.autofocus = true,
@@ -137,6 +141,10 @@ final class TextInput extends StatefulWidget {
   }) : assert(
           isFixedLength ? maxLength != null : true,
           'When using isFixedLength property a maxLength property must be set',
+        ),
+        assert(
+          initialValue == null || controller == null,
+          'If initialvalue provided, can not use controller', 
         );
 
   @override
@@ -274,11 +282,12 @@ final class _TextInputState extends State<TextInput> {
     return Material(
       color: Colors.transparent,
       child: SizedBox(
-        height: widget.height,
         width: widget.width,
+        height: widget.height,
         child: TextFormField(
           key: textFieldFormState,
           autofocus: widget.autofocus,
+          initialValue: widget.initialValue,
           validator: (String? value) {
             if (widget.isFixedLength && (value?.length ?? 0) < (widget.maxLength ?? 0) && !changeSinceValidation) {
               errorText = 'Length must be strictly (${widget.maxLength})';
