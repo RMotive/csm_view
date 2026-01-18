@@ -67,8 +67,10 @@ final class __EntityTableDrawerEditorState<TEntity extends IEntity<TEntity>> ext
   }
 
   void toogleSaveButton(bool canSave) {
+    if (this.canSave == canSave) return;
+
     setState(() {
-      canSave = canSave;
+      this.canSave = canSave;
     });
   }
 
@@ -103,7 +105,6 @@ final class __EntityTableDrawerEditorState<TEntity extends IEntity<TEntity>> ext
             fore: ThemingUtils.get(context).controlError.fore,
           ),
         ],
-        
       ),
       child: editor.formBuilder(data),
     );
