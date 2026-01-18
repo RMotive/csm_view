@@ -96,7 +96,7 @@ final class _EntityTableDrawerActionState extends State<_EntityTableDrawerAction
                       alpha: .25,
                     );
                     fgColor = fgColor.withValues(
-                      alpha: .25,
+                      alpha: .65,
                     );
                   }
                 });
