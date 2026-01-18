@@ -90,7 +90,6 @@ final class _EntityTableDrawerActionState extends State<_EntityTableDrawerAction
             ? null
             : (bool $in) {
                 setState(() {
-                  bgColor = themeData.page.fore;
                   if ($in) {
                     bgColor = bgColor.withValues(
                       alpha: .75,
