@@ -1,5 +1,9 @@
 import 'package:csm_client_core/csm_client_core.dart';
+import 'package:csm_view/csm_view.dart';
 import 'package:flutter/material.dart';
+
+
+export 'models/entity_table_adapter_editor_data.dart';
 
 /// Represents an [EntityTable] editor mode configuration.
 ///
@@ -7,19 +11,13 @@ import 'package:flutter/material.dart';
 final class EntityTableAdapterEditor<TEntity extends IEntity<TEntity>> {
   /// {event} triggered when edition is being saved.
   ///
-  ///
-  /// [buildContext] built-in [Widget] tree reference context.
-  ///
-  /// [entity] updated [TEntity] instance.
-  final void Function(BuildContext buildContext, TEntity entity) onUpdate;
+  /// [data] - Edition data context.
+  final void Function(EntityTableAdapterEditorData<TEntity> data) onUpdate;
 
   /// Editor form building function.
   ///
-  ///
-  /// [buildContext] built-in [Widget] tree reference context.
-  ///
-  /// [entity] entity instance being edited.
-  final Widget Function(BuildContext buildContext, TEntity entity) formBuilder;
+  /// [data] - Edition data context. 
+  final Widget Function(EntityTableAdapterEditorData<TEntity> data) formBuilder;
 
   /// Creates a new [EntityTableAdapterEditor] instance.
   const EntityTableAdapterEditor({
@@ -27,3 +25,4 @@ final class EntityTableAdapterEditor<TEntity extends IEntity<TEntity>> {
     required this.formBuilder,
   });
 }
+

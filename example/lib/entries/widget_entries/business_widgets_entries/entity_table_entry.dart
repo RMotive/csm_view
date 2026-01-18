@@ -63,8 +63,10 @@ class EntityTableEntryAdapter extends EntityTableAdapterBase<EntityEx> {
   @override
   EntityTableAdapterEditor<EntityEx>? composeEditor() {
     return EntityTableAdapterEditor<EntityEx>(
-      onUpdate: (BuildContext buildContext, EntityEx entity) {},
-      formBuilder: (BuildContext buildContext, EntityEx entity) {
+      onUpdate: (EntityTableAdapterEditorData<EntityEx> data) {},
+      formBuilder: (EntityTableAdapterEditorData<EntityEx> data) {
+        EntityEx entity = data.entityRef;
+
         return Column(
           spacing: 16,
           children: <Widget>[

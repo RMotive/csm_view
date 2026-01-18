@@ -13,12 +13,16 @@ final class _EntityTableDrawerAction extends StatefulWidget {
   /// Descriptive action name to display on hovering the action button.
   final String action;
 
+  /// Whether the action button is disabled.
+  final bool isDisabled;
+
   /// Callback event triggered when action button got clicked.
   final VoidCallback onClick;
 
   /// Creates a new [_EntityTableDrawerAction] instance.
   const _EntityTableDrawerAction({
     this.fore,
+    this.isDisabled = false,
     required this.action,
     required this.icon,
     required this.onClick,
@@ -45,14 +49,27 @@ final class _EntityTableDrawerActionState extends State<_EntityTableDrawerAction
     fgColor = widget.fore ?? themeData.control.back;
     bgColor = themeData.control.fore;
 
+    if (widget.isDisabled) {
+      fgColor = themeData.controlDisabled.fore;
+      bgColor = themeData.controlDisabled.back;
+    }
+
     super.didChangeDependencies();
   }
 
   @override
   void didUpdateWidget(covariant _EntityTableDrawerAction oldWidget) {
-    if (oldWidget.fore != widget.fore) {
+    final bool foreChanged = oldWidget.fore != widget.fore;
+    final bool isDisabledChanged = oldWidget.isDisabled != widget.isDisabled;
+
+    if (foreChanged) {
       fgColor = widget.fore ?? themeData.control.back;
     }
+    if (isDisabledChanged) {
+      fgColor = themeData.controlDisabled.fore;
+      bgColor = themeData.controlDisabled.fore;
+    }
+
     super.didUpdateWidget(oldWidget);
   }
 
@@ -61,18 +78,20 @@ final class _EntityTableDrawerActionState extends State<_EntityTableDrawerAction
     return Tooltip(
       message: widget.action,
       child: PointerArea(
-        cursor: SystemMouseCursors.click,
-        onHover: (bool $in) {
-          setState(() {
-            bgColor = themeData.page.fore;
-            if ($in) {
-              bgColor = bgColor.withValues(
-                alpha: .75,
-              );
-            }
-          });
-        },
-        onClick: widget.onClick,
+        cursor: widget.isDisabled ? MouseCursor.defer : SystemMouseCursors.click,
+        onHover: widget.isDisabled
+            ? null
+            : (bool $in) {
+                setState(() {
+                  bgColor = themeData.page.fore;
+                  if ($in) {
+                    bgColor = bgColor.withValues(
+                      alpha: .75,
+                    );
+                  }
+                });
+              },
+        onClick: widget.isDisabled ? null : widget.onClick,
         child: DecoratedBox(
           decoration: BoxDecoration(
             shape: BoxShape.circle,

@@ -51,7 +51,7 @@ final class _EntityTableDrawerState<TEntity extends IEntity<TEntity>> extends St
   late ThemingData errTheming;
 
   /// {state} whether the drawer [TEntity] details is on {edition} mode.
-  bool editMode = false;
+  bool isEditMode = false;
 
   /// Composes the {state} properties related with the [EntityTable] adaption configurations.
   void composeAdaption() {
@@ -81,113 +81,75 @@ final class _EntityTableDrawerState<TEntity extends IEntity<TEntity>> extends St
   }
 
   @override
+  void dispose() {
+    isEditMode = false;
+    deleterAdaption = null;
+    editorAdaption = null;
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return BorderedBox(
       padding: const EdgeInsets.all(12.0),
       child: AsyncWidget<ViewOutput<TEntity>>(
         future: widget.viewInvokation,
-        errorBuilder: (_, __, ___) => _EntityTableErrorIndicator(),
         loadingBuilder: (_) => _EntityTableLoadingIndicator(),
+        errorBuilder: (_, __, ___) => _EntityTableErrorIndicator(),
         successBuilder: (BuildContext buildContext, ViewOutput<TEntity> data) {
           final TEntity? entityObj = widget.selReference == null ? null : data.entities[widget.selReference as int];
 
-          return Column(
-            spacing: 30,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              /// --> Drawer header section
-              Row(
-                spacing: 8,
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: <Widget>[
-                  /// --> Drawer header title.
-                  Text(
-                    editMode ? 'Editing $TEntity' : '$TEntity Details',
-                    style: TextStyle(
-                      fontSize: 15,
-                      fontWeight: FontWeight.w900,
+          return AnimatedSwitcher(
+            duration: 300.miliseconds,
+            switchInCurve: Curves.easeOutCubic,
+            switchOutCurve: Curves.easeInCubic,
+            child: isEditMode
+                // -> Editing content view.
+                ? _EntityTableDrawerEditor<TEntity>(
+                    entity: entityObj!,
+                    factory: widget.factory,
+                    editor: editorAdaption,
+                    onCancelEditing: () {
+                      setState(() {
+                        isEditMode = false;
+                      });
+                    },
+                  )
+                // -> View content view.
+                : _EntityTableDrawerContent(
+                    header: _EntityTableDrawerHeader(
+                      title: '$TEntity Details',
+                      actions: <_EntityTableDrawerAction>[
+                        // -> Edit mode action.
+                        if (editorAdaption != null)
+                          _EntityTableDrawerAction(
+                            action: 'Edit $TEntity',
+                            icon: Icons.edit_outlined,
+                            onClick: () {
+                              setState(() {
+                                isEditMode = true;
+                              });
+                            },
+                          ),
+
+                        // -> Remove action.
+                        if (deleterAdaption != null && entityObj != null)
+                          _EntityTableDrawerAction(
+                            icon: Icons.delete_forever_outlined,
+                            action: 'Delete',
+                            fore: errTheming.fore,
+                            onClick: () => deleterAdaption?.callback(buildContext, entityObj),
+                          ),
+
+                        // -> Close details action.
+                        _EntityTableDrawerAction(
+                          action: 'Close Details',
+                          icon: Icons.keyboard_arrow_right,
+                          onClick: widget.onCloseDrawer,
+                        ),
+                      ],
                     ),
                   ),
-
-                  /// --> Drawer header actions.
-                  if (entityObj != null)
-                    Expanded(
-                      child: Row(
-                        spacing: 6,
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: <Widget>[
-                          /// --> View Mode ACtions.
-                          if (!editMode) ...<Widget>[
-                            /// ---> Edit Action
-                            if (editorAdaption != null)
-                              _EntityTableDrawerAction(
-                                action: 'Edit $TEntity',
-                                icon: Icons.edit_outlined,
-                                onClick: () {
-                                  setState(() {
-                                    editMode = true;
-                                  });
-                                },
-                              ),
-
-                            /// ---> Remove Action
-                            if (deleterAdaption != null)
-                              _EntityTableDrawerAction(
-                                icon: Icons.delete_forever_outlined,
-                                action: 'Delete',
-                                fore: errTheming.fore,
-                                onClick: () => deleterAdaption?.callback(buildContext, entityObj),
-                              ),
-
-                            /// --> Close Action
-                            _EntityTableDrawerAction(
-                              action: 'Close Details',
-                              onClick: widget.onCloseDrawer,
-                              icon: Icons.arrow_right_sharp,
-                            ),
-                          ]
-
-                          /// --> Edit Mode Actions.
-                          else ...<Widget>[
-                            /// --> Save Edit Action
-                            _EntityTableDrawerAction(
-                              action: 'Save Edition',
-                              icon: Icons.save_as_outlined,
-                              onClick: () => editorAdaption?.onUpdate(context, entityObj),
-                            ),
-
-                            /// --> Cancel Edit Mode Action
-                            _EntityTableDrawerAction(
-                              action: 'Cancel Edition',
-                              icon: Icons.cancel_outlined,
-                              fore: errTheming.fore,
-                              onClick: () {
-                                setState(() {
-                                  editMode = false;
-                                });
-                              },
-                            ),
-                          ],
-                        ],
-                      ),
-                    ),
-                ],
-              ),
-
-              // --> Details custom content
-              if (entityObj != null)
-                Expanded(
-                  child: Visibility(
-                    visible: !editMode,
-                    child: widget.adapter.composeViewer(buildContext, entityObj),
-                    replacement: _EntityTableDrawerEditor<TEntity>(
-                      entity: entityObj,
-                      factory: widget.factory,
-                      builder: editorAdaption?.formBuilder,
-                    ),
-                  ),
-                ),
-            ],
           );
         },
       ),

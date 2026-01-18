@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:csm_client_core/csm_client_core.dart';
 import 'package:csm_view/csm_view.dart' hide LayoutBuilder;
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 export 'entity_table_adapter_deleter.dart';
 export 'entity_table_adapter_editor.dart';
@@ -18,6 +19,8 @@ part 'widgets/_entity_table_content.dart';
 part 'widgets/_entity_table_drawer.dart';
 part 'widgets/_entity_table_drawer_action.dart';
 part 'widgets/_entity_table_drawer_editor.dart';
+part 'widgets/_entity_table_drawer_header.dart';
+part 'widgets/_entity_table_drawer_content.dart';
 
 /// Default column width.
 const double _kColumnWidth = 200;
@@ -103,6 +106,9 @@ final class _EntityTableState<TEntity extends IEntity<TEntity>, TResponseResolve
   /// {state} Whether the table is loading new data.
   bool isLoading = false;
 
+  /// Whether the drawer must maintain its state until the animation finishes.
+  bool animatingClose = false;
+
   /// {state} Current selected index item reference.
   int? selItem;
 
@@ -131,6 +137,18 @@ final class _EntityTableState<TEntity extends IEntity<TEntity>, TResponseResolve
       vsync: this,
       duration: 200.miliseconds,
       animationBehavior: AnimationBehavior.preserve,
+    );
+
+    drawerAnimationCtrl.addStatusListener(
+      (AnimationStatus status) {
+        if (status != AnimationStatus.dismissed) return;
+
+        if (animatingClose) {
+          setState(() {
+            animatingClose = false;
+          });
+        }
+      },
     );
 
     widget.adapter.listenRefresh(refreshView);
@@ -179,6 +197,7 @@ final class _EntityTableState<TEntity extends IEntity<TEntity>, TResponseResolve
     });
 
     if (newSelItem == null) {
+      animatingClose = true;
       drawerAnimationCtrl.reverse();
     } else {
       drawerAnimationCtrl.forward();
@@ -489,23 +508,26 @@ final class _EntityTableState<TEntity extends IEntity<TEntity>, TResponseResolve
                   ),
 
                   /// --> Drawer panel Layout.
-                  Positioned(
-                    left: drawerAnimationValue,
-                    width: fullDrawer ? boxSize.width : _kDetailsWidth,
-                    height: boxSize.height,
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 3,
-                      ),
-                      child: _EntityTableDrawer<TEntity>(
-                        selReference: selItem,
-                        factory: widget.factory,
-                        adapter: widget.adapter,
-                        onCloseDrawer: () => onEntitySelectionChange(null),
-                        viewInvokation: asyncInvokation,
+                  if (selItem != null || animatingClose)
+                    Positioned(
+                      left: drawerAnimationValue,
+                      width: fullDrawer ? boxSize.width : _kDetailsWidth,
+                      height: boxSize.height,
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 3,
+                        ),
+                        child: _EntityTableDrawer<TEntity>(
+                          selReference: selItem,
+                          factory: widget.factory,
+                          adapter: widget.adapter,
+                          onCloseDrawer: () {
+                            onEntitySelectionChange(null);
+                          },
+                          viewInvokation: asyncInvokation,
+                        ),
                       ),
                     ),
-                  ),
                 ],
               ),
             );
