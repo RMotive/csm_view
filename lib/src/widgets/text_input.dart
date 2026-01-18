@@ -166,7 +166,7 @@ final class _TextInputState extends State<TextInput> {
   final GlobalKey<FormFieldState<String>> textFieldFormState = GlobalKey<FormFieldState<String>>();
 
   /// Controller for inner [TextFormField] behavior.
-  late TextEditingController textInputCtrl = widget.controller ?? TextEditingController();
+  late TextEditingController? textInputCtrl = widget.initialValue != null ? null : widget.controller ?? TextEditingController();
 
   /// [Focus] identifier node for this [Widget] instance.
   late FocusNode focusNode = widget.focusNode ?? FocusNode();
@@ -250,8 +250,8 @@ final class _TextInputState extends State<TextInput> {
   @override
   void dispose() {
     focusNode.dispose();
-    textInputCtrl.dispose();
     _deBouncer?.cancel();
+    textInputCtrl?.dispose();
     super.dispose();
   }
 
