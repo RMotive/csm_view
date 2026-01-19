@@ -94,7 +94,7 @@ final class __EntityTableDrawerEditorState<TEntity extends IEntity<TEntity>> ext
             icon: Icons.save,
             isDisabled: !canSave,
             action: 'Save Changes',
-            onClick: () => editor.onUpdate,
+            onClick: () => editor.onUpdate(data),
           ),
 
           // -> Cancel changes action
