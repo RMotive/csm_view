@@ -80,7 +80,7 @@ final class _PackageLandingViewLayout<T extends PackageLandingThemeBase> extends
                       left: reactor._isOpen ? 0 : -menuWidth,
                       width: menuWidth,
                       child: ColoredBox(
-                        color: theme.page.accent,
+                        color: theme.landingHeader.back,
                         child: SizedBox(
                           width: menuWidth,
                           height: pageSize.height,

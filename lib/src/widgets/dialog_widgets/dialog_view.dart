@@ -6,7 +6,7 @@ import 'package:flutter/services.dart';
 /// {widget} class.
 ///
 /// Draws a {csm} designed dialog prividing basic interaction to confirm or cancel what the dialog is presenting.
-final class Dialog extends StatefulWidget {
+final class DialogView extends StatefulWidget {
   /// Dialog title.
   final String title;
 
@@ -33,7 +33,8 @@ final class Dialog extends StatefulWidget {
   /// Custom theming information.
   final ThemingData? themingData;
 
-  const Dialog({
+  /// Creates a new instance.
+  const DialogView({
     super.key,
     this.onClose,
     this.onAccept,
@@ -46,18 +47,15 @@ final class Dialog extends StatefulWidget {
   });
 
   @override
-  State<Dialog> createState() => _DialogState();
+  State<DialogView> createState() => _DialogViewState();
 }
 
 /// {state} class.
 ///
-/// Handles [State] for [Dialog] {widget}.
-final class _DialogState extends State<Dialog> {
-  /// {state} [Widget] control error theming options.
-  late ThemingData errorThemingData;
-
-  /// {state} [Widget] control theming options.
-  late ThemingData themingData;
+/// Handles [State] for [DialogView] {widget}.
+final class _DialogViewState extends State<DialogView> {
+  /// Current application theme data.
+  late IThemeData themeData;
 
   /// {state} whether the {accept} action button is loading.
   bool isLoading = false;
@@ -71,10 +69,15 @@ final class _DialogState extends State<Dialog> {
 
   @override
   void didChangeDependencies() {
-    super.didChangeDependencies();
+    themeData = ThemingUtils.get(context);
 
-    errorThemingData = ThemingUtils.get(context).controlError;
-    themingData = ThemingUtils.get(context).control;
+    super.didChangeDependencies();
+  }
+
+  @override
+  void dispose() {
+    ServicesBinding.instance.keyboard.removeHandler(_escapeKeyHandler);
+    super.dispose();
   }
 
   /// Handles a callback for [ServicesBinding] to listen when {keyboard} keys-up on {esc} key button, to close the dialog.
@@ -87,7 +90,7 @@ final class _DialogState extends State<Dialog> {
     return false;
   }
 
-  /// {event} event triggered when the [Dialog] is requested to be closed.
+  /// {event} event triggered when the [DialogView] is requested to be closed.
   void _onCloseDialog() {
     if (isLoading) {
       return;
@@ -99,6 +102,8 @@ final class _DialogState extends State<Dialog> {
 
   @override
   Widget build(BuildContext context) {
+    Color ribbonColor = themeData.dialog.accent;
+
     return GestureDetector(
       behavior: HitTestBehavior.translucent,
       onTap: _onCloseDialog,
@@ -116,13 +121,13 @@ final class _DialogState extends State<Dialog> {
             child: GestureDetector(
               onTap: () {},
               child: ColoredBox(
-                color: themingData.back,
+                color: themeData.dialog.back,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: <Widget>[
                     /// --> Dialog header
                     ColoredBox(
-                      color: themingData.accent,
+                      color: ribbonColor,
                       child: Padding(
                         padding: const EdgeInsets.all(16.0),
                         child: Row(
@@ -130,7 +135,7 @@ final class _DialogState extends State<Dialog> {
                             Text(
                               widget.title,
                               style: TextStyle(
-                                color: themingData.foreAlt ?? themingData.back,
+                                color: themeData.dialog.fore,
                                 fontWeight: FontWeight.w800,
                               ),
                             ),
@@ -143,7 +148,6 @@ final class _DialogState extends State<Dialog> {
                                     icon: Icon(
                                       Icons.cancel_outlined,
                                       size: 30,
-                                      color: errorThemingData.fore,
                                     ),
                                   ),
                                 ],
@@ -160,7 +164,9 @@ final class _DialogState extends State<Dialog> {
                         child: Padding(
                           padding: const EdgeInsets.all(20),
                           child: DefaultTextStyle(
-                            style: TextStyle(color: themingData.fore),
+                            style: TextStyle(
+                              color: themeData.dialog.fore,
+                            ),
                             child: widget.content ??
                                 widget.richContent ??
                                 const Text(
@@ -173,16 +179,29 @@ final class _DialogState extends State<Dialog> {
 
                     /// --> Dialog Footer
                     ColoredBox(
-                      color: themingData.accent,
+                      color: ribbonColor,
                       child: Padding(
                         padding: const EdgeInsets.symmetric(
                           vertical: 12,
                           horizontal: 20,
                         ),
                         child: Row(
-                          spacing: 12,
+                          spacing: 20,
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: <Widget>[
+                            /// --> Cancel Button
+                            if (widget.showCancelButton)
+                              ButtonFlat(
+                                label: 'Cancel',
+                                disabled: isLoading,
+                                theming: ThemingData(
+                                  back: themeData.controlError.back,
+                                  fore: themeData.control.fore,
+                                  accent: themeData.controlError.accent,
+                                ),
+                                onClick: () => _onCloseDialog(),
+                              ),
+
                             /// --> Accept Button
                             ButtonFlat(
                               label: widget.acceptLabel,
@@ -195,15 +214,6 @@ final class _DialogState extends State<Dialog> {
                                 isLoading = false;
                               },
                             ),
-
-                            /// --> Cancel Button
-                            if (widget.showCancelButton)
-                              ButtonFlat(
-                                label: 'Cancel',
-                                disabled: isLoading,
-                                theming: errorThemingData,
-                                onClick: () => _onCloseDialog(),
-                              ),
                           ],
                         ),
                       ),

@@ -27,6 +27,11 @@ abstract class ThemeDataBase implements IThemeData {
   @override
   final ThemingData control;
 
+
+  /// Theming data for dialogs.
+  @override
+  final ThemingData dialog;
+
   /// Theming data for all application primary controls when they are at { error } state.
   @override
   final ThemingData controlError;
@@ -44,11 +49,12 @@ abstract class ThemeDataBase implements IThemeData {
     this.identifier, {
     this.frame,
     required this.icon,
-    required this.iconBackground,
     required this.page,
+    required this.dialog,
     required this.control,
     required this.controlError,
     required this.controlSuccess,
+    required this.iconBackground,
     required this.controlDisabled,
   });
 }

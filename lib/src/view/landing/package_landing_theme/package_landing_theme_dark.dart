@@ -45,10 +45,15 @@ class PackageLandingThemeDark extends PackageLandingThemeBase {
             fore: Colors.black,
             accent: Colors.blueGrey,
           ),
-          page: const ThemingData(
+          page: ThemingData(
             back: Colors.black,
             fore: Colors.white,
-            accent: Colors.black87,
+            accent: Colors.red[900]!,
+          ),
+          dialog: ThemingData(
+            back: Colors.black87,
+            fore: Colors.white,
+            accent: Colors.brown[900]!,
           ),
         );
 }

@@ -1,3 +1,3 @@
 //! --> Exporting
-export 'dialog.dart';
+export 'dialog_view.dart';
 export 'entity_errors_dialog.dart';

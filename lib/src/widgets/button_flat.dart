@@ -63,11 +63,11 @@ final class _ButtonFlatState extends State<ButtonFlat> {
 
   @override
   void didChangeDependencies() {
-    super.didChangeDependencies();
 
     if (widget.theming == null) {
       theming = ThemingUtils.get<IThemeData>(context).control;
     }
+    super.didChangeDependencies();
   }
 
   @override

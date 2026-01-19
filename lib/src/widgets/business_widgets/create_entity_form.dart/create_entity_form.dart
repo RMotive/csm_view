@@ -225,7 +225,7 @@ final class _CreateEntityFormState<TEntity extends IEntity<TEntity>, TService ex
           useRootNavigator: true,
           barrierDismissible: false,
           builder: (BuildContext context) {
-            return Dialog(
+            return DialogView(
               onAccept: context.pop,
               showCancelButton: false,
               title: 'Error Creating records.',
@@ -270,7 +270,7 @@ final class _CreateEntityFormState<TEntity extends IEntity<TEntity>, TService ex
           useRootNavigator: true,
           barrierDismissible: false,
           builder: (BuildContext context) {
-            return Dialog(
+            return DialogView(
               showCancelButton: false,
               title: 'Error Creating records.',
               content: Text(

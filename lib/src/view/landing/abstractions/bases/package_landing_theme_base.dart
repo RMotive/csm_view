@@ -20,5 +20,6 @@ abstract class PackageLandingThemeBase extends ThemeDataBase {
     required super.controlSuccess,
     required super.controlDisabled,
     required this.welcomeCardTheming,
+    required super.dialog,
   });
 }

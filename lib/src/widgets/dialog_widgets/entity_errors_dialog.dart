@@ -27,7 +27,7 @@ final class EntityErrorsDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Dialog(
+    return DialogView(
       showCancelButton: false,
       title: title,
       content: Text.rich(
