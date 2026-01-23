@@ -30,7 +30,7 @@ final class EntityErrorsDialog extends StatelessWidget {
     return DialogView(
       showCancelButton: false,
       title: title,
-      content: Text.rich(
+      child: Text.rich(
           textAlign: TextAlign.center,
           TextSpan(
               text: '${header != null ? '$header\n\n' : ''}Invalid values found, Verify the following values and try again:',

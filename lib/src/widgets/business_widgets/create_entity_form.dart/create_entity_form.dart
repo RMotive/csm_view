@@ -229,7 +229,7 @@ final class _CreateEntityFormState<TEntity extends IEntity<TEntity>, TService ex
               onAccept: context.pop,
               showCancelButton: false,
               title: 'Error Creating records.',
-              richContent: RichText(
+              child: RichText(
                 text: TextSpan(
                   text: 'Cannot create some of the items, please verify the data and try again:\n\n',
                   children: widget.errorDesigner != null
@@ -273,7 +273,7 @@ final class _CreateEntityFormState<TEntity extends IEntity<TEntity>, TService ex
             return DialogView(
               showCancelButton: false,
               title: 'Error Creating records.',
-              content: Text(
+              child: Text(
                 errorMessage,
                 style: TextStyle(
                   fontSize: 16,

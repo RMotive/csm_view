@@ -10,13 +10,8 @@ final class DialogView extends StatefulWidget {
   /// Dialog title.
   final String title;
 
-  /// Text content.
-  final Text? content;
-
-  /// Rich Text content.
-  ///
-  /// If [content] property is set, this rich text property will have no effect.
-  final RichText? richContent;
+  /// Widget tree child.
+  final Widget child;
 
   /// Show an optional cancel button.
   final bool showCancelButton;
@@ -38,12 +33,11 @@ final class DialogView extends StatefulWidget {
     super.key,
     this.onClose,
     this.onAccept,
-    this.content,
     this.themingData,
-    this.richContent,
     this.showCancelButton = true,
     this.title = 'Confirmation',
     this.acceptLabel = 'Accept',
+    required this.child,
   });
 
   @override
@@ -167,11 +161,7 @@ final class _DialogViewState extends State<DialogView> {
                             style: TextStyle(
                               color: themeData.dialog.fore,
                             ),
-                            child: widget.content ??
-                                widget.richContent ??
-                                const Text(
-                                  'Are you sure you want to continue?',
-                                ),
+                            child: widget.child,
                           ),
                         ),
                       ),

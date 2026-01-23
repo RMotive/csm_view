@@ -7,10 +7,14 @@ final class UpdateEntityDialog<TEntity extends IEntity<TEntity>> extends Statele
   /// Dialog title.
   final String? title;
 
+  /// Differences found during update process to confirm.
+  final List<ObjectDifference> differences;
+
   ///  Creates a new instance.
   UpdateEntityDialog({
     super.key,
     this.title,
+    required this.differences,
   });
 
   @override
@@ -19,6 +23,9 @@ final class UpdateEntityDialog<TEntity extends IEntity<TEntity>> extends Statele
       title: title ?? 'Confirm $TEntity edit',
       acceptLabel: 'Edit',
       showCancelButton: true,
+      child: EntityDifferencesTreeView(
+        differences: differences,
+      ),
     );
   }
 }

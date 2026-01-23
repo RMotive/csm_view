@@ -30,8 +30,8 @@ class PackageLandingThemeDark extends PackageLandingThemeBase {
             fore: Colors.white,
             accent: Colors.grey,
           ),
-          controlError: const ThemingData(
-            back: Colors.transparent,
+          controlError: ThemingData(
+            back: Colors.red[400]!,
             fore: Colors.red,
             accent: Colors.redAccent,
           ),
