@@ -115,3 +115,4 @@ export 'src/view/landing/package_landing_theme/package_landing_theme_light.dart'
 //! --> Exporting [Layouts]
 export 'src/view/layouts/navigation_layout/navigation_layout.dart';
 export 'src/view/layouts/category_layout/category_layout.dart';
+export 'src/view/layouts/category_layout/category_layout_page.dart';
