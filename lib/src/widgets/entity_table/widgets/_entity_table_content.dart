@@ -16,11 +16,15 @@ final class _EntityTableContent<TEntity extends IEntity<TEntity>> extends Statef
   ///
   final void Function(int? itemIndex)? onSelection;
 
+  /// {event} triggered when a row is selected, overriding the default behavior of opening the details drawer with the selected entity data.
+  final void Function(TEntity entity)? overrideTap;
+
   /// Creates a new [_EntityTableContent] instance.
   const _EntityTableContent({
     super.key,
     this.preSelect,
     this.onSelection,
+    this.overrideTap,
     required this.columns,
     required this.entities,
   });
@@ -93,7 +97,7 @@ final class _EntityTableContentState<TEntity extends IEntity<TEntity>> extends S
 
                   return PointerArea(
                     cursor: SystemMouseCursors.click,
-                    onClick: () => onRowSelected(index, entity),
+                    onClick: () => widget.overrideTap != null ? widget.overrideTap!(entity) : onRowSelected(index, entity),
                     child: DecoratedBox(
                       decoration: BoxDecoration(
                         color: !sel ? null : Colors.blueGrey,

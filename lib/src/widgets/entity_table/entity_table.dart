@@ -53,10 +53,6 @@ final class EntityTable<TEntity extends IEntity<TEntity>, TResponseResolver exte
   final Future<TResponseResolver> Function(ViewInput<TEntity> input, String auth)? callView;
 
   /// Composes table filters.
-  ///
-  /// [entity] - Current filtering [entity]. This value is used to store the filtering data.
-  /// The widgets returned from this method must update the [set] propeties in order to apply the
-  /// filtering when the search action button is pressed.
   final List<Widget> Function(TEntity entity, ViewDateFilter<TEntity> dateFilter)? composeFiltersView;
 
   /// Composes the [IViewFilter] data objects based on the composed table filters.
@@ -64,6 +60,9 @@ final class EntityTable<TEntity extends IEntity<TEntity>, TResponseResolver exte
   /// [entity] Current filtering set. This value is used to extract the filtering data,
   /// storing the input values in [composeFiltersView].
   final List<IViewFilter<TEntity>> Function(TEntity entity, ViewDateFilter<TEntity> dateInterval)? composeFilterDatas;
+
+  /// {event} triggered when a row is selected, overriding the default behavior of opening the details drawer with the selected entity data.
+  final void Function(TEntity entity)? overrideTap;
 
   /// Creates a new [EntityTable] instance.
   const EntityTable({
@@ -82,6 +81,7 @@ final class EntityTable<TEntity extends IEntity<TEntity>, TResponseResolver exte
     required this.factory,
     this.composeFiltersView,
     this.composeFilterDatas,
+    this.overrideTap,
   })  : assert(ranges.length > 0, 'Paging ranges must have at least one configured'),
         assert((composeFiltersView == null && composeFilterDatas == null) || (composeFiltersView != null && composeFilterDatas != null), 'Both filtersSection and filterValues must be provided together.');
 
@@ -462,6 +462,7 @@ final class _EntityTableState<TEntity extends IEntity<TEntity>, TResponseResolve
                                                 entities: data.entities,
                                                 columns: widget.columns,
                                                 onSelection: onEntitySelectionChange,
+                                                overrideTap: widget.overrideTap,
                                               ),
                                               replacement: Padding(
                                                 padding: const EdgeInsets.only(
