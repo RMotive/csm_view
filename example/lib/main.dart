@@ -23,7 +23,7 @@ void main(List<String> args) {
 }
 
 ///
-final class ViewPackageLanding extends PackageLandingViewBase<ViewPackageThemeBase> {
+final class ViewPackageLanding extends PackageSandboxViewBase<ViewPackageThemeBase> {
   /// Creates a new instance.
   ViewPackageLanding()
       : super(
@@ -36,7 +36,7 @@ final class ViewPackageLanding extends PackageLandingViewBase<ViewPackageThemeBa
               ),
             );
           },
-          packageEntries: <IPackageLandingEntry<ViewPackageThemeBase>>[
+          packageEntries: <IPackageSandboxItem<ViewPackageThemeBase>>[
             NavigationLayoutEntry(
               themes: <IThemeData>[
                 CSMViewThemeDark(),

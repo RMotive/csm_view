@@ -8,7 +8,7 @@ import 'package:example/theme/view_package_theme_base.dart';
 import 'package:flutter/material.dart';
 
 /// [EntityTable] business [Widget] package landing entry.
-class EntityTableEntry extends PackageLandingEntryBase<ViewPackageThemeBase> {
+class EntityTableEntry extends PackageSandboxItemBase<ViewPackageThemeBase> {
   /// Creates a new instance.
   EntityTableEntry()
       : super(

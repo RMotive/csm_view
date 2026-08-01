@@ -1,7 +1,7 @@
 import 'package:csm_view/csm_view.dart';
 
 /// Represents a [PackageLandingView] theme data.
-abstract class PackageLandingThemeBase extends ThemeDataBase {
+abstract class PackageSamdboxThemeBase extends ThemeDataBase {
   /// Application header [ThemingData] options.
   final ThemingData landingHeader;
 
@@ -9,7 +9,7 @@ abstract class PackageLandingThemeBase extends ThemeDataBase {
   final ThemingData welcomeCardTheming;
 
   /// Creates a new instance.
-  const PackageLandingThemeBase(
+  const PackageSamdboxThemeBase(
     super.identifier, {
     required super.icon,
     required super.page,

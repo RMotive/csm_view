@@ -3,7 +3,7 @@ import 'package:example/theme/view_package_theme_base.dart';
 import 'package:flutter/material.dart';
 
 /// Package landing entry for [PropertyViewer].
-final class FormInputGroupEntry extends PackageLandingEntryBase<ViewPackageThemeBase> {
+final class FormInputGroupEntry extends PackageSandboxItemBase<ViewPackageThemeBase> {
   /// Creates a new instance.
   FormInputGroupEntry()
       : super(

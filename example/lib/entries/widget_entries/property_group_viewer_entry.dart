@@ -3,12 +3,12 @@ import 'package:example/theme/view_package_theme_base.dart';
 import 'package:flutter/material.dart';
 
 /// Draws a package landing entry for [ExpandibleSection].
-final class PropertyGroupViewerEntry extends PackageLandingEntryBase<ViewPackageThemeBase> {
+final class PropertyGroupViewerEntry extends PackageSandboxItemBase<ViewPackageThemeBase> {
   /// Creates a new instance.
   PropertyGroupViewerEntry()
       : super(
           name: 'Property Group Viewer',
-          description: (PackageLandingThemeBase theme, Color foreColor) {
+          description: (PackageSamdboxThemeBase theme, Color foreColor) {
             return TextSpan(
               text: 'A property view group for simplified entities values summary.',
               style: TextStyle(
@@ -19,7 +19,7 @@ final class PropertyGroupViewerEntry extends PackageLandingEntryBase<ViewPackage
         );
 
   @override
-  Widget composeEntry(BuildContext buildContext, Size windowSize, PackageLandingThemeBase theme) {
+  Widget composeEntry(BuildContext buildContext, Size windowSize, PackageSamdboxThemeBase theme) {
     return SizedBox(
       child: Center(
         child: ExpandibleSection(

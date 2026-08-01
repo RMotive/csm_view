@@ -1,5 +1,4 @@
-part of '../abstractions/bases/package_landing_view_base.dart';
-
+part of '../abstractions/bases/package_sandbox_view_base.dart';
 
 ///
 final class _ApplicationMenuReactor extends ReactorBase {
@@ -27,7 +26,7 @@ final _ApplicationMenuReactor _menuReactor = _ApplicationMenuReactor();
 ///
 ///
 /// This layout draws the navigation view through the package configured entries.
-final class _PackageLandingViewLayout<T extends PackageLandingThemeBase> extends ViewLayoutBase {
+final class _PackageLandingViewLayout<T extends PackageSamdboxThemeBase> extends ViewLayoutBase {
   final _Graph<T> routingGraph;
 
   /// The current configured application themes implementations.
@@ -37,14 +36,13 @@ final class _PackageLandingViewLayout<T extends PackageLandingThemeBase> extends
   const _PackageLandingViewLayout({
     required super.page,
     required super.routingData,
-    
     required this.themes,
     required this.routingGraph,
   });
 
   @override
   Widget compose(BuildContext context, Size windowSize, Size pageSize) {
-    final PackageLandingThemeBase theme = ThemingUtils.get(context);
+    final PackageSamdboxThemeBase theme = ThemingUtils.get(context);
 
     return Title(
       title: routingData.targetRoute.name,

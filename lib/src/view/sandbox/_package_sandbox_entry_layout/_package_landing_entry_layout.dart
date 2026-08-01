@@ -1,10 +1,10 @@
-part of '../abstractions/bases/package_landing_view_base.dart';
+part of '../abstractions/bases/package_sandbox_view_base.dart';
 
 /// [LayoutB] implementation for [_PackageLandingEntryLayout].
 ///
 /// Defines the view for a package landing layout when an entry is selected and succesfuly routed at the application.
-final class _PackageLandingEntryLayout<T extends PackageLandingThemeBase> extends ViewLayoutBase {
-  final IPackageLandingEntry<T> landingEntry;
+final class _PackageLandingEntryLayout<T extends PackageSamdboxThemeBase> extends ViewLayoutBase {
+  final IPackageSandboxItem<T> landingEntry;
 
   /// Creates a new [_PackageLandingEntryLayout] instance.
   const _PackageLandingEntryLayout({

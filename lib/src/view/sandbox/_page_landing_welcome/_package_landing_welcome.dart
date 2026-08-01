@@ -1,4 +1,4 @@
-part of '../abstractions/bases/package_landing_view_base.dart';
+part of '../abstractions/bases/package_sandbox_view_base.dart';
 
 /// [Widget] for [PackageLandingView].
 ///
@@ -6,7 +6,7 @@ part of '../abstractions/bases/package_landing_view_base.dart';
 /// [T] type of the delegated application theme base usage.
 ///
 /// Draws a view for routing entry point ([Home]) for the landing package view.
-final class _PackageLandingWelcome<T extends PackageLandingThemeBase> extends ViewPageBase {
+final class _PackageLandingWelcome<T extends PackageSamdboxThemeBase> extends ViewPageBase {
   /// Package displayed name.
   final String packageName;
 
@@ -14,7 +14,7 @@ final class _PackageLandingWelcome<T extends PackageLandingThemeBase> extends Vi
   final DescriptionBuilder<T> packageDescription;
 
   /// Landing routing tree.
-  final Map<RouteData, IPackageLandingEntry<T>> routingGraph;
+  final Map<RouteData, IPackageSandboxItem<T>> routingGraph;
 
   /// Creates a new [_PackageLandingWelcome] instance.
   const _PackageLandingWelcome({
@@ -96,7 +96,7 @@ final class _PackageLandingWelcome<T extends PackageLandingThemeBase> extends Vi
                                 childAspectRatio: 1.75,
                               ),
                               itemBuilder: (BuildContext context, int index) {
-                                MapEntry<RouteData, IPackageLandingEntry<T>> routingEntry = routingGraph.entries.elementAt(index);
+                                MapEntry<RouteData, IPackageSandboxItem<T>> routingEntry = routingGraph.entries.elementAt(index);
 
                                 return _PackageLandingWelcomeEntry<T>(
                                   landingEntry: routingEntry.value,

@@ -1,5 +1,5 @@
 import 'package:csm_view/csm_view.dart';
 
-abstract class ViewPackageThemeBase implements PackageLandingThemeBase, INavigationLayoutThemeData {
+abstract class ViewPackageThemeBase implements PackageSamdboxThemeBase, INavigationLayoutThemeData {
   const ViewPackageThemeBase();
 }

@@ -4,7 +4,7 @@ import 'package:example/mocks/entity_mock.dart';
 import 'package:example/theme/view_package_theme_base.dart';
 import 'package:flutter/material.dart';
 
-final class UpdateEntityDialogEntry extends PackageLandingEntryBase<ViewPackageThemeBase> {
+final class UpdateEntityDialogEntry extends PackageSandboxItemBase<ViewPackageThemeBase> {
   /// Creates a new instance.
   UpdateEntityDialogEntry()
       : super(

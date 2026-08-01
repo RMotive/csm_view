@@ -3,7 +3,7 @@ import 'package:example/theme/view_package_theme_base.dart';
 import 'package:flutter/material.dart';
 
 /// Package landing entry for [PropertyViewer].
-final class PropertyViewerEntry extends PackageLandingEntryBase<ViewPackageThemeBase> {
+final class PropertyViewerEntry extends PackageSandboxItemBase<ViewPackageThemeBase> {
   /// Creates a new instance.
   PropertyViewerEntry()
       : super(

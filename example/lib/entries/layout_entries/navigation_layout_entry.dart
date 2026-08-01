@@ -11,7 +11,7 @@ final RouteData businessRouteData = RouteData('business');
 final RouteData homeRouteData = RouteData('showcase_root');
 
 ///
-final class NavigationLayoutEntry extends PackageLandingEntryBase<ViewPackageThemeBase> with ThemingMixin {
+final class NavigationLayoutEntry extends PackageSandboxItemBase<ViewPackageThemeBase> with ThemingMixin {
   ///
   final List<IThemeData> themes;
 

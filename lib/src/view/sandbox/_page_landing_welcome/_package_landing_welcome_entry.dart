@@ -1,7 +1,7 @@
-part of '../abstractions/bases/package_landing_view_base.dart';
+part of '../abstractions/bases/package_sandbox_view_base.dart';
 
-final class _PackageLandingWelcomeEntry<T extends PackageLandingThemeBase> extends StatelessWidget {
-  final IPackageLandingEntry<T> landingEntry;
+final class _PackageLandingWelcomeEntry<T extends PackageSamdboxThemeBase> extends StatelessWidget {
+  final IPackageSandboxItem<T> landingEntry;
 
   final RouteData route;
 

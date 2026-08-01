@@ -1,12 +1,11 @@
-part of '../abstractions/bases/package_landing_view_base.dart';
+part of '../abstractions/bases/package_sandbox_view_base.dart';
 
 /// [Widget] implementation for [_PackageLandingViewLayout].
-/// 
-/// 
+///
+///
 /// Draws a view for the [_PackageLandingViewLayout] header.
 final class _PackageLandingLayouHeader extends StatelessWidget {
-
-  /// The current routed [PackageLandingEntry] displayed.
+  /// The current routed [PackageSandboxEntry] displayed.
   final String entryTitle;
 
   /// The [List] of available subscribed application themes implementations.
@@ -15,7 +14,7 @@ final class _PackageLandingLayouHeader extends StatelessWidget {
   /// [ReactorI] handler for the application menu, this allows to open or close it dinamycally as it's state.
   final _ApplicationMenuReactor menuReactor;
 
-  /// Createsa a new [_PackageLandingLayouHeader] instance. 
+  /// Createsa a new [_PackageLandingLayouHeader] instance.
   const _PackageLandingLayouHeader({
     required this.entryTitle,
     required this.menuReactor,
@@ -25,7 +24,7 @@ final class _PackageLandingLayouHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final ThemeManager themeManager = ThemeManager.of(context);
-    final PackageLandingThemeBase theme = themeManager.castData();
+    final PackageSamdboxThemeBase theme = themeManager.castData();
 
     final IRouter router = InjectorUtils.get();
 

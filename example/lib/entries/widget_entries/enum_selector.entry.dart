@@ -9,7 +9,7 @@ enum ExampleEnums {
 }
 
 /// Package landing entry for [PropertyViewer].
-final class EnumSelectorEntry extends PackageLandingEntryBase<ViewPackageThemeBase> {
+final class EnumSelectorEntry extends PackageSandboxItemBase<ViewPackageThemeBase> {
   /// Creates a new instance.
   EnumSelectorEntry()
       : super(

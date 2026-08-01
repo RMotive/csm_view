@@ -8,13 +8,13 @@ part '../../_package_landing_layout/_package_landing_layout.dart';
 part '../../_package_landing_layout/_package_landing_layout_menu.dart';
 part '../../_package_landing_layout/_package_landing_layou_header.dart';
 
-part '../../_package_landing_entry_layout/_package_landing_entry_layout.dart';
-part '../../_package_landing_entry_layout/_package_landing_device_details.dart';
+part '../../_package_sandbox_entry_layout/_package_landing_entry_layout.dart';
+part '../../_package_sandbox_entry_layout/_package_landing_device_details.dart';
 
 part '../../_page_landing_welcome/_package_landing_welcome.dart';
 part '../../_page_landing_welcome/_package_landing_welcome_entry.dart';
 
-typedef _Graph<TThemeB extends PackageLandingThemeBase> = Map<RouteData, IPackageLandingEntry<TThemeB>>;
+typedef _Graph<TThemeB extends PackageSamdboxThemeBase> = Map<RouteData, IPackageSandboxItem<TThemeB>>;
 
 final RouteData _homeRouteData = RouteData(
   '',
@@ -22,17 +22,17 @@ final RouteData _homeRouteData = RouteData(
 );
 
 ///
-abstract class PackageLandingViewBase<TLandingThemeBase extends PackageLandingThemeBase> extends ViewModuleBase {
+abstract class PackageSandboxViewBase<ThemeBase extends PackageSamdboxThemeBase> extends ViewModuleBase {
   /// Package name.
   final String name;
 
   /// Package description.
-  final DescriptionBuilder<TLandingThemeBase> description;
+  final DescriptionBuilder<ThemeBase> description;
 
   /// Package playground entry.
-  final List<IPackageLandingEntry<TLandingThemeBase>> packageEntries;
+  final List<IPackageSandboxItem<ThemeBase>> packageEntries;
 
-  const PackageLandingViewBase({
+  const PackageSandboxViewBase({
     super.key,
     required this.name,
     required this.description,
@@ -40,14 +40,14 @@ abstract class PackageLandingViewBase<TLandingThemeBase extends PackageLandingTh
   });
 
   @override
-  List<TLandingThemeBase> bootstrapTheming();
+  List<ThemeBase> bootstrapTheming();
 
   @override
   List<IRoutingGraphData> bootstrapRouting() {
     final NavigationState entriesLayoutKey = GlobalKey();
     final NavigationState navigationLayoutKey = GlobalKey();
 
-    final (_Graph<TLandingThemeBase> navigationGraph, _Graph<TLandingThemeBase> packageEntriesGraph, List<IRoutingGraphData> routes) contextGraphs = composeContextGraphs(entriesLayoutKey, navigationLayoutKey);
+    final (_Graph<ThemeBase> navigationGraph, _Graph<ThemeBase> packageEntriesGraph, List<IRoutingGraphData> routesGraph) = composeContextGraphs(entriesLayoutKey, navigationLayoutKey);
 
     return <IRoutingGraphData>[
       /// --> Landing Navigation Layour
@@ -57,25 +57,25 @@ abstract class PackageLandingViewBase<TLandingThemeBase extends PackageLandingTh
           /// --> Home Route
           RoutingGraphNode(
             _homeRouteData,
-            pageBuilder: (BuildContext ctx, _) => _PackageLandingWelcome<TLandingThemeBase>(
+            pageBuilder: (BuildContext ctx, _) => _PackageLandingWelcome<ThemeBase>(
               packageName: name,
-              routingGraph: contextGraphs.$1,
+              routingGraph: navigationGraph,
               packageDescription: description,
             ),
           ),
 
           /// --> Entry Layout
           RoutingGraphLayout(
-            routes: contextGraphs.$3,
+            routes: routesGraph,
             navigatorStateKey: entriesLayoutKey,
             layoutBuilder: (BuildContext ctx, RoutingData routingData, Widget page) {
-              IPackageLandingEntry<TLandingThemeBase> landingEntry = contextGraphs.$2.entries
+              IPackageSandboxItem<ThemeBase> landingEntry = packageEntriesGraph.entries
                   .firstWhere(
-                    (MapEntry<RouteData, IPackageLandingEntry<TLandingThemeBase>> element) => element.key == routingData.targetRoute,
+                    (MapEntry<RouteData, IPackageSandboxItem<ThemeBase>> element) => element.key == routingData.targetRoute,
                   )
                   .value;
 
-              return _PackageLandingEntryLayout<TLandingThemeBase>(
+              return _PackageLandingEntryLayout<ThemeBase>(
                 page: page,
                 routingData: routingData,
                 landingEntry: landingEntry,
@@ -84,11 +84,11 @@ abstract class PackageLandingViewBase<TLandingThemeBase extends PackageLandingTh
           ),
         ],
         layoutBuilder: (BuildContext ctx, RoutingData routingData, Widget page) {
-          return _PackageLandingViewLayout<TLandingThemeBase>(
+          return _PackageLandingViewLayout<ThemeBase>(
             page: page,
             routingData: routingData,
             themes: bootstrapTheming(),
-            routingGraph: contextGraphs.$1,
+            routingGraph: navigationGraph,
           );
         },
       ),
@@ -97,7 +97,7 @@ abstract class PackageLandingViewBase<TLandingThemeBase extends PackageLandingTh
 
   @override
   Widget bootstrapBuild(BuildContext context, Widget? app) {
-    PackageLandingThemeBase theme = ThemingUtils.get(context);
+    PackageSamdboxThemeBase theme = ThemingUtils.get(context);
 
     return super.bootstrapBuild(
       context,
@@ -123,12 +123,12 @@ abstract class PackageLandingViewBase<TLandingThemeBase extends PackageLandingTh
     );
   }
 
-  (_Graph<TLandingThemeBase> navigationGraph, _Graph<TLandingThemeBase> packageEntriesGraph, List<IRoutingGraphData> routes) composeContextGraphs(NavigationState entriesLayoutKey, NavigationState navigationLayoutKey) {
-    _Graph<TLandingThemeBase> navigationGraph = <RouteData, IPackageLandingEntry<TLandingThemeBase>>{};
-    _Graph<TLandingThemeBase> pakcageEntriesGraph = <RouteData, IPackageLandingEntry<TLandingThemeBase>>{};
+  (_Graph<ThemeBase>, _Graph<ThemeBase>, List<IRoutingGraphData>) composeContextGraphs(NavigationState entriesLayoutKey, NavigationState navigationLayoutKey) {
+    _Graph<ThemeBase> navigationGraph = <RouteData, IPackageSandboxItem<ThemeBase>>{};
+    _Graph<ThemeBase> pakcageEntriesGraph = <RouteData, IPackageSandboxItem<ThemeBase>>{};
 
     List<IRoutingGraphData> routes = <IRoutingGraphData>[];
-    for (IPackageLandingEntry<TLandingThemeBase> landingEntry in packageEntries) {
+    for (IPackageSandboxItem<ThemeBase> landingEntry in packageEntries) {
       String entryRoutePath = landingEntry.name.toLowerCase().replaceAll(' ', '_');
 
       RouteData entryRoute = RouteData(entryRoutePath, name: landingEntry.name);

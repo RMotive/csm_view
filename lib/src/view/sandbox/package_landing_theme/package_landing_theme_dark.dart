@@ -6,12 +6,11 @@ import 'package:flutter/material.dart' show Colors, Icons;
 ///
 ///
 /// Defines a theme configuration implementation when the context is [light] theme.
-class PackageLandingThemeDark extends PackageLandingThemeBase {
+class PackageLandingThemeDark extends PackageSamdboxThemeBase {
   /// Creates a new instance.
   PackageLandingThemeDark([
     String? themeId,
-  ])
-      : super(
+  ]) : super(
           themeId ?? 'package-landing-theme-dark',
           icon: const Icon(Icons.dark_mode),
           iconBackground: Colors.black54,

@@ -1,7 +1,7 @@
-part of '../abstractions/bases/package_landing_view_base.dart';
+part of '../abstractions/bases/package_sandbox_view_base.dart';
 
 ///
-final class _PackageLandingLayoutMenu<TLandingThemeBase extends PackageLandingThemeBase> extends StatelessWidget {
+final class _PackageLandingLayoutMenu<TLandingThemeBase extends PackageSamdboxThemeBase> extends StatelessWidget {
   final double menuWidth;
 
   final RouteData routeData;
@@ -27,13 +27,12 @@ final class _PackageLandingLayoutMenu<TLandingThemeBase extends PackageLandingTh
         child: Column(
           spacing: 8,
           children: <Widget>[
-            for (MapEntry<RouteData, IPackageLandingEntry<TLandingThemeBase>> routingLeaf in routingGraph.entries) ...<Widget>[
+            for (MapEntry<RouteData, IPackageSandboxItem<TLandingThemeBase>> routingLeaf in routingGraph.entries) ...<Widget>[
               Builder(
                 builder: (BuildContext context) {
                   final bool isSelected = routeData == routingLeaf.key;
-                  final ThemingData buttonTheme =
-                      isSelected ? theme.page : theme.landingHeader;
-      
+                  final ThemingData buttonTheme = isSelected ? theme.page : theme.landingHeader;
+
                   return Padding(
                     padding: EdgeInsets.symmetric(
                       vertical: 8,
