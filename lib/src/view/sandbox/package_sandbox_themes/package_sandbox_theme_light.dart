@@ -3,10 +3,10 @@ import 'package:csm_view/src/view/sandbox/abstractions/bases/package_sandbox_the
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart' show Colors, Icons;
 
-/// Represents the theming configuration for a { Package Landing } for { Dark } mode.
-class PackageLandingThemeLight extends PackageSamdboxThemeBase {
+/// Represents a [light] mode theme.
+class PackageSandboxThemeLight extends PackageSamdboxThemeBase {
   /// Creates a new instance.
-  PackageLandingThemeLight([
+  PackageSandboxThemeLight([
     String? themeId,
   ]) : super(
           themeId ?? 'package-landing-theme-light',

@@ -12,7 +12,7 @@ class PasswordInputEntry extends PackageSandboxItemBase<ViewPackageThemeBase> {
         );
 
   @override
-  Widget composeEntry(BuildContext buildContext, Size windowSize, ViewPackageThemeBase theme) {
+  Widget composeView(BuildContext buildContext, Size windowSize, ViewPackageThemeBase theme) {
     return Center(
       child: PasswordInput(
         onChanged: (String newValue) {},

@@ -31,12 +31,21 @@ abstract class ViewModuleBase extends StatefulWidget {
   @protected
   FutureOr<void> initView(BuildContext context) {}
 
+  /// Bootstraps how base logic builds and provides theming data.
+  ///
+  /// Returns the final themes to use.
   @protected
   List<IThemeData> bootstrapTheming();
 
+  /// Bootstraps how base logic builds view routing data.
+  ///
+  /// Returns the final view routing graph.
   @protected
   List<IRoutingGraphData> bootstrapRouting();
 
+  /// Boostrapts how base logic builds root redirection.
+  ///
+  /// Returns the view root redirection evaluation, this one is applied to every route requested, before their own route level redirection evaluation.
   @protected
   FutureOr<RouteData?>? boostrapRedirection(BuildContext context, RoutingData routingData) => null;
 

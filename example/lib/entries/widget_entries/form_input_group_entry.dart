@@ -16,7 +16,7 @@ final class FormInputGroupEntry extends PackageSandboxItemBase<ViewPackageThemeB
         );
 
   @override
-  Widget composeEntry(BuildContext buildContext, Size windowSize, ViewPackageThemeBase theme) {
+  Widget composeView(BuildContext buildContext, Size windowSize, ViewPackageThemeBase theme) {
     return Padding(
       padding: const EdgeInsets.all(12.0),
       child: Column(

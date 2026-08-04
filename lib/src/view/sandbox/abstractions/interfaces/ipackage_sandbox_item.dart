@@ -1,33 +1,35 @@
 import 'package:csm_view/csm_view.dart';
 import 'package:flutter/material.dart';
 
-/// Represents a package [PackageSandboxViewBase] showcase entry.
+/// Represents a package sandbox item who composes an user interface page to interact and read how a package component works.
+///
+/// [ThemeBase] represents the theming type.
 abstract interface class IPackageSandboxItem<ThemeBase extends PackageSamdboxThemeBase> implements IViewPage {
-  /// The name of the component.
+  /// Component's name.
   final String name;
 
   /// Image to represent the package at the [Welcome] page cards.
   final ImageProvider? image;
 
-  /// The component description.
+  /// Component's description.
   final DescriptionBuilder<ThemeBase> description;
 
-  /// Creates a new [IPackageSandboxItem] instance.
+  /// Creates a new instance.
   const IPackageSandboxItem({
     this.image,
     required this.name,
     required this.description,
   });
 
-  /// Composes nested [RouteB] implementations when the {entry} inner component needs to access a navigation route by its own behavior.
+  /// Composes inner nested routes when the component needs to access a navigation route by its own behavior.
   List<IRoutingGraphData> composeRoutes(GlobalKey<NavigatorState> navigationLayoutKey, GlobalKey<NavigatorState> entryLayoutKey) => <IRoutingGraphData>[];
 
-  /// Custom composition method for [IPackageSandboxItem] implementations to bypass [IPage], [compose].
+  /// Composes the sandbox item user view.
   ///
-  /// [buildContext] native framework building context data.
+  /// [buildContext] framework building context data.
   ///
-  /// [windowSize] represents the available application widnow space boundties.
+  /// [windowSize] represents the available application window space.
   ///
-  /// [theme] gives a reference for the current application managed theming information.
-  Widget composeEntry(BuildContext buildContext, Size windowSize, ThemeBase theme);
+  /// [theme] current theming data.
+  Widget composeView(BuildContext buildContext, Size windowSize, ThemeBase theme);
 }

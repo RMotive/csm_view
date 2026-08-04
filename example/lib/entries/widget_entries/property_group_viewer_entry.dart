@@ -19,7 +19,7 @@ final class PropertyGroupViewerEntry extends PackageSandboxItemBase<ViewPackageT
         );
 
   @override
-  Widget composeEntry(BuildContext buildContext, Size windowSize, PackageSamdboxThemeBase theme) {
+  Widget composeView(BuildContext buildContext, Size windowSize, PackageSamdboxThemeBase theme) {
     return SizedBox(
       child: Center(
         child: ExpandibleSection(

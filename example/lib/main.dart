@@ -36,7 +36,7 @@ final class ViewPackageLanding extends PackageSandboxViewBase<ViewPackageThemeBa
               ),
             );
           },
-          packageEntries: <IPackageSandboxItem<ViewPackageThemeBase>>[
+          sandboxItems: <IPackageSandboxItem<ViewPackageThemeBase>>[
             NavigationLayoutEntry(
               themes: <IThemeData>[
                 CSMViewThemeDark(),

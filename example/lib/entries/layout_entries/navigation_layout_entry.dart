@@ -41,7 +41,7 @@ final class NavigationLayoutEntry extends PackageSandboxItemBase<ViewPackageThem
         );
 
   @override
-  Widget composeEntry(BuildContext buildContext, Size windowSize, ViewPackageThemeBase theme) {
+  Widget composeView(BuildContext buildContext, Size windowSize, ViewPackageThemeBase theme) {
     return NavigationLayout(
       userData: NavigationLayoutHeaderUserData(
         name: 'Package',

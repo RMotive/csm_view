@@ -15,7 +15,7 @@ final class UpdateEntityDialogEntry extends PackageSandboxItemBase<ViewPackageTh
         );
 
   @override
-  Widget composeEntry(BuildContext buildContext, Size windowSize, ViewPackageThemeBase theme) {
+  Widget composeView(BuildContext buildContext, Size windowSize, ViewPackageThemeBase theme) {
     return Center(
       child: ButtonFlat(
         label: 'Open Dialog',

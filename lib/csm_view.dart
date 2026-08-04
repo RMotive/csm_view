@@ -109,8 +109,8 @@ export 'src/view/sandbox/abstractions/interfaces/ipackage_sandbox_item.dart';
 
 export 'src/view/sandbox/abstractions/bases/package_sandbox_view_base.dart';
 
-export 'src/view/sandbox/package_landing_theme/package_landing_theme_dark.dart';
-export 'src/view/sandbox/package_landing_theme/package_landing_theme_light.dart';
+export 'src/view/sandbox/package_sandbox_themes/package_sandbox_theme_dark.dart';
+export 'src/view/sandbox/package_sandbox_themes/package_sandbox_theme_light.dart';
 
 //! --> Exporting [Layouts]
 export 'src/view/layouts/navigation_layout/navigation_layout.dart';

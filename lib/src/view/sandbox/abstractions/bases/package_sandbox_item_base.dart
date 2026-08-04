@@ -36,7 +36,7 @@ abstract class PackageSandboxItemBase<ThemeBase extends PackageSamdboxThemeBase>
   Widget compose(BuildContext context, Size windowSize, Size pageSize) {
     final ThemeBase theme = ThemingUtils.get<ThemeBase>(context);
 
-    return composeEntry(
+    return composeView(
       context,
       windowSize,
       theme,

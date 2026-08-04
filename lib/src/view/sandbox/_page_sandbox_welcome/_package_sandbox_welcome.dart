@@ -6,7 +6,7 @@ part of '../abstractions/bases/package_sandbox_view_base.dart';
 /// [T] type of the delegated application theme base usage.
 ///
 /// Draws a view for routing entry point ([Home]) for the landing package view.
-final class _PackageLandingWelcome<T extends PackageSamdboxThemeBase> extends ViewPageBase {
+final class _PackageSandboxWelcome<T extends PackageSamdboxThemeBase> extends ViewPageBase {
   /// Package displayed name.
   final String packageName;
 
@@ -16,8 +16,8 @@ final class _PackageLandingWelcome<T extends PackageSamdboxThemeBase> extends Vi
   /// Landing routing tree.
   final Map<RouteData, IPackageSandboxItem<T>> routingGraph;
 
-  /// Creates a new [_PackageLandingWelcome] instance.
-  const _PackageLandingWelcome({
+  /// Creates a new [_PackageSandboxWelcome] instance.
+  const _PackageSandboxWelcome({
     required this.packageName,
     required this.routingGraph,
     required this.packageDescription,

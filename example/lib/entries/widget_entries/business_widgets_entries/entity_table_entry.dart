@@ -21,7 +21,7 @@ class EntityTableEntry extends PackageSandboxItemBase<ViewPackageThemeBase> {
         );
 
   @override
-  Widget composeEntry(BuildContext buildContext, Size windowSize, ViewPackageThemeBase theme) {
+  Widget composeView(BuildContext buildContext, Size windowSize, ViewPackageThemeBase theme) {
     return EntityTable<EntityEx, IResponseResolver<ViewOutput<EntityEx>>, IServiceEx>(
       factory: () => EntityEx(),
       adapter: EntityTableEntryAdapter(),
