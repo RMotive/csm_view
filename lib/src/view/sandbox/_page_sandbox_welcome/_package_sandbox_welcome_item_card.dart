@@ -1,26 +1,38 @@
 part of '../abstractions/bases/package_sandbox_view_base.dart';
 
-final class _PackageLandingWelcomeEntry<T extends PackageSamdboxThemeBase> extends StatelessWidget {
-  final IPackageSandboxItem<T> landingEntry;
+/// A card displayed that displays the information of each [IPackageSandboxItem] and its [RouteData] to handle routing when it's clicked.
+///
+/// [ThemeBase] type of the theme.
+final class _PackageSandboxWelcomeItemCard<ThemeBase extends PackageSamdboxThemeBase> extends StatelessWidget {
+  /// Route data for redirection behavior.
+  final RouteData routeData;
 
-  final RouteData route;
+  /// Sandbox item data.
+  final IPackageSandboxItem<ThemeBase> sandboxItem;
 
-  const _PackageLandingWelcomeEntry({
+  /// Creates a new instance.
+  const _PackageSandboxWelcomeItemCard({
     super.key,
-    required this.route,
-    required this.landingEntry,
+    required this.routeData,
+    required this.sandboxItem,
   });
+
+  /// Event when the component is clicked.
+  ///
+  /// [viewContext] is the framework building provided context.
+  void onClick(BuildContext viewContext) {
+    final IRouter router = InjectorUtils.get();
+
+    router.go(viewContext, routeData);
+  }
 
   @override
   Widget build(BuildContext context) {
-    final T theme = ThemingUtils.get(context);
-    final IRouter router = InjectorUtils.get();
+    final ThemeBase theme = ThemingUtils.get(context);
 
     return PointerArea(
       cursor: SystemMouseCursors.click,
-      onClick: () {
-        router.go(context, route);
-      },
+      onClick: () => onClick(context),
       child: Card.filled(
         elevation: 8,
         color: theme.welcomeCardTheming.back,
@@ -28,9 +40,10 @@ final class _PackageLandingWelcomeEntry<T extends PackageSamdboxThemeBase> exten
           padding: const EdgeInsets.all(8.0),
           child: Row(
             children: <Widget>[
+              //* Card image decorator.
               Expanded(
                 flex: 1,
-                child: landingEntry.image == null
+                child: (sandboxItem.image == null)
                     ? Placeholder(
                         color: Colors.red,
                         strokeWidth: 2,
@@ -46,18 +59,20 @@ final class _PackageLandingWelcomeEntry<T extends PackageSamdboxThemeBase> exten
                         ),
                       )
                     : Image(
-                        image: landingEntry.image!,
+                        image: sandboxItem.image!,
                       ),
               ),
+
+              //* Card content.
               Expanded(
                 flex: 2,
                 child: Column(
                   children: <Widget>[
-                    // --> Entry card title
+                    //* Card title.
                     Tooltip(
-                      message: landingEntry.name,
+                      message: sandboxItem.name,
                       child: Text(
-                        landingEntry.name,
+                        sandboxItem.name,
                         style: TextStyle(
                           fontSize: 16,
                           color: Colors.white70,
@@ -66,12 +81,13 @@ final class _PackageLandingWelcomeEntry<T extends PackageSamdboxThemeBase> exten
                         ),
                       ),
                     ),
+                    //* Card description
                     Expanded(
                       child: SingleChildScrollView(
                         child: Padding(
                           padding: const EdgeInsets.all(4),
                           child: Text.rich(
-                            landingEntry.description(theme, theme.welcomeCardTheming.fore),
+                            sandboxItem.description(theme, theme.welcomeCardTheming.fore),
                             style: TextStyle(
                               fontSize: 13,
                             ),

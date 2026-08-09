@@ -12,7 +12,7 @@ part '../../_package_sandbox_entry_layout/_package_landing_entry_layout.dart';
 part '../../_package_sandbox_entry_layout/_package_landing_device_details.dart';
 
 part '../../_page_sandbox_welcome/_package_sandbox_welcome.dart';
-part '../../_page_sandbox_welcome/_package_sandbox_welcome_item.dart';
+part '../../_page_sandbox_welcome/_package_sandbox_welcome_item_card.dart';
 
 typedef _Graph<TThemeB extends PackageSamdboxThemeBase> = Map<RouteData, IPackageSandboxItem<TThemeB>>;
 
@@ -63,9 +63,9 @@ abstract class PackageSandboxViewBase<ThemeBase extends PackageSamdboxThemeBase>
           RoutingGraphNode(
             _homeRouteData,
             pageBuilder: (BuildContext ctx, _) => _PackageSandboxWelcome<ThemeBase>(
-              packageName: name,
+              name: name,
               routingGraph: navigationGraph,
-              packageDescription: description,
+              description: description,
             ),
           ),
 

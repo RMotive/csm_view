@@ -1,26 +1,24 @@
 part of '../abstractions/bases/package_sandbox_view_base.dart';
 
-/// [Widget] for [PackageLandingView].
-///
-///
+
+/// Composes a welcome view page for the [PackageSandboxViewBase].
+/// 
 /// [T] type of the delegated application theme base usage.
-///
-/// Draws a view for routing entry point ([Home]) for the landing package view.
 final class _PackageSandboxWelcome<T extends PackageSamdboxThemeBase> extends ViewPageBase {
-  /// Package displayed name.
-  final String packageName;
+  /// Name of the package being sandbox'd.
+  final String name;
 
-  /// Package displayed description.
-  final DescriptionBuilder<T> packageDescription;
+  /// General description of the package being sandbox'd.
+  final DescriptionBuilder<T> description;
 
-  /// Landing routing tree.
+  /// View routing grapth.
   final Map<RouteData, IPackageSandboxItem<T>> routingGraph;
 
   /// Creates a new [_PackageSandboxWelcome] instance.
   const _PackageSandboxWelcome({
-    required this.packageName,
+    required this.name,
     required this.routingGraph,
-    required this.packageDescription,
+    required this.description,
   });
 
   @override
@@ -35,7 +33,7 @@ final class _PackageSandboxWelcome<T extends PackageSamdboxThemeBase> extends Vi
           Padding(
             padding: EdgeInsets.all(16),
             child: Text(
-              'Welcome to $packageName playground!',
+              'Welcome to $name playground!',
               style: Theme.of(context).textTheme.headlineSmall,
             ),
           ),
@@ -45,7 +43,7 @@ final class _PackageSandboxWelcome<T extends PackageSamdboxThemeBase> extends Vi
             padding: EdgeInsets.all(16),
             child: SingleChildScrollView(
               child: Text.rich(
-                packageDescription(theme, theme.page.fore),
+                description(theme, theme.page.fore),
               ),
             ),
           ),
@@ -98,9 +96,9 @@ final class _PackageSandboxWelcome<T extends PackageSamdboxThemeBase> extends Vi
                               itemBuilder: (BuildContext context, int index) {
                                 MapEntry<RouteData, IPackageSandboxItem<T>> routingEntry = routingGraph.entries.elementAt(index);
 
-                                return _PackageLandingWelcomeEntry<T>(
-                                  landingEntry: routingEntry.value,
-                                  route: routingEntry.key,
+                                return _PackageSandboxWelcomeItemCard<T>(
+                                  sandboxItem: routingEntry.value,
+                                  routeData: routingEntry.key,
                                 );
                               },
                             );
