@@ -16,7 +16,7 @@ final class NavigationLayoutEntry extends PackageSandboxItemBase<ViewPackageThem
   final List<IThemeData> themes;
 
   @override
-  List<IRoutingGraphData> composeRoutes(GlobalKey<NavigatorState> navigationLayoutKey, GlobalKey<NavigatorState> entryLayoutKey) {
+  List<IRoutingGraphData> composeRoutes(GlobalKey<NavigatorState> navLayoutKey, GlobalKey<NavigatorState> entryLayoutKey) {
     return <IRoutingGraphData>[
       RoutingGraphNode(
         businessRouteData,
@@ -41,7 +41,7 @@ final class NavigationLayoutEntry extends PackageSandboxItemBase<ViewPackageThem
         );
 
   @override
-  Widget composeView(BuildContext buildContext, Size windowSize, ViewPackageThemeBase theme) {
+  Widget composeEntry(BuildContext buildContext, Size windowSize, ViewPackageThemeBase theme) {
     return NavigationLayout(
       userData: NavigationLayoutHeaderUserData(
         name: 'Package',

@@ -1,21 +1,22 @@
-part of '../abstractions/bases/package_sandbox_view_base.dart';
+part of '../../abstractions/bases/package_sandbox_view_base.dart';
 
-/// [LayoutB] implementation for [_PackageLandingEntryLayout].
+/// A layout that shows the item data, and the composed view on a standarized way along all items.
 ///
-/// Defines the view for a package landing layout when an entry is selected and succesfuly routed at the application.
-final class _PackageLandingEntryLayout<T extends PackageSamdboxThemeBase> extends ViewLayoutBase {
-  final IPackageSandboxItem<T> landingEntry;
+/// [ThemeBase] theme base type.
+final class _PackageSandboxEntryLayout<ThemeBase extends PackageSandboxThemeBase> extends ViewLayoutBase {
+  /// Sandbox item data.
+  final IPackageSandboxEntry<ThemeBase> sandboxEntries;
 
-  /// Creates a new [_PackageLandingEntryLayout] instance.
-  const _PackageLandingEntryLayout({
+  /// Creates a new instance.
+  const _PackageSandboxEntryLayout({
     required super.page,
     required super.routingData,
-    required this.landingEntry,
+    required this.sandboxEntries,
   });
 
   @override
   Widget compose(BuildContext context, Size windowSize, Size pageSize) {
-    final T theme = ThemingUtils.get(context);
+    final ThemeBase theme = ThemingUtils.get(context);
 
     final double paddedBox = pageSize.width - 32;
     double sectionWidth = (paddedBox) * .5;
@@ -55,7 +56,7 @@ final class _PackageLandingEntryLayout<T extends PackageSamdboxThemeBase> extend
                         width: sectionWidth,
                         child: SingleChildScrollView(
                           child: Text.rich(
-                            landingEntry.description(theme, theme.page.fore),
+                            sandboxEntries.description(theme, theme.page.fore),
                             style: TextStyle(
                               inherit: true,
                               color: Colors.red,
@@ -67,7 +68,7 @@ final class _PackageLandingEntryLayout<T extends PackageSamdboxThemeBase> extend
                         width: sectionWidth,
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
-                          child: _PackageLandingDeviceDetails(),
+                          child: _PackageSandboxDeviceDetails(),
                         ),
                       ),
                     ],

@@ -8,7 +8,7 @@ final class PropertyGroupViewerEntry extends PackageSandboxItemBase<ViewPackageT
   PropertyGroupViewerEntry()
       : super(
           name: 'Property Group Viewer',
-          description: (PackageSamdboxThemeBase theme, Color foreColor) {
+          description: (PackageSandboxThemeBase theme, Color foreColor) {
             return TextSpan(
               text: 'A property view group for simplified entities values summary.',
               style: TextStyle(
@@ -19,7 +19,7 @@ final class PropertyGroupViewerEntry extends PackageSandboxItemBase<ViewPackageT
         );
 
   @override
-  Widget composeView(BuildContext buildContext, Size windowSize, PackageSamdboxThemeBase theme) {
+  Widget composeEntry(BuildContext buildContext, Size windowSize, PackageSandboxThemeBase theme) {
     return SizedBox(
       child: Center(
         child: ExpandibleSection(

@@ -7,12 +7,14 @@ class PasswordInputEntry extends PackageSandboxItemBase<ViewPackageThemeBase> {
       : super(
           name: 'Password Input',
           description: (ViewPackageThemeBase theme, Color foreColor) {
-            return TextSpan(text: 'A business Widget to handle password value types input.');
+            return TextSpan(
+              text: 'A business Widget to handle password value types input.',
+            );
           },
         );
 
   @override
-  Widget composeView(BuildContext buildContext, Size windowSize, ViewPackageThemeBase theme) {
+  Widget composeEntry(BuildContext buildContext, Size windowSize, ViewPackageThemeBase theme) {
     return Center(
       child: PasswordInput(
         onChanged: (String newValue) {},

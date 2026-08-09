@@ -1,37 +1,35 @@
-part of '../abstractions/bases/package_sandbox_view_base.dart';
+part of '../../abstractions/bases/package_sandbox_view_base.dart';
 
-///
+/// Current device data.
 final Future<BaseDeviceInfo> deviceInfo = DeviceInfoPlugin().deviceInfo;
 
-/// Internal view fragment for [PackageLandingView] view composition that only displays the running device information.
-final class _PackageLandingDeviceDetails extends StatelessWidget with PlatformMixin {
-  const _PackageLandingDeviceDetails();
+/// A component that displays the current running device information as a section.
+final class _PackageSandboxDeviceDetails extends StatelessWidget with PlatformMixin {
+  /// Creates a new instance.
+  const _PackageSandboxDeviceDetails();
 
   @override
   Widget build(BuildContext context) {
-    PackageSamdboxThemeBase theme = ThemingUtils.get(context);
+    final PackageSandboxThemeBase theme = ThemingUtils.get(context);
 
     return AsyncWidget<BaseDeviceInfo>(
       future: deviceInfo,
       successBuilder: (BuildContext ctx, BaseDeviceInfo data) {
-        String systemVersion = '---';
-        String system = ' ${defaultTargetPlatform.name.toStartUpperCase()}';
         String platformValue = ' $platform';
-        if (data is WebBrowserInfo) {
-          systemVersion = data.appVersion?.split(' ').reversed.elementAt(0) ?? systemVersion;
-          platformValue += ' ($systemVersion)';
-        } else if (data is LinuxDeviceInfo) {
-          systemVersion = data.version ?? systemVersion;
-        } else if (data is WindowsDeviceInfo) {
-          systemVersion = data.displayVersion;
-        } else if (data is AndroidDeviceInfo) {
-          systemVersion = data.version.incremental;
-        } else if (data is IosDeviceInfo) {
-          systemVersion = data.systemVersion;
-        }
+        String system = ' ${defaultTargetPlatform.name.toStartUpperCase()}';
 
-        platformValue += '\n';
-        if (data is! WebBrowserInfo) {
+        String systemVersion = switch (data) {
+          WebBrowserInfo info => info.appVersion?.split(' ').reversed.elementAt(0) ?? '---',
+          LinuxDeviceInfo info => info.version ?? '---',
+          WindowsDeviceInfo info => info.displayVersion,
+          AndroidDeviceInfo info => info.version.incremental,
+          IosDeviceInfo info => info.systemVersion,
+          _ => '---',
+        };
+
+        if (data is WebBrowserInfo) {
+          platformValue += ' ($systemVersion)';
+        } else {
           system += ' ($systemVersion)';
         }
 
@@ -44,11 +42,12 @@ final class _PackageLandingDeviceDetails extends StatelessWidget with PlatformMi
               color: theme.page.fore,
             ),
             children: <InlineSpan>[
+              //* Section title.
               TextSpan(
                 text: 'Device information \n',
               ),
 
-              // --> Platform line
+              //* Current platform,
               TextSpan(
                 text: 'Platform:',
               ),
@@ -59,7 +58,7 @@ final class _PackageLandingDeviceDetails extends StatelessWidget with PlatformMi
                 ),
               ),
 
-              // --> Device system.
+              //* Current system.
               TextSpan(
                 text: 'System:',
               ),

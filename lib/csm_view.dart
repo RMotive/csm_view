@@ -5,6 +5,9 @@ library;
 // --> Package proxies
 export 'package:device_info_plus/device_info_plus.dart' show AndroidDeviceInfo, IosDeviceInfo, LinuxDeviceInfo, WindowsDeviceInfo, WebBrowserInfo, BaseDeviceInfo;
 
+//! Exporting [View] modules
+export 'src/view/sandbox/view_sandbox_module.dart'; //* Sandbox Module 
+
 //! --> Exporting modules
 export 'src/core/core_module.dart';
 export 'src/widgets/widgets_module.dart';

@@ -16,7 +16,7 @@ final class PropertyViewerEntry extends PackageSandboxItemBase<ViewPackageThemeB
         );
 
   @override
-  Widget composeView(BuildContext buildContext, Size windowSize, ViewPackageThemeBase theme) {
+  Widget composeEntry(BuildContext buildContext, Size windowSize, ViewPackageThemeBase theme) {
     return Column(
       spacing: 12,
       children: <Widget>[

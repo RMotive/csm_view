@@ -3,12 +3,12 @@ part of '../abstractions/bases/package_sandbox_view_base.dart';
 /// A card displayed that displays the information of each [IPackageSandboxItem] and its [RouteData] to handle routing when it's clicked.
 ///
 /// [ThemeBase] type of the theme.
-final class _PackageSandboxWelcomeItemCard<ThemeBase extends PackageSamdboxThemeBase> extends StatelessWidget {
+final class _PackageSandboxWelcomeItemCard<ThemeBase extends PackageSandboxThemeBase> extends StatelessWidget {
   /// Route data for redirection behavior.
   final RouteData routeData;
 
   /// Sandbox item data.
-  final IPackageSandboxItem<ThemeBase> sandboxItem;
+  final IPackageSandboxEntry<ThemeBase> sandboxItem;
 
   /// Creates a new instance.
   const _PackageSandboxWelcomeItemCard({

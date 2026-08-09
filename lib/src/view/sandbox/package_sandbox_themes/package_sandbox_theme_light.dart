@@ -4,7 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart' show Colors, Icons;
 
 /// Represents a [light] mode theme.
-class PackageSandboxThemeLight extends PackageSamdboxThemeBase {
+class PackageSandboxThemeLight extends PackageSandboxThemeBase {
   /// Creates a new instance.
   PackageSandboxThemeLight([
     String? themeId,

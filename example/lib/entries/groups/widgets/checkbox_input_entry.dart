@@ -17,7 +17,7 @@ final class CheckboxInputEntry extends PackageSandboxItemBase<ViewPackageThemeBa
         );
 
   @override
-  Widget composeView(BuildContext buildContext, Size windowSize, ViewPackageThemeBase theme) {
+  Widget composeEntry(BuildContext buildContext, Size windowSize, ViewPackageThemeBase theme) {
     return Center(
       child: Row(
         spacing: 12,

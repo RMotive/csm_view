@@ -1,10 +1,9 @@
 part of '../abstractions/bases/package_sandbox_view_base.dart';
 
-
-/// Composes a welcome view page for the [PackageSandboxViewBase].
+/// A welcome view page for the [PackageSandboxViewBase].
 /// 
 /// [T] type of the delegated application theme base usage.
-final class _PackageSandboxWelcome<T extends PackageSamdboxThemeBase> extends ViewPageBase {
+final class _PackageSandboxWelcome<T extends PackageSandboxThemeBase> extends ViewPageBase {
   /// Name of the package being sandbox'd.
   final String name;
 
@@ -12,7 +11,7 @@ final class _PackageSandboxWelcome<T extends PackageSamdboxThemeBase> extends Vi
   final DescriptionBuilder<T> description;
 
   /// View routing grapth.
-  final Map<RouteData, IPackageSandboxItem<T>> routingGraph;
+  final Map<RouteData, IPackageSandboxEntry<T>> routingGraph;
 
   /// Creates a new [_PackageSandboxWelcome] instance.
   const _PackageSandboxWelcome({
@@ -94,7 +93,7 @@ final class _PackageSandboxWelcome<T extends PackageSamdboxThemeBase> extends Vi
                                 childAspectRatio: 1.75,
                               ),
                               itemBuilder: (BuildContext context, int index) {
-                                MapEntry<RouteData, IPackageSandboxItem<T>> routingEntry = routingGraph.entries.elementAt(index);
+                                MapEntry<RouteData, IPackageSandboxEntry<T>> routingEntry = routingGraph.entries.elementAt(index);
 
                                 return _PackageSandboxWelcomeItemCard<T>(
                                   sandboxItem: routingEntry.value,

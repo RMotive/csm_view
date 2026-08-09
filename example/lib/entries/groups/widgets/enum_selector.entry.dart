@@ -22,7 +22,7 @@ final class EnumSelectorEntry extends PackageSandboxItemBase<ViewPackageThemeBas
         );
 
   @override
-  Widget composeView(BuildContext buildContext, Size windowSize, ViewPackageThemeBase theme) {
+  Widget composeEntry(BuildContext buildContext, Size windowSize, ViewPackageThemeBase theme) {
     return Padding(
       padding: EdgeInsetsGeometry.only(
         top: 12,

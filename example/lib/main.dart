@@ -1,15 +1,9 @@
 import 'dart:async';
 
 import 'package:csm_view/csm_view.dart';
-import 'package:example/entries/layout_entries/navigation_layout_entry.dart';
-import 'package:example/entries/widget_entries/business_widgets_entries/entity_table_entry.dart';
-import 'package:example/entries/widget_entries/business_widgets_entries/password_input_entry.dart';
-import 'package:example/entries/widget_entries/business_widgets_entries/update_entity_dialog_entry.dart';
-import 'package:example/entries/widget_entries/checkbox_entry.dart';
-import 'package:example/entries/widget_entries/enum_selector.entry.dart';
-import 'package:example/entries/widget_entries/form_input_group_entry.dart';
-import 'package:example/entries/widget_entries/property_group_viewer_entry.dart';
-import 'package:example/entries/widget_entries/property_viewer_entry.dart';
+import 'package:example/entries/groups/business_widgets/business_widgets_group.dart';
+import 'package:example/entries/groups/view_base/view_base_group.dart';
+import 'package:example/entries/groups/widgets/widgets_group.dart';
 import 'package:example/mocks/service_mock.dart';
 import 'package:example/theme/view_package_theme_base.dart';
 import 'package:example/theme/view_package_theme_dark.dart';
@@ -36,21 +30,11 @@ final class ViewPackageLanding extends PackageSandboxViewBase<ViewPackageThemeBa
               ),
             );
           },
-          sandboxItems: <IPackageSandboxItem<ViewPackageThemeBase>>[
-            NavigationLayoutEntry(
-              themes: <IThemeData>[
-                CSMViewThemeDark(),
-                CSMViewThemeLight(),
-              ],
-            ),
-            CheckboxInputEntry(),
-            PropertyViewerEntry(),
-            EnumSelectorEntry(),
-            FormInputGroupEntry(),
-            PropertyGroupViewerEntry(),
-            EntityTableEntry(),
-            PasswordInputEntry(),
-            UpdateEntityDialogEntry(),
+          sandboxEntries: <IPackageSandboxEntry<ViewPackageThemeBase>>[
+            //* Groups
+            ViewBaseGroup(),
+            WidgetsGroup(),
+            BusinessWidgetsGroup(),
           ],
         );
 

@@ -4,17 +4,14 @@ import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
-part '../../_package_landing_layout/_package_landing_layout.dart';
-part '../../_package_landing_layout/_package_landing_layout_menu.dart';
-part '../../_package_landing_layout/_package_landing_layou_header.dart';
-
-part '../../_package_sandbox_entry_layout/_package_landing_entry_layout.dart';
-part '../../_package_sandbox_entry_layout/_package_landing_device_details.dart';
+part '../../layouts/_package_sandbox_entry_layout/_package_sandbox_entry_layout.dart';
+part '../../layouts/_package_sandbox_entry_layout/_package_sandbox_device_details.dart';
 
 part '../../_page_sandbox_welcome/_package_sandbox_welcome.dart';
 part '../../_page_sandbox_welcome/_package_sandbox_welcome_item_card.dart';
 
-typedef _Graph<TThemeB extends PackageSamdboxThemeBase> = Map<RouteData, IPackageSandboxItem<TThemeB>>;
+/// Definition for complex sandbox routing graph.
+typedef _Graph<TThemeB extends PackageSandboxThemeBase> = Map<RouteData, IPackageSandboxEntry<TThemeB>>;
 
 /// View home route.
 final RouteData _homeRouteData = RouteData(
@@ -24,9 +21,9 @@ final RouteData _homeRouteData = RouteData(
 
 /// Represents a package sandbox view, which provides user interactive interfaces to see and check how package
 /// components behave.
-/// 
-/// [ThemeBase] represents the theme type.
-abstract class PackageSandboxViewBase<ThemeBase extends PackageSamdboxThemeBase> extends ViewModuleBase {
+///
+/// [ThemeBase] theme base type.
+abstract class PackageSandboxViewBase<ThemeBase extends PackageSandboxThemeBase> extends ViewModuleBase {
   /// Package name.
   final String name;
 
@@ -34,14 +31,14 @@ abstract class PackageSandboxViewBase<ThemeBase extends PackageSamdboxThemeBase>
   final DescriptionBuilder<ThemeBase> description;
 
   /// Package playground items.
-  final List<IPackageSandboxItem<ThemeBase>> sandboxItems;
+  final List<IPackageSandboxEntry<ThemeBase>> sandboxEntries;
 
   /// Creates a new instance.
   const PackageSandboxViewBase({
     super.key,
     required this.name,
     required this.description,
-    required this.sandboxItems,
+    required this.sandboxEntries,
   });
 
   @override
@@ -55,11 +52,11 @@ abstract class PackageSandboxViewBase<ThemeBase extends PackageSamdboxThemeBase>
     final (_Graph<ThemeBase> navigationGraph, _Graph<ThemeBase> packageEntriesGraph, List<IRoutingGraphData> routesGraph) = composeContextGraphs(itemLayoutKey, navigationLayoutKey);
 
     return <IRoutingGraphData>[
-      /// --> Landing Navigation Layour
+      ///* NavigationLayout
       RoutingGraphLayout(
         navigatorStateKey: navigationLayoutKey,
         routes: <IRoutingGraphData>[
-          /// --> Home Route
+          //* Home Route
           RoutingGraphNode(
             _homeRouteData,
             pageBuilder: (BuildContext ctx, _) => _PackageSandboxWelcome<ThemeBase>(
@@ -69,31 +66,37 @@ abstract class PackageSandboxViewBase<ThemeBase extends PackageSamdboxThemeBase>
             ),
           ),
 
-          /// --> Entry Layout
+          //* Entries Layout
           RoutingGraphLayout(
             routes: routesGraph,
             navigatorStateKey: itemLayoutKey,
             layoutBuilder: (BuildContext ctx, RoutingData routingData, Widget page) {
-              IPackageSandboxItem<ThemeBase> landingEntry = packageEntriesGraph.entries
+              IPackageSandboxEntry<ThemeBase> sandboxEntry = packageEntriesGraph.entries
                   .firstWhere(
-                    (MapEntry<RouteData, IPackageSandboxItem<ThemeBase>> element) => element.key == routingData.targetRoute,
+                    (MapEntry<RouteData, IPackageSandboxEntry<ThemeBase>> element) => element.key == routingData.targetRoute,
                   )
                   .value;
 
-              return _PackageLandingEntryLayout<ThemeBase>(
+              return _PackageSandboxEntryLayout<ThemeBase>(
                 page: page,
                 routingData: routingData,
-                landingEntry: landingEntry,
+                sandboxEntries: sandboxEntry,
               );
             },
           ),
         ],
         layoutBuilder: (BuildContext ctx, RoutingData routingData, Widget page) {
-          return _PackageLandingViewLayout<ThemeBase>(
+          return NavigationLayout(
             page: page,
             routingData: routingData,
-            themes: bootstrapTheming(),
-            routingGraph: navigationGraph,
+            navigationNodes: navigationGraph.entries.map<NavigationLayoutNode>(
+              (MapEntry<RouteData, IPackageSandboxEntry<ThemeBase>> navigationRoute) {
+                return NavigationLayoutNode(
+                  title: navigationRoute.value.name,
+                  routeData: navigationRoute.key,
+                );
+              },
+            ).toList(),
           );
         },
       ),
@@ -102,7 +105,7 @@ abstract class PackageSandboxViewBase<ThemeBase extends PackageSamdboxThemeBase>
 
   @override
   Widget bootstrapBuild(BuildContext context, Widget? app) {
-    PackageSamdboxThemeBase theme = ThemingUtils.get(context);
+    PackageSandboxThemeBase theme = ThemingUtils.get(context);
 
     return super.bootstrapBuild(
       context,
@@ -134,38 +137,38 @@ abstract class PackageSandboxViewBase<ThemeBase extends PackageSamdboxThemeBase>
   ///
   /// [navigationLayourKey] is the [NavigationState] for the view navigation layout where user selects items.
   (_Graph<ThemeBase>, _Graph<ThemeBase>, List<IRoutingGraphData>) composeContextGraphs(NavigationState itemLayoutKey, NavigationState navigationLayoutKey) {
-    _Graph<ThemeBase> navigationGraph = <RouteData, IPackageSandboxItem<ThemeBase>>{};
-    _Graph<ThemeBase> packageItemsGraph = <RouteData, IPackageSandboxItem<ThemeBase>>{};
+    _Graph<ThemeBase> navigationGraph = <RouteData, IPackageSandboxEntry<ThemeBase>>{};
+    _Graph<ThemeBase> packageItemsGraph = <RouteData, IPackageSandboxEntry<ThemeBase>>{};
 
     List<IRoutingGraphData> routes = <IRoutingGraphData>[];
-    for (IPackageSandboxItem<ThemeBase> landingEntry in sandboxItems) {
-      String entryRoutePath = landingEntry.name.toLowerCase().replaceAll(' ', '_');
+    for (IPackageSandboxEntry<ThemeBase> sandboxItem in sandboxEntries) {
+      String itemRoutePath = sandboxItem.name.toLowerCase().replaceAll(' ', '_');
 
-      RouteData entryRoute = RouteData(entryRoutePath, name: landingEntry.name);
+      RouteData entryRoute = RouteData(itemRoutePath, name: sandboxItem.name);
 
-      navigationGraph[entryRoute] = landingEntry;
-      packageItemsGraph[entryRoute] = landingEntry;
+      navigationGraph[entryRoute] = sandboxItem;
+      packageItemsGraph[entryRoute] = sandboxItem;
 
       void nestedRoutesIterator(List<IRoutingGraphData> nestedRoutes) {
         for (IRoutingGraphData nestedRoute in nestedRoutes) {
           if (nestedRoute is RoutingGraphNodeDataBase) {
-            packageItemsGraph[nestedRoute.route] = landingEntry;
+            packageItemsGraph[nestedRoute.route] = sandboxItem;
           }
 
           nestedRoutesIterator(nestedRoute.routes);
         }
       }
 
-      List<IRoutingGraphData> nestdRoutes = landingEntry.composeRoutes(navigationLayoutKey, itemLayoutKey);
+      List<IRoutingGraphData> nestdRoutes = sandboxItem.composeRoutes(navigationLayoutKey, itemLayoutKey);
       routes.add(
         RoutingGraphNode(
           entryRoute,
           routes: nestdRoutes,
-          pageBuilder: (BuildContext ctx, RoutingData routeData) => landingEntry,
+          pageBuilder: (BuildContext ctx, RoutingData routeData) => sandboxItem,
         ),
       );
       nestedRoutesIterator(
-        landingEntry.composeRoutes(navigationLayoutKey, itemLayoutKey),
+        sandboxItem.composeRoutes(navigationLayoutKey, itemLayoutKey),
       );
     }
 
