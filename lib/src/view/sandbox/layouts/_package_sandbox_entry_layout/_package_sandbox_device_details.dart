@@ -37,14 +37,13 @@ final class _PackageSandboxDeviceDetails extends StatelessWidget with PlatformMi
           textAlign: TextAlign.start,
           text: TextSpan(
             style: TextStyle(
-              fontSize: 16,
-              height: 1.5,
+              fontSize: 15,
               color: theme.page.fore,
             ),
             children: <InlineSpan>[
               //* Section title.
               TextSpan(
-                text: 'Device information \n',
+                text: 'Device information: \n',
               ),
 
               //* Current platform,
@@ -60,7 +59,7 @@ final class _PackageSandboxDeviceDetails extends StatelessWidget with PlatformMi
 
               //* Current system.
               TextSpan(
-                text: 'System:',
+                text: '\nSystem:',
               ),
               TextSpan(
                 text: system,

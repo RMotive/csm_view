@@ -5,8 +5,8 @@ import 'package:flutter/material.dart';
 final class CSMViewThemeLight extends PackageSandboxThemeLight implements ViewPackageThemeBase {
   @override
   ThemingData navigationLayout = ThemingData(
-    back: Colors.red,
-    fore: Colors.black,
-    accent: Colors.blue,
+    back: Colors.blue[900]!,
+    fore: Colors.white70,
+    accent: Colors.orange,
   );
 }

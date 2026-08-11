@@ -1,6 +1,7 @@
 part of '../abstractions/bases/view_module_base.dart';
 
-///
+/// A page that displays a welcome to the users when they just opens
+/// the view.
 final class _ViewModuleWelcome extends StatelessWidget {
   const _ViewModuleWelcome();
 

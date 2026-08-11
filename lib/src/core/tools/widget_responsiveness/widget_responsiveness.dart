@@ -46,14 +46,16 @@ final class WidgetResponsiveness {
 
   /// Calculates the resolved value based on the default breakpoints values and the provided
   /// values provided in [options].
+  /// 
+  /// [width] width space.
   ///
   /// Default considerations.
   /// Breakpoints:
   ///   For small devices: 0 >= breakpoint < 600
   ///   For medium devices 600 >= breakpoint < 1200
   ///   For large devices  1200 => breakpoint
-  T breakProperty<T>(ResponsivenessBreakpoint<T> options) {
-    final double screenSurface = _defaultViewReference.physicalSize.width;
+  T breakProperty<T>(double width, ResponsivenessBreakpoint<T> options) {
+    final double screenSurface = width;
     if (screenSurface < _bpSmall) return options.small;
     if (screenSurface < _bpMedium) return options.medium;
     return options.large;
@@ -62,6 +64,8 @@ final class WidgetResponsiveness {
   /// Calculates the resolved value based on a custom breakpoints list with the values provided
   /// in [breakpints].
   ///
+  /// [width] width space.
+  ///
   /// The breakpoints are calculated from the lowest breakpoint value to the highest one.
   /// While the screen surface width is lower than the given breakpoint will return the breakpoint options value.
   /// ```dart
@@ -69,8 +73,8 @@ final class WidgetResponsiveness {
   /// ```
   ///
   /// NOTE: This responsive calculation methods are quite expensive, recommended use it with the lower amount of breakpoint possible.
-  T customBreakProperty<T>(List<ResponsivenessBreakpointValue<T>> breakpoints) {
-    final double screenSurface = PlatformDispatcher.instance.displays.first.size.width;
+  T customBreakProperty<T>(double width, List<ResponsivenessBreakpointValue<T>> breakpoints) {
+    final double screenSurface = width;
     List<ResponsivenessBreakpointValue<T>> sortedBreaks = breakpoints.sortBreakpoints();
     for (ResponsivenessBreakpointValue<T> breakPoint in sortedBreaks) {
       if (screenSurface < breakPoint.breakpoint) return breakPoint.value;

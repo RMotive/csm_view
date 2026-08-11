@@ -21,13 +21,27 @@ final class ViewPackageLanding extends PackageSandboxViewBase<ViewPackageThemeBa
   /// Creates a new instance.
   ViewPackageLanding()
       : super(
-          name: 'View Package',
+          name: 'CSM View',
           description: (ViewPackageThemeBase theme, Color foreColor) {
             return TextSpan(
-              text: 'Landing package example for { CSM View } package',
+              text: 'Sandbox solution to interact and consult details about ',
               style: TextStyle(
                 color: foreColor,
+                fontSize: 16,
               ),
+              children: <InlineSpan>[
+                //* Package name
+                TextSpan(
+                  text: 'CSM View',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+
+                TextSpan(
+                  text: ' widgets and another components',
+                ),
+              ],
             );
           },
           sandboxEntries: <IPackageSandboxEntry<ViewPackageThemeBase>>[
@@ -41,8 +55,8 @@ final class ViewPackageLanding extends PackageSandboxViewBase<ViewPackageThemeBa
   @override
   List<ViewPackageThemeBase> bootstrapTheming() {
     return <ViewPackageThemeBase>[
-      CSMViewThemeDark(),
       CSMViewThemeLight(),
+      CSMViewThemeDark(),
     ];
   }
 

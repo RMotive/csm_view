@@ -18,10 +18,12 @@ final class _PackageSandboxEntryLayout<ThemeBase extends PackageSandboxThemeBase
   Widget compose(BuildContext context, Size windowSize, Size pageSize) {
     final ThemeBase theme = ThemingUtils.get(context);
 
-    final double paddedBox = pageSize.width - 32;
-    double sectionWidth = (paddedBox) * .5;
-    if (sectionWidth < 300) {
-      sectionWidth = paddedBox;
+    final double paddedBox = pageSize.width - 34;
+    double descriptionWidth = paddedBox * .65;
+    double deviceInfoWidth = paddedBox * .35;
+    if (paddedBox < 600) {
+      descriptionWidth = paddedBox;
+      deviceInfoWidth = paddedBox;
     }
 
     return ConstrainedBox(
@@ -35,6 +37,7 @@ final class _PackageSandboxEntryLayout<ThemeBase extends PackageSandboxThemeBase
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
+              //* Header section
               DecoratedBox(
                 decoration: BoxDecoration(
                   border: Border(
@@ -52,29 +55,27 @@ final class _PackageSandboxEntryLayout<ThemeBase extends PackageSandboxThemeBase
                     direction: Axis.horizontal,
                     alignment: WrapAlignment.spaceBetween,
                     children: <Widget>[
+                      //* Description section
                       SizedBox(
-                        width: sectionWidth,
+                        width: descriptionWidth,
                         child: SingleChildScrollView(
                           child: Text.rich(
                             sandboxEntries.description(theme, theme.page.fore),
-                            style: TextStyle(
-                              inherit: true,
-                              color: Colors.red,
-                            ),
                           ),
                         ),
                       ),
+
+                      //* Device details section
                       SizedBox(
-                        width: sectionWidth,
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: _PackageSandboxDeviceDetails(),
-                        ),
+                        width: deviceInfoWidth,
+                        child: _PackageSandboxDeviceDetails(),
                       ),
                     ],
                   ),
                 ),
               ),
+
+              //* Page section
               Expanded(
                 child: ConstrainedBox(
                   constraints: BoxConstraints(

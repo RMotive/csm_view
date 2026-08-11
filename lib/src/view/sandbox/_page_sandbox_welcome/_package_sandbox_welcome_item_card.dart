@@ -33,11 +33,11 @@ final class _PackageSandboxWelcomeItemCard<ThemeBase extends PackageSandboxTheme
     return PointerArea(
       cursor: SystemMouseCursors.click,
       onClick: () => onClick(context),
-      child: Card.filled(
+      child: Card(
         elevation: 8,
         color: theme.welcomeCardTheming.back,
         child: Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: const EdgeInsets.all(12.0),
           child: Row(
             children: <Widget>[
               //* Card image decorator.
@@ -62,7 +62,7 @@ final class _PackageSandboxWelcomeItemCard<ThemeBase extends PackageSandboxTheme
                         image: sandboxItem.image!,
                       ),
               ),
-
+        
               //* Card content.
               Expanded(
                 flex: 2,

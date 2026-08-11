@@ -1,5 +1,6 @@
 import 'package:csm_view/csm_view.dart' hide LayoutBuilder;
 import 'package:csm_view/src/core/utils/widget_adaption_utils.dart';
+import 'package:csm_view/src/widgets/colored_sized_box.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -33,7 +34,7 @@ abstract class PackageSandboxViewBase<ThemeBase extends PackageSandboxThemeBase>
   /// Package playground items.
   final List<IPackageSandboxEntry<ThemeBase>> sandboxEntries;
 
-  /// Creates a new instance.
+  /// Creates a new instance.`
   const PackageSandboxViewBase({
     super.key,
     required this.name,
@@ -89,6 +90,7 @@ abstract class PackageSandboxViewBase<ThemeBase extends PackageSandboxThemeBase>
           return NavigationLayout(
             page: page,
             routingData: routingData,
+            homeRouteData: _homeRouteData,
             navigationNodes: navigationGraph.entries.map<NavigationLayoutNode>(
               (MapEntry<RouteData, IPackageSandboxEntry<ThemeBase>> navigationRoute) {
                 return NavigationLayoutNode(
