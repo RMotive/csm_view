@@ -13,19 +13,14 @@ class PackageSandboxThemeLight extends PackageSandboxThemeBase {
           icon: Icon(Icons.light_mode),
           iconBackground: Colors.white60,
           page: ThemingData(
-            back: Color(0xfff2f2f2),
+            back: Color(0xFFF7F8FA),
             fore: Colors.black,
             accent: Colors.blue.shade900,
           ),
-          landingHeader: ThemingData(
-            back: Colors.blue.shade900,
-            fore: Colors.white,
-            accent: Colors.white70,
-          ),
           welcomeCardTheming: ThemingData(
-            back: Colors.blue.shade900,
-            fore: Colors.white,
-            accent: Colors.white70,
+            back: Color(0xFF252728),
+            fore: Color(0xFFF7F8FA),
+            accent: Colors.red,
           ),
           control: ThemingData(
             back: Colors.white60,

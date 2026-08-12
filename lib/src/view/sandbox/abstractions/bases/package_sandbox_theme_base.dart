@@ -2,8 +2,6 @@ import 'package:csm_view/csm_view.dart';
 
 /// Represents a [PackageLandingView] theme data.
 abstract class PackageSandboxThemeBase extends ThemeDataBase {
-  /// Application header [ThemingData] options.
-  final ThemingData landingHeader;
 
   /// application [Welcome] page landing entries cards [ThemingData] options.
   final ThemingData welcomeCardTheming;
@@ -14,7 +12,6 @@ abstract class PackageSandboxThemeBase extends ThemeDataBase {
     required super.icon,
     required super.page,
     required super.control,
-    required this.landingHeader,
     required super.controlError,
     required super.iconBackground,
     required super.controlSuccess,

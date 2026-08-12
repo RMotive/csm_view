@@ -29,67 +29,73 @@ final class _PackageSandboxWelcomeItemCard<ThemeBase extends PackageSandboxTheme
   @override
   Widget build(BuildContext context) {
     final ThemeBase theme = ThemingUtils.get(context);
+    ThemingData cardTheme = theme.welcomeCardTheming;
 
     return PointerArea(
       cursor: SystemMouseCursors.click,
       onClick: () => onClick(context),
       child: Card(
         elevation: 8,
-        color: theme.welcomeCardTheming.back,
+        color: cardTheme.back,
         child: Padding(
           padding: const EdgeInsets.all(12.0),
-          child: Row(
+          child: Column(
             children: <Widget>[
-              //* Card image decorator.
-              Expanded(
-                flex: 1,
-                child: (sandboxItem.image == null)
-                    ? Placeholder(
-                        color: Colors.red,
-                        strokeWidth: 2,
-                        child: Center(
+              //* Card header.
+              Row(
+                spacing: 12,
+                children: <Widget>[
+                  //* Card image decorator.
+                  sandboxItem.image != null
+                      ? Image(
+                          image: sandboxItem.image!,
+                          width: 48,
+                          height: 48,
+                          color: cardTheme.fore,
+                        )
+                      : Icon(
+                          sandboxItem.icon != null ? sandboxItem.icon! : Icons.widgets,
+                          color: cardTheme.fore,
+                          size: 48,
+                        ),
+
+                  //* Card title.
+                  Expanded(
+                    child: Row(
+                      children: <Widget>[
+                        Tooltip(
+                          message: sandboxItem.name,
                           child: Text(
-                            'No image provider set',
-                            textAlign: TextAlign.center,
+                            sandboxItem.name,
                             style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.w600,
+                              fontSize: 18,
+                              color: cardTheme.fore,
+                              fontWeight: FontWeight.w900,
+                              overflow: TextOverflow.ellipsis,
                             ),
                           ),
                         ),
-                      )
-                    : Image(
-                        image: sandboxItem.image!,
-                      ),
+                      ],
+                    ),
+                  ),
+                ],
               ),
-        
+
               //* Card content.
               Expanded(
                 flex: 2,
                 child: Column(
                   children: <Widget>[
-                    //* Card title.
-                    Tooltip(
-                      message: sandboxItem.name,
-                      child: Text(
-                        sandboxItem.name,
-                        style: TextStyle(
-                          fontSize: 16,
-                          color: Colors.white70,
-                          fontWeight: FontWeight.w700,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                      ),
-                    ),
                     //* Card description
                     Expanded(
                       child: SingleChildScrollView(
                         child: Padding(
                           padding: const EdgeInsets.all(4),
                           child: Text.rich(
-                            sandboxItem.description(theme, theme.welcomeCardTheming.fore),
+                            sandboxItem.description(theme, cardTheme.fore),
                             style: TextStyle(
-                              fontSize: 13,
+                              fontSize: 15,
+                              color: cardTheme.fore,
                             ),
                           ),
                         ),

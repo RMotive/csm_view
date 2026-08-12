@@ -7,6 +7,8 @@ import 'package:csm_view/csm_view.dart';
 final class PackageSandboxGroup<ThemeBase extends PackageSandboxThemeBase> extends PackageSandboxGroupBase<ThemeBase> {
   /// Creates a new instance.
   const PackageSandboxGroup({
+    super.icon,
+    super.image,
     required super.items,
     required super.name,
     required super.description,

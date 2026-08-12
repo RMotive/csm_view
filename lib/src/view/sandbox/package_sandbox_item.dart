@@ -17,6 +17,7 @@ final class PackageSandboxItem<ThemeBase extends PackageSandboxThemeBase> extend
   /// Creates a new instance
   const PackageSandboxItem({
     super.key,
+    super.icon,
     super.image,
     required super.name,
     required super.description,

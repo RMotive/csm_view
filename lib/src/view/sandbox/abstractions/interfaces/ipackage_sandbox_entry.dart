@@ -11,12 +11,16 @@ abstract interface class IPackageSandboxEntry<ThemeBase extends PackageSandboxTh
   /// Entry image decorator.
   final ImageProvider? image;
 
+  /// Icon image decorator, if not provided [image] property would be used.
+  final IconData? icon;
+
   /// Entry description.
   final DescriptionBuilder<ThemeBase> description;
 
   /// Creates a new instance.
   const IPackageSandboxEntry(
     this.name,
+    this.icon,
     this.image,
     this.description,
   );

@@ -13,7 +13,9 @@ final class WidgetsGroup extends PackageSandboxGroupBase<ViewPackageThemeBase> {
       : super(
           name: 'Widgets',
           description: (ViewPackageThemeBase theme, Color foreColor) {
-            return TextSpan();
+            return TextSpan(
+              text: 'Generic widgets that are generally used to compose more complex widgets, these are commonly small and simple behavior handlers or view simplifiers.',
+            );
           },
           items: <IPackageSandboxItem<ViewPackageThemeBase>>[
             CheckboxInputEntry(),

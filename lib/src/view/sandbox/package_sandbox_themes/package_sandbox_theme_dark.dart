@@ -11,15 +11,15 @@ class PackageSandboxThemeDark extends PackageSandboxThemeBase {
           themeId ?? 'package-landing-theme-dark',
           icon: const Icon(Icons.dark_mode),
           iconBackground: Colors.black54,
-          landingHeader: ThemingData(
-            back: Colors.grey.shade600,
+          page: ThemingData(
+            back: Color(0xFF1C1C1D),
             fore: Colors.white,
-            accent: Colors.white,
+            accent: Colors.red[900]!,
           ),
           welcomeCardTheming: ThemingData(
-            back: Colors.grey.shade600,
+            back: Color(0xFF333333),
             fore: Colors.white,
-            accent: Colors.white,
+            accent: Colors.red,
           ),
           control: const ThemingData(
             back: Colors.black,
@@ -40,11 +40,6 @@ class PackageSandboxThemeDark extends PackageSandboxThemeBase {
             back: Colors.grey,
             fore: Colors.black,
             accent: Colors.blueGrey,
-          ),
-          page: ThemingData(
-            back: Colors.black,
-            fore: Colors.white,
-            accent: Colors.red[900]!,
           ),
           dialog: ThemingData(
             back: Colors.black87,

@@ -13,6 +13,7 @@ abstract class PackageSandboxGroupBase<ThemeBase extends PackageSandboxThemeBase
   /// Creates a new instance.
   const PackageSandboxGroupBase({
     super.key,
+    super.icon,
     super.image,
     required this.items,
     required super.name,

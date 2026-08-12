@@ -9,8 +9,11 @@ final class BusinessWidgetsGroup extends PackageSandboxGroupBase<ViewPackageThem
   BusinessWidgetsGroup()
       : super(
           name: 'Business Widgets',
+          icon: Icons.business_center,
           description: (ViewPackageThemeBase theme, Color foreColor) {
-            return TextSpan();
+            return TextSpan(
+              text: 'Complex widgets that handle and uses business data, these commonly comunicate along data servers to analyze, present, or process the data. This widgets also handles some delegated business logic to prevent or calculate final data results.',
+            );
           },
           items: <IPackageSandboxItem<ViewPackageThemeBase>>[
             EntityTableEntry(),

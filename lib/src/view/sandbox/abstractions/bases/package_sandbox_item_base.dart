@@ -11,6 +11,7 @@ abstract class PackageSandboxItemBase<ThemeBase extends PackageSandboxThemeBase>
   /// Creates a new [PackageSandboxItemBase]
   const PackageSandboxItemBase({
     super.key,
+    super.icon,
     super.image,
     required super.name,
     required super.description,

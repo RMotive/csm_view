@@ -10,9 +10,13 @@ abstract class PackageSandboxEntryBase<ThemeBase extends PackageSandboxThemeBase
   final String name;
 
   @override
-
-  /// Entry image decorator.
+  /// Entry image decorator, if not provided [icon] property would be used.
   final ImageProvider? image;
+
+  @override
+
+  /// Icon image decorator, if not provided [image] property would be used.
+  final IconData? icon;
 
   @override
 
@@ -23,6 +27,7 @@ abstract class PackageSandboxEntryBase<ThemeBase extends PackageSandboxThemeBase
   const PackageSandboxEntryBase({
     super.key,
     this.image,
+    this.icon,
     required this.name,
     required this.description,
   });

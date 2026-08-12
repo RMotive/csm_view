@@ -3,22 +3,20 @@ import 'package:example/entries/groups/view_base/navigation_layout_entry.dart';
 import 'package:example/theme/view_package_theme_base.dart';
 import 'package:example/theme/view_package_theme_dark.dart';
 import 'package:example/theme/view_package_theme_light.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 final class ViewBaseGroup extends PackageSandboxGroupBase<ViewPackageThemeBase> {
   ViewBaseGroup()
       : super(
           name: 'View Base',
+          icon: Icons.foundation,
           description: (ViewPackageThemeBase theme, Color foreColor) {
             TextStyle remarkStyle = TextStyle(
-              color: theme.page.accent,
-              fontWeight: FontWeight.bold,
+              color: theme.welcomeCardTheming.accent,
+              fontWeight: FontWeight.w900,
             );
 
             return TextSpan(
-              style: TextStyle(
-                color: foreColor,
-              ),
               text: 'Widgets that are base for any view implementation, handle ',
               children: <InlineSpan>[
                 TextSpan(
@@ -29,7 +27,7 @@ final class ViewBaseGroup extends PackageSandboxGroupBase<ViewPackageThemeBase> 
                   text: ' behaviors, interactions and/or operations. Provide easier and standarized view along ',
                 ),
                 TextSpan(
-                  text: 'CSM ',
+                  text: 'CSM',
                   style: remarkStyle,
                 ),
                 TextSpan(

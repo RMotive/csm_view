@@ -82,6 +82,7 @@ final class _PackageSandboxWelcome<ThemeBase extends PackageSandboxThemeBase> ex
 
                     return SingleChildScrollView(
                       child: Wrap(
+                        alignment: WrapAlignment.spaceEvenly,
                         children: routingGraph.entries.map<Widget>(
                           (MapEntry<RouteData, IPackageSandboxEntry<ThemeBase>> sandboxRoutedEntry) {
                             return ConstrainedBox(
