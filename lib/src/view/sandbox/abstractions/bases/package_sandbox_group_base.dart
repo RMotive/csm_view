@@ -8,24 +8,35 @@ import 'package:flutter/material.dart';
 abstract class PackageSandboxGroupBase<ThemeBase extends PackageSandboxThemeBase> extends PackageSandboxEntryBase<ThemeBase> implements IPackageSandboxGroup<ThemeBase> {
   /// Group items.
   @override
-  final List<IPackageSandboxItem<ThemeBase>> items;
+  final List<IPackageSandboxItem<ThemeBase>> sandboxItems;
+
+  ///
+  late final Map<RouteData, IPackageSandboxItem<ThemeBase>> _sanbodItemsRoutingContext;
 
   /// Creates a new instance.
-  const PackageSandboxGroupBase({
+  PackageSandboxGroupBase({
     super.key,
     super.icon,
     super.image,
-    required this.items,
+    required this.sandboxItems,
     required super.name,
     required super.description,
-  }) : assert(items.length > 0, 'Sandbox entries group must have items');
+  }) : assert(
+          sandboxItems.isNotEmpty,
+          'Sandbox entries group must have items',
+        ) {
+    _sanbodItemsRoutingContext = SandboxUtils.buildRoutingGraph(sandboxItems);
+  }
+
+  @override
+  List<IRoutingGraphData> composeRoutes(GlobalKey<NavigatorState> navLayoutKey, GlobalKey<NavigatorState> entryLayoutKey) {
+    return SandboxUtils.buildGraphRoutes(_sanbodItemsRoutingContext).toList();
+  }
 
   @override
   Widget composeEntry(BuildContext buildContext, Size windowSize, ThemeBase theme) {
-    return SizedBox(
-      child: Center(
-        child: Text('This is an entries group'),
-      ),
+    return PackageSandboxWelcomeEntryCardDashboard(
+      sandboxEntries: _sanbodItemsRoutingContext,
     );
   }
 }

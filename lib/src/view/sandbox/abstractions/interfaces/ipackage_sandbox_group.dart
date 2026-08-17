@@ -6,10 +6,10 @@ import 'package:csm_view/csm_view.dart';
 /// [ThemeBase] themee base type.
 abstract interface class IPackageSandboxGroup<ThemeBase extends PackageSandboxThemeBase> implements IPackageSandboxEntry<ThemeBase> {
   /// Group items.
-  final List<IPackageSandboxItem<ThemeBase>> items;
+  final List<IPackageSandboxItem<ThemeBase>> sandboxItems;
 
   /// Creates a new instance.
   const IPackageSandboxGroup(
-    this.items,
+    this.sandboxItems,
   );
 }

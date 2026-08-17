@@ -1,9 +1,10 @@
-part of '../abstractions/bases/package_sandbox_view_base.dart';
+import 'package:csm_view/csm_view.dart';
+import 'package:flutter/material.dart';
 
 /// A card displayed that displays the information of each [IPackageSandboxItem] and its [RouteData] to handle routing when it's clicked.
 ///
 /// [ThemeBase] type of the theme.
-final class _PackageSandboxWelcomeItemCard<ThemeBase extends PackageSandboxThemeBase> extends StatelessWidget {
+final class PackageSandboxWelcomeEntryCard<ThemeBase extends PackageSandboxThemeBase> extends StatelessWidget {
   /// Route data for redirection behavior.
   final RouteData routeData;
 
@@ -11,7 +12,7 @@ final class _PackageSandboxWelcomeItemCard<ThemeBase extends PackageSandboxTheme
   final IPackageSandboxEntry<ThemeBase> sandboxItem;
 
   /// Creates a new instance.
-  const _PackageSandboxWelcomeItemCard({
+  const PackageSandboxWelcomeEntryCard({
     super.key,
     required this.routeData,
     required this.sandboxItem,

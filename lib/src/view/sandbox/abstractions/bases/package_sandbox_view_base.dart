@@ -6,8 +6,7 @@ import 'package:flutter/material.dart';
 part '../../layouts/_package_sandbox_entry_layout/_package_sandbox_entry_layout.dart';
 part '../../layouts/_package_sandbox_entry_layout/_package_sandbox_device_details.dart';
 
-part '../../_page_sandbox_welcome/_package_sandbox_welcome.dart';
-part '../../_page_sandbox_welcome/_package_sandbox_welcome_item_card.dart';
+part '../../widgets/_package_sandbox_welcome.dart';
 
 /// Definition for complex sandbox routing graph.
 typedef _Graph<TThemeB extends PackageSandboxThemeBase> = Map<RouteData, IPackageSandboxEntry<TThemeB>>;

@@ -67,44 +67,8 @@ final class _PackageSandboxWelcome<ThemeBase extends PackageSandboxThemeBase> ex
 
           //* Sandbox entries cards.
           Expanded(
-            child: Padding(
-              padding: EdgeInsets.all(16),
-              child: SizedBox.expand(
-                child: LayoutBuilder(
-                  builder: (BuildContext viewContext, BoxConstraints cardsContainerConstraints) {
-                    const BoxConstraints cardConstraints = BoxConstraints(
-                      maxWidth: 425,
-                      minWidth: 225,
-                    );
-                    cardsContainerConstraints = cardsContainerConstraints.normalize();
-                    double widthSpace = cardsContainerConstraints.biggest.width;
-                    double cardWidth = widthSpace / 4;
-
-                    return SingleChildScrollView(
-                      child: Wrap(
-                        alignment: WrapAlignment.spaceEvenly,
-                        children: routingGraph.entries.map<Widget>(
-                          (MapEntry<RouteData, IPackageSandboxEntry<ThemeBase>> sandboxRoutedEntry) {
-                            return ConstrainedBox(
-                              constraints: cardConstraints,
-                              child: AspectRatio(
-                                aspectRatio: 2 / 1,
-                                child: SizedBox(
-                                  width: cardWidth,
-                                  child: _PackageSandboxWelcomeItemCard<ThemeBase>(
-                                    routeData: sandboxRoutedEntry.key,
-                                    sandboxItem: sandboxRoutedEntry.value,
-                                  ),
-                                ),
-                              ),
-                            );
-                          },
-                        ).toList(),
-                      ),
-                    );
-                  },
-                ),
-              ),
+            child: PackageSandboxWelcomeEntryCardDashboard(
+              sandboxEntries: routingGraph,
             ),
           )
         ],

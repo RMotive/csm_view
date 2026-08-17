@@ -36,7 +36,7 @@ final class ViewBaseGroup extends PackageSandboxGroupBase<ViewPackageThemeBase> 
               ],
             );
           },
-          items: <IPackageSandboxItem<ViewPackageThemeBase>>[
+          sandboxItems: <IPackageSandboxItem<ViewPackageThemeBase>>[
             NavigationLayoutEntry(
               themes: <IThemeData>[
                 CSMViewThemeDark(),

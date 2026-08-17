@@ -15,7 +15,7 @@ final class BusinessWidgetsGroup extends PackageSandboxGroupBase<ViewPackageThem
               text: 'Complex widgets that handle and uses business data, these commonly comunicate along data servers to analyze, present, or process the data. This widgets also handles some delegated business logic to prevent or calculate final data results.',
             );
           },
-          items: <IPackageSandboxItem<ViewPackageThemeBase>>[
+          sandboxItems: <IPackageSandboxItem<ViewPackageThemeBase>>[
             EntityTableEntry(),
             PasswordInputEntry(),
             UpdateEntityDialogEntry(),
