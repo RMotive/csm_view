@@ -1,4 +1,4 @@
-import 'package:csm_view/src/core/theming/models/theming_data.dart';
+import 'package:csm_view/src/theming/models/theming_data.dart';
 import 'package:csm_view/src/view/sandbox/abstractions/bases/package_sandbox_theme_base.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart' show Colors, Icons;

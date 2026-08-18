@@ -2,12 +2,12 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:csm_view/csm_view.dart';
-import 'package:csm_view/src/core/routing/abstractions/interfaces/irouting_graph.dart';
+import 'package:csm_view/src/routing/abstractions/interfaces/irouting_graph.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart' hide Router;
 
-part '../../widgets/_view_module_welcome.dart';
-part '../../widgets/_view_module_size.dart';
+part '../../dep_widgets/_view_module_welcome.dart';
+part '../../dep_widgets/_view_module_size.dart';
 
 /// Represents a solution { View } module.
 abstract class ViewModuleBase extends StatefulWidget {

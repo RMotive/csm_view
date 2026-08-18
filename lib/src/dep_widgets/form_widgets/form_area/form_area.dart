@@ -1,4 +1,4 @@
-import 'package:csm_view/src/widgets/form_widgets/form_area/form_controller.dart';
+import 'package:csm_view/src/dep_widgets/form_widgets/form_area/form_controller.dart';
 import 'package:flutter/material.dart';
 
 export 'form_controller.dart';

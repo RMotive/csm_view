@@ -1,4 +1,4 @@
-import 'package:csm_view/src/widgets/abstractions/interfaces/ireactor.dart';
+import 'package:csm_view/src/dep_widgets/abstractions/interfaces/ireactor.dart';
 import 'package:flutter/foundation.dart';
 
 /// Represents a [ReactorWidget]'s reactor to manage inner states.
