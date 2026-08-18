@@ -67,7 +67,7 @@ final class _PackageSandboxWelcome<ThemeBase extends PackageSandboxThemeBase> ex
 
           //* Sandbox entries cards.
           Expanded(
-            child: PackageSandboxWelcomeEntryCardDashboard(
+            child: PackageSandboxWelcomeEntryCardDashboard<ThemeBase>(
               sandboxEntries: routingGraph,
             ),
           )

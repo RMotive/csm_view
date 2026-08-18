@@ -1,8 +1,8 @@
 import 'package:csm_view/csm_view.dart' hide LayoutBuilder;
 import 'package:flutter/material.dart';
 
-final class PackageSandboxWelcomeEntryCardDashboard extends StatelessWidget {
-  final Map<RouteData, IPackageSandboxEntry<PackageSandboxThemeBase>> sandboxEntries;
+final class PackageSandboxWelcomeEntryCardDashboard<ThemeBase extends PSThemeBase> extends StatelessWidget {
+  final Map<RouteData, IPackageSandboxEntry<ThemeBase>> sandboxEntries;
 
   const PackageSandboxWelcomeEntryCardDashboard({
     super.key,
@@ -28,14 +28,14 @@ final class PackageSandboxWelcomeEntryCardDashboard extends StatelessWidget {
               child: Wrap(
                 alignment: WrapAlignment.spaceEvenly,
                 children: sandboxEntries.entries.map<Widget>(
-                  (MapEntry<RouteData, IPackageSandboxEntry<PackageSandboxThemeBase>> sandboxRoutedEntry) {
+                  (MapEntry<RouteData, IPackageSandboxEntry<ThemeBase>> sandboxRoutedEntry) {
                     return ConstrainedBox(
                       constraints: cardConstraints,
                       child: AspectRatio(
                         aspectRatio: 2 / 1,
                         child: SizedBox(
                           width: cardWidth,
-                          child: PackageSandboxWelcomeEntryCard<PackageSandboxThemeBase>(
+                          child: PackageSandboxWelcomeEntryCard<ThemeBase>(
                             routeData: sandboxRoutedEntry.key,
                             sandboxItem: sandboxRoutedEntry.value,
                           ),

@@ -16,9 +16,12 @@ final class _PackageSandboxEntryLayout<ThemeBase extends PackageSandboxThemeBase
 
   @override
   Widget compose(BuildContext context, Size windowSize, Size pageSize) {
+    const double headerItemsSpacing = 8;
+    const double headerPadding = 16;
+
     final ThemeBase theme = ThemingUtils.get(context);
 
-    final double paddedBox = pageSize.width - 34;
+    final double paddedBox = pageSize.width - (headerItemsSpacing + (headerPadding * 2));
     double descriptionWidth = paddedBox * .65;
     double deviceInfoWidth = paddedBox * .35;
     if (paddedBox < 600) {
@@ -33,7 +36,7 @@ final class _PackageSandboxEntryLayout<ThemeBase extends PackageSandboxThemeBase
       child: SizedBox.fromSize(
         size: pageSize,
         child: Padding(
-          padding: const EdgeInsets.all(16.0),
+          padding: const EdgeInsets.all(headerPadding),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
@@ -54,6 +57,8 @@ final class _PackageSandboxEntryLayout<ThemeBase extends PackageSandboxThemeBase
                   child: Wrap(
                     direction: Axis.horizontal,
                     alignment: WrapAlignment.spaceBetween,
+                    spacing: headerItemsSpacing,
+                    runSpacing: headerItemsSpacing,
                     children: <Widget>[
                       //* Description section
                       SizedBox(

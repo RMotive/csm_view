@@ -69,11 +69,7 @@ abstract class PackageSandboxViewBase<ThemeBase extends PackageSandboxThemeBase>
             routes: routesGraph,
             navigatorStateKey: itemLayoutKey,
             layoutBuilder: (BuildContext ctx, RoutingData routingData, Widget page) {
-              IPackageSandboxEntry<ThemeBase> sandboxEntry = packageEntriesGraph.entries
-                  .firstWhere(
-                    (MapEntry<RouteData, IPackageSandboxEntry<ThemeBase>> element) => element.key == routingData.targetRoute,
-                  )
-                  .value;
+              IPackageSandboxEntry<ThemeBase> sandboxEntry = packageEntriesGraph[routingData.targetRoute]!;
 
               return _PackageSandboxEntryLayout<ThemeBase>(
                 page: page,
@@ -132,45 +128,28 @@ abstract class PackageSandboxViewBase<ThemeBase extends PackageSandboxThemeBase>
 
   /// Composes the view contexts grapths.
   ///
-  /// [itemLayoutKey] is the [NavigationState] for the layout that handles how each item view is built.
+  /// [entriesLayoutKey] is the [NavigationState] for the layout that handles how each item view is built.
   ///
   /// [navigationLayourKey] is the [NavigationState] for the view navigation layout where user selects items.
-  (_Graph<ThemeBase>, _Graph<ThemeBase>, List<IRoutingGraphData>) composeContextGraphs(NavigationState itemLayoutKey, NavigationState navigationLayoutKey) {
-    _Graph<ThemeBase> navigationGraph = <RouteData, IPackageSandboxEntry<ThemeBase>>{};
-    _Graph<ThemeBase> packageItemsGraph = <RouteData, IPackageSandboxEntry<ThemeBase>>{};
+  (_Graph<ThemeBase>, _Graph<ThemeBase>, List<IRoutingGraphData>) composeContextGraphs(NavigationState entriesLayoutKey, NavigationState navigationLayoutKey) {
+    _Graph<ThemeBase> navGraph = SandboxUtils.buildRoutingGraph(sandboxEntries);
+    List<IRoutingGraphData> routes = SandboxUtils.buildGraphRoutes(
+      navGraph,
+      navigationLayoutKey,
+      entriesLayoutKey,
+    ).toList();
 
-    List<IRoutingGraphData> routes = <IRoutingGraphData>[];
-    for (IPackageSandboxEntry<ThemeBase> sandboxItem in sandboxEntries) {
-      String itemRoutePath = sandboxItem.name.toLowerCase().replaceAll(' ', '_');
+    _Graph<ThemeBase> entriesGraph = <RouteData, PSEntry<ThemeBase>>{};
+    for (MapEntry<RouteData, PSEntry<ThemeBase>> navGraphEntry in navGraph.entries) {
+      PSEntry<ThemeBase> psEntry = navGraphEntry.value;
 
-      RouteData entryRoute = RouteData(itemRoutePath, name: sandboxItem.name);
+      entriesGraph[navGraphEntry.key] = psEntry;
 
-      navigationGraph[entryRoute] = sandboxItem;
-      packageItemsGraph[entryRoute] = sandboxItem;
-
-      void nestedRoutesIterator(List<IRoutingGraphData> nestedRoutes) {
-        for (IRoutingGraphData nestedRoute in nestedRoutes) {
-          if (nestedRoute is RoutingGraphNodeDataBase) {
-            packageItemsGraph[nestedRoute.route] = sandboxItem;
-          }
-
-          nestedRoutesIterator(nestedRoute.routes);
-        }
+      if (psEntry case IPackageSandboxGroup<ThemeBase>(:Map<RouteData, IPackageSandboxEntry<ThemeBase>> routingGraph)) {
+        entriesGraph.addEntries(routingGraph.entries);
       }
-
-      List<IRoutingGraphData> nestdRoutes = sandboxItem.composeRoutes(navigationLayoutKey, itemLayoutKey);
-      routes.add(
-        RoutingGraphNode(
-          entryRoute,
-          routes: nestdRoutes,
-          pageBuilder: (BuildContext ctx, RoutingData routeData) => sandboxItem,
-        ),
-      );
-      nestedRoutesIterator(
-        sandboxItem.composeRoutes(navigationLayoutKey, itemLayoutKey),
-      );
     }
 
-    return (navigationGraph, packageItemsGraph, routes);
+    return (navGraph, entriesGraph, routes);
   }
 }

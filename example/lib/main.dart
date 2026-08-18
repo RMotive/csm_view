@@ -12,14 +12,14 @@ import 'package:flutter/material.dart';
 
 void main(List<String> args) {
   runApp(
-    ViewPackageLanding(),
+    PakageExampleSandbox(),
   );
 }
 
-///
-final class ViewPackageLanding extends PackageSandboxViewBase<ViewPackageThemeBase> {
+/// Package sandbox configuration, entry point where the example sandbox is built and configured.
+final class PakageExampleSandbox extends PackageSandboxViewBase<ViewPackageThemeBase> {
   /// Creates a new instance.
-  ViewPackageLanding()
+  PakageExampleSandbox()
       : super(
           name: 'CSM View',
           description: (ViewPackageThemeBase theme, Color foreColor) {

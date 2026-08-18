@@ -8,8 +8,12 @@ abstract interface class IPackageSandboxGroup<ThemeBase extends PackageSandboxTh
   /// Group items.
   final List<IPackageSandboxItem<ThemeBase>> sandboxItems;
 
+  /// Group items routing graph, for navigation behaviors.
+  final Map<RouteData, IPackageSandboxEntry<ThemeBase>> routingGraph;
+
   /// Creates a new instance.
   const IPackageSandboxGroup(
     this.sandboxItems,
+    this.routingGraph,
   );
 }

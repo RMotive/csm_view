@@ -10,8 +10,9 @@ abstract class PackageSandboxGroupBase<ThemeBase extends PackageSandboxThemeBase
   @override
   final List<IPackageSandboxItem<ThemeBase>> sandboxItems;
 
-  ///
-  late final Map<RouteData, IPackageSandboxItem<ThemeBase>> _sanbodItemsRoutingContext;
+  /// Group items routing graph, for navigation behaviors.
+  @override
+  late final Map<RouteData, IPackageSandboxEntry<ThemeBase>> routingGraph;
 
   /// Creates a new instance.
   PackageSandboxGroupBase({
@@ -25,18 +26,22 @@ abstract class PackageSandboxGroupBase<ThemeBase extends PackageSandboxThemeBase
           sandboxItems.isNotEmpty,
           'Sandbox entries group must have items',
         ) {
-    _sanbodItemsRoutingContext = SandboxUtils.buildRoutingGraph(sandboxItems);
+    routingGraph = SandboxUtils.buildRoutingGraph(sandboxItems);
   }
 
   @override
   List<IRoutingGraphData> composeRoutes(GlobalKey<NavigatorState> navLayoutKey, GlobalKey<NavigatorState> entryLayoutKey) {
-    return SandboxUtils.buildGraphRoutes(_sanbodItemsRoutingContext).toList();
+    return SandboxUtils.buildGraphRoutes(
+      routingGraph,
+      navLayoutKey,
+      entryLayoutKey,
+    ).toList();
   }
 
   @override
   Widget composeEntry(BuildContext buildContext, Size windowSize, ThemeBase theme) {
-    return PackageSandboxWelcomeEntryCardDashboard(
-      sandboxEntries: _sanbodItemsRoutingContext,
+    return PackageSandboxWelcomeEntryCardDashboard<ThemeBase>(
+      sandboxEntries: routingGraph,
     );
   }
 }
