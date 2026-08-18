@@ -109,9 +109,9 @@ final class _ViewModuleBaseState extends State<ViewModuleBase> {
         },
         successBuilder: (BuildContext context, void _) {
           return MaterialApp.router(
-            debugShowCheckedModeBanner: widget.showLegacyDebugBanner,
             routerConfig: routingGraph,
             restorationScopeId: 'view',
+            debugShowCheckedModeBanner: widget.showLegacyDebugBanner,
             builder: (BuildContext context, Widget? child) {
               final Widget viewBuild = _ThemeManagerUpdater(
                 themes: themes,

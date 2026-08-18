@@ -27,11 +27,6 @@ export 'src/abstractions/interfaces/iview_page.dart';
 export 'src/abstractions/bases/view_layout_base.dart';
 export 'src/abstractions/interfaces/iview_layout.dart';
 
-//! --> Exporting [Core]
-export 'src/core/enums.dart';
-export 'src/core/typedefs.dart';
-export 'src/core/extensions.dart';
-
 export 'src/core/extensions/mixins/console_mixin.dart';
 export 'src/core/extensions/mixins/matching_mixin.dart';
 export 'src/core/extensions/mixins/platform_mixin.dart';

@@ -26,7 +26,7 @@ final class _ActionButtonState extends State<_ActionButton> {
   late ICategoryLayoutThemeData themeData;
 
   /// [Widget] current state.
-  CSMStates state = CSMStates.none;
+  InputStates state = InputStates.none;
 
   /// {state} whether the current [Widget] is waiting to finish invokation.
   bool isLoading = false;
@@ -60,7 +60,7 @@ final class _ActionButtonState extends State<_ActionButton> {
 
     setState(() {
       isLoading = true;
-      state = CSMStates.selected;
+      state = InputStates.selected;
     });
 
     await widget.actionData.perform(context);
@@ -73,7 +73,7 @@ final class _ActionButtonState extends State<_ActionButton> {
   /// {event} Triggered when the user mouse pointer is in / out button pointer area.
   void onHover(bool $in) {
     setState(() {
-      state = $in ? CSMStates.hovered : CSMStates.none;
+      state = $in ? InputStates.hovered : InputStates.none;
     });
   }
 
@@ -112,7 +112,7 @@ final class _ActionButtonState extends State<_ActionButton> {
     InputControlTheming theming = state.evaluateTheme(themeData.categoryLayoutRibbonActionButton);
 
     Color back = canExecute ? theming.background! : themeData.controlDisabled.back;
-    if (!canExecute && state == CSMStates.hovered) {
+    if (!canExecute && state == InputStates.hovered) {
       back = back.withValues(
         alpha: .7,
       );

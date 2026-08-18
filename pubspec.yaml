@@ -20,6 +20,8 @@ dependencies:
   go_router: ^17.0.0
   get_it: ^9.0.5
   intl: ^0.20.2
+  flutter_localizations:
+    sdk: flutter
   
 dev_dependencies:
   flutter_test:

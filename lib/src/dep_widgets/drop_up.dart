@@ -56,7 +56,7 @@ final class _DropUpState<T> extends State<DropUp<T>> with TickerProviderStateMix
   late IThemeData themeData;
 
   /// {state} [Widget] {csm} handled state.
-  CSMStates state = CSMStates.none;
+  InputStates state = InputStates.none;
 
   /// {state} [Widget] background color.
   late Color bgColor;
@@ -136,7 +136,7 @@ final class _DropUpState<T> extends State<DropUp<T>> with TickerProviderStateMix
   /// {event} triggered when [DropUp] has a {hover} interaction.
   void onHover(bool $in) {
     setState(() {
-      state = $in ? CSMStates.hovered : CSMStates.none;
+      state = $in ? InputStates.hovered : InputStates.none;
       _defineColors();
     });
   }
@@ -151,7 +151,7 @@ final class _DropUpState<T> extends State<DropUp<T>> with TickerProviderStateMix
       fgColor = themeData.controlDisabled.fore;
       return;
     }
-    if (state == CSMStates.hovered) {
+    if (state == InputStates.hovered) {
       bgColor = bgColor.withValues(
         alpha: .85,
       );
