@@ -1,4 +1,4 @@
-import 'package:csm_view/csm_view.dart';
+import 'package:csm_view/src/core/extensions/string_extensions.dart';
 import 'package:flutter/material.dart';
 
 /// Mixin that provides console messaging methods.

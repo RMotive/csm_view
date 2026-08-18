@@ -1,7 +1,7 @@
 import 'package:csm_view/src/core/utils/comparisson_utils.dart';
 
 /// Provides comparisson methods.
-mixin ComparerMixin {
+mixin MatchingMixin {
   /// Decides to wheter the given references is equal to one of the given cases.
   ///
   /// [value] - The reference object to compare with.

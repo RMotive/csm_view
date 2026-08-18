@@ -55,11 +55,11 @@ export 'src/core/enums.dart';
 export 'src/core/typedefs.dart';
 export 'src/core/extensions.dart';
 
-export 'src/core/mixins/console_mixin.dart';
-export 'src/core/mixins/comparer_mixin.dart';
-export 'src/core/mixins/platform_mixin.dart';
-export 'src/core/mixins/theming_mixin.dart';
-export 'src/core/mixins/themin_state_mixin.dart';
+export 'src/core/extensions/mixins/console_mixin.dart';
+export 'src/core/extensions/mixins/matching_mixin.dart';
+export 'src/core/extensions/mixins/platform_mixin.dart';
+export 'src/core/extensions/mixins/theming_mixin.dart';
+export 'src/core/extensions/mixins/themin_state_mixin.dart';
 
 export 'src/core/utils/injector_utils.dart';
 export 'src/core/utils/theming_utils.dart';
