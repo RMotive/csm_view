@@ -6,6 +6,7 @@ library;
 export 'src/view/_view_module.dart';
 export 'src/theming/_theming_module.dart';
 export 'src/routing/_routing_module.dart';
+export 'src/widgets_v2/_widgets_module.dart';
 
 // --> Package proxies
 export 'package:device_info_plus/device_info_plus.dart' show AndroidDeviceInfo, IosDeviceInfo, LinuxDeviceInfo, WindowsDeviceInfo, WebBrowserInfo, BaseDeviceInfo;
@@ -15,7 +16,7 @@ export 'src/view/sandbox/_sandbox_module.dart'; //* Sandbox Module
 
 //! --> Exporting modules
 export 'src/core/_core_module.dart';
-export 'src/dep_widgets/widgets_module.dart';
+export 'src/widgets/widgets_module.dart';
 export 'src/abstractions/abstractions_module.dart';
 
 //! --> Exporing [src]
@@ -44,25 +45,25 @@ export 'src/core/tools/widget_responsiveness/responsiveness_breakpoint.dart';
 export 'src/core/tools/widget_responsiveness/responsiveness_breakpoint_value.dart';
 
 //! --> Exporting [Widgets]
-export 'src/dep_widgets/abstractions/bases/reactor_base.dart';
-export 'src/dep_widgets/abstractions/interfaces/ireactor.dart';
+export 'src/widgets/abstractions/bases/reactor_base.dart';
+export 'src/widgets/abstractions/interfaces/ireactor.dart';
 
-export 'src/dep_widgets/abstractions/bases/reactive_widget_base.dart';
-export 'src/dep_widgets/abstractions/interfaces/ireactive_widget.dart';
+export 'src/widgets/abstractions/bases/reactive_widget_base.dart';
+export 'src/widgets/abstractions/interfaces/ireactive_widget.dart';
 
-export 'src/dep_widgets/business_widgets/password_input.dart';
+export 'src/widgets/business_widgets/password_input.dart';
 
-export 'src/dep_widgets/text_input.dart';
-export 'src/dep_widgets/button_flat.dart';
-export 'src/dep_widgets/bordered_box.dart';
-export 'src/dep_widgets/pointer_area.dart';
-export 'src/dep_widgets/theme_switcher.dart';
-export 'src/dep_widgets/reactive_widget.dart';
-export 'src/dep_widgets/loading_indicator.dart';
-export 'src/dep_widgets/responsive_widget.dart';
-export 'src/dep_widgets/async_widget/async_widget.dart';
-export 'src/dep_widgets/message_widgets/message_widget.dart';
-export 'src/dep_widgets/message_widgets/error_message_widget.dart';
+export 'src/widgets/text_input.dart';
+export 'src/widgets/button_flat.dart';
+export 'src/widgets/bordered_box.dart';
+export 'src/widgets/pointer_area.dart';
+export 'src/widgets/theme_switcher.dart';
+export 'src/widgets/reactive_widget.dart';
+export 'src/widgets/loading_indicator.dart';
+export 'src/widgets/responsive_widget.dart';
+export 'src/widgets/async_widget/async_widget.dart';
+export 'src/widgets/message_widgets/message_widget.dart';
+export 'src/widgets/message_widgets/error_message_widget.dart';
 
 
 //! --> Exporting [Landing]
