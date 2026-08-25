@@ -5,15 +5,59 @@ import 'package:flutter/material.dart';
 /// Represents the sandbox item for [Selector].
 final class SelectorItem extends PackageSandboxItemBase<ViewPackageThemeBase> {
   /// Creates a new instance.
-  SelectorItem({
-    required super.name,
-    required super.description,
-  });
+  SelectorItem()
+      : super(
+          name: 'Selector',
+          description: (ViewPackageThemeBase theme, Color foreColor) {
+            return TextSpan(
+              text: 'A Widget that handles selection along a set of values.',
+            );
+          },
+        );
 
   @override
   Widget composeEntry(BuildContext buildContext, Size windowSize, ViewPackageThemeBase theme) {
-    return Center(
-      child: Selector(),
+    return Wrap(
+      children: <_SelectorContainer>[
+        _SelectorContainer(
+          title: 'Cards Selector',
+          selectorWidget: Selector<String>(
+            cardSize: WidgetSize(
+              250,
+              null,
+            ),
+            values: <NamedValue<String>>[
+              NamedValue.fromValue('Hello'),
+              NamedValue.fromValue('These'),
+              NamedValue.fromValue('Are'),
+              NamedValue.fromValue('Options'),
+            ],
+          ),
+        )
+      ],
+    );
+  }
+}
+
+final class _SelectorContainer extends StatelessWidget {
+  final String title;
+
+  final Widget selectorWidget;
+
+  const _SelectorContainer({
+    required this.title,
+    required this.selectorWidget,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      child: Column(
+        children: <Widget>[
+          Text(title),
+          selectorWidget,
+        ],
+      ),
     );
   }
 }

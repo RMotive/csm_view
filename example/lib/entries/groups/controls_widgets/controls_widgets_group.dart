@@ -1,4 +1,5 @@
 import 'package:csm_view/csm_view.dart';
+import 'package:example/entries/groups/controls_widgets/items/selector_item.dart';
 import 'package:example/theme/view_package_theme_base.dart';
 import 'package:flutter/material.dart';
 
@@ -13,6 +14,8 @@ final class ControlsWidgetsGroup extends PackageSandboxGroupBase<ViewPackageThem
               text: 'These widgets handle basic interaction with the system with no direct input, like buttons, switches, gestures or any other interaction with the system.',
             );
           },
-          sandboxItems: <IPackageSandboxItem<ViewPackageThemeBase>>[],
+          sandboxItems: <IPackageSandboxItem<ViewPackageThemeBase>>[
+            SelectorItem(),
+          ],
         );
 }

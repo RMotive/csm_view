@@ -1,6 +1,5 @@
 // ignore_for_file: directives_ordering
 
-
 //* Exporting module
 export 'typedefs.dart';
 export 'extensions.dart';
@@ -8,6 +7,8 @@ export 'extensions.dart';
 export 'enums/platforms.dart';
 export 'enums/input_states.dart';
 
+export 'models/named_value.dart';
+export 'models/widget_size.dart';
 
 //! --> Exporting modules
 export 'constants/core_view_messages.dart';

@@ -27,7 +27,6 @@ abstract class ThemeDataBase implements IThemeData {
   @override
   final ThemingData control;
 
-
   /// Theming data for dialogs.
   @override
   final ThemingData dialog;

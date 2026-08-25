@@ -1,2 +1,2 @@
 //* Exporting [controls]
-export 'controls/selector.dart';
+export 'controls/selector/selector.dart';
