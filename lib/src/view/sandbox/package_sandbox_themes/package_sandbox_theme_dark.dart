@@ -46,5 +46,25 @@ class PackageSandboxThemeDark extends PackageSandboxThemeBase {
             fore: Colors.white,
             accent: Colors.brown[900]!,
           ),
+          navigationLayout: ThemingData(
+            back: Colors.blue[900]!,
+            fore: Colors.white70,
+            accent: Colors.orange,
+          ),
+          primaryControlCard: StatefulControlThemeData<CardControlThemeData>(
+            $default: CardControlThemeData(
+              borderColor: Colors.orange,
+            ),
+            atHover: CardControlThemeData(
+              bgColor: Color.lerp(Colors.orange, Color(0xFF1C1C1D), .5),
+              txtStyle: const TextStyle(
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            atSelected: CardControlThemeData(
+              bgColor: Colors.orange,
+            ),
+            atFocused: CardControlThemeData(),
+          ),
         );
 }

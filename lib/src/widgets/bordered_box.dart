@@ -12,7 +12,10 @@ final class BorderedBox extends StatelessWidget {
   final Color? color;
 
   /// Border width size.
-  final double borderWidth;
+  final double thickness;
+
+  /// Border radius values.
+  final BorderRadiusGeometry? radius;
 
   /// Content [child] padding.
   final EdgeInsets padding;
@@ -21,7 +24,8 @@ final class BorderedBox extends StatelessWidget {
   const BorderedBox({
     super.key,
     this.color,
-    this.borderWidth = .75,
+    this.radius,
+    this.thickness = .75,
     this.padding = const EdgeInsets.only(
       top: 8,
     ),
@@ -34,10 +38,11 @@ final class BorderedBox extends StatelessWidget {
 
     return DecoratedBox(
       decoration: BoxDecoration(
+        borderRadius: radius,
         border: Border.fromBorderSide(
           BorderSide(
             color: borderColor,
-            width: borderWidth,
+            width: thickness,
           ),
         ),
       ),

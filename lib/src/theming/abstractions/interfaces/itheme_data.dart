@@ -18,7 +18,9 @@ abstract interface class IThemeData {
   /// Theming data for all the application pages.
   final ThemingData page;
 
-  /// Theming data for all application primary controls.
+  /// ---> View Foundation Theming <--- ///
+
+  /// Theming dat for [ViewModuleBase] controls.
   final ThemingData control;
 
   /// Theming data for all application primary controls when they are at { error } state.
@@ -33,6 +35,9 @@ abstract interface class IThemeData {
   /// Theming data for dialogs.
   final ThemingData dialog;
 
+  /// Primary [ViewModuleBase] control cards theming data. 
+  final StatefulControlThemeData<CardControlThemeData> primaryControlCard;
+
   /// Creates a new instance.
   const IThemeData(
     this.icon,
@@ -45,5 +50,6 @@ abstract interface class IThemeData {
     this.controlSuccess,
     this.iconBackground,
     this.controlDisabled,
+    this.primaryControlCard,
   );
 }

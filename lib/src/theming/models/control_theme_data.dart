@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 /// Defines specifications for a [CSMGenericTheme].
 ///
 /// [CSMGenericTheme] concept: specifications to describe the base theme for a generic component component.
-final class InputControlTheming {
+final class ControlThemeData {
   /// Defines the control surface color
   final Color? background;
 
@@ -39,8 +39,8 @@ final class InputControlTheming {
     );
   }
 
-  /// Generates a new [InputControlTheming] options.
-  const InputControlTheming({
+  /// Generates a new [ControlThemeData] options.
+  const ControlThemeData({
     this.background,
     this.foreground,
     this.borderColor,
@@ -50,10 +50,10 @@ final class InputControlTheming {
   })  : _textStyle = textStyle,
         _iconColor = iconColor;
 
-  /// Generates a new [InputControlTheming] as a factory.
+  /// Generates a new [ControlThemeData] as a factory.
   ///
   /// Replacing all the given properties with the previous existent ones.
-  InputControlTheming replace({
+  ControlThemeData replace({
     Color? background,
     Color? foreground,
     Color? borderColor,
@@ -61,7 +61,7 @@ final class InputControlTheming {
     Color? iconColor,
     TextStyle? textStyle,
   }) {
-    return InputControlTheming(
+    return ControlThemeData(
       background: background ?? this.background,
       foreground: foreground ?? this.foreground,
       borderColor: borderColor ?? this.borderColor,

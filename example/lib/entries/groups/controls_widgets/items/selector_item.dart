@@ -17,24 +17,57 @@ final class SelectorItem extends PackageSandboxItemBase<ViewPackageThemeBase> {
 
   @override
   Widget composeEntry(BuildContext buildContext, Size windowSize, ViewPackageThemeBase theme) {
-    return Wrap(
-      children: <_SelectorContainer>[
-        _SelectorContainer(
-          title: 'Cards Selector',
-          selectorWidget: Selector<String>(
-            cardSize: WidgetSize(
-              250,
-              null,
+    return Padding(
+      padding: const EdgeInsets.all(12.0),
+      child: SizedBox(
+        width: windowSize.width,
+        height: windowSize.height,
+        child: Wrap(
+          alignment: WrapAlignment.center,
+          children: <_SelectorContainer>[
+        
+            /// Multi selection container
+            _SelectorContainer(
+              title: 'Multi Selection',
+              selectorWidget: Selector<String>(
+                values: <NamedValue<String>>[
+                  NamedValue.fromValue('Hello'),
+                  NamedValue.fromValue('These'),
+                  NamedValue.fromValue('Are'),
+                  NamedValue.fromValue('Options'),
+                ],
+                cardsConfig: SelectorCardsConfig<String>(
+                  onMultiSelection: (List<String> newSelection, List<String> prevSelection, [List<String>? delta]) {},
+                  cardSize: WidgetSize(
+                    250,
+                    null,
+                  ),
+                ),
+              ),
             ),
-            values: <NamedValue<String>>[
-              NamedValue.fromValue('Hello'),
-              NamedValue.fromValue('These'),
-              NamedValue.fromValue('Are'),
-              NamedValue.fromValue('Options'),
-            ],
-          ),
-        )
-      ],
+
+            /// Single selection container
+            _SelectorContainer(
+              title: 'Single Selection',
+              selectorWidget: Selector<String>(
+                values: <NamedValue<String>>[
+                  NamedValue.fromValue('Hello'),
+                  NamedValue.fromValue('These'),
+                  NamedValue.fromValue('Are'),
+                  NamedValue.fromValue('Options'),
+                ],
+                cardsConfig: SelectorCardsConfig<String>(
+                  onSingleSelection: (String? newSelected, String? prevSelected) {},
+                  cardSize: WidgetSize(
+                    250,
+                    null,
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
@@ -51,12 +84,21 @@ final class _SelectorContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      child: Column(
-        children: <Widget>[
-          Text(title),
-          selectorWidget,
-        ],
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: SizedBox(
+        child: Column(
+          spacing: 12,
+          children: <Widget>[
+            Text(
+              title,
+              style: TextStyle(
+                fontSize: 22,
+              ),
+            ),
+            selectorWidget,
+          ],
+        ),
       ),
     );
   }

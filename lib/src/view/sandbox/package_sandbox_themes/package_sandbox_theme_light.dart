@@ -1,5 +1,4 @@
-import 'package:csm_view/src/theming/models/theming_data.dart';
-import 'package:csm_view/src/view/sandbox/abstractions/bases/package_sandbox_theme_base.dart';
+import 'package:csm_view/csm_view.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart' show Colors, Icons;
 
@@ -46,6 +45,17 @@ class PackageSandboxThemeLight extends PackageSandboxThemeBase {
             back: Color(0xfff2f2f2),
             fore: Colors.black,
             accent: Colors.brown[900]!,
+          ),
+          navigationLayout: ThemingData(
+            back: Colors.blue[900]!,
+            fore: Colors.white70,
+            accent: Colors.orange,
+          ),
+          primaryControlCard: StatefulControlThemeData<CardControlThemeData>(
+            $default: CardControlThemeData(),
+            atHover: CardControlThemeData(),
+            atFocused: CardControlThemeData(),
+            atSelected: CardControlThemeData(),
           ),
         );
 }

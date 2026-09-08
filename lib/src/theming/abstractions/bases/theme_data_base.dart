@@ -23,7 +23,9 @@ abstract class ThemeDataBase implements IThemeData {
   @override
   final ThemingData page;
 
-  /// Theming data for all application primary controls.
+  /// ---> View Foundation Theming <--- ///
+
+  /// Theming dat for [ViewModuleBase] controls.
   @override
   final ThemingData control;
 
@@ -43,6 +45,10 @@ abstract class ThemeDataBase implements IThemeData {
   @override
   final ThemingData controlDisabled;
 
+  /// Primary [ViewModuleBase] cards theming data. 
+  @override
+  final StatefulControlThemeData<CardControlThemeData> primaryControlCard;
+
   /// Creates a new instance.
   const ThemeDataBase(
     this.identifier, {
@@ -51,6 +57,7 @@ abstract class ThemeDataBase implements IThemeData {
     required this.page,
     required this.dialog,
     required this.control,
+    required this.primaryControlCard,
     required this.controlError,
     required this.controlSuccess,
     required this.iconBackground,

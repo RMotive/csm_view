@@ -5,7 +5,6 @@ export 'typedefs.dart';
 export 'extensions.dart';
 
 export 'enums/platforms.dart';
-export 'enums/input_states.dart';
 
 export 'models/named_value.dart';
 export 'models/widget_size.dart';

@@ -25,9 +25,6 @@ final class _ActionButtonState extends State<_ActionButton> {
   /// {state} application theme data.
   late ICategoryLayoutThemeData themeData;
 
-  /// [Widget] current state.
-  InputStates state = InputStates.none;
-
   /// {state} whether the current [Widget] is waiting to finish invokation.
   bool isLoading = false;
 
@@ -60,7 +57,6 @@ final class _ActionButtonState extends State<_ActionButton> {
 
     setState(() {
       isLoading = true;
-      state = InputStates.selected;
     });
 
     await widget.actionData.perform(context);
@@ -72,9 +68,7 @@ final class _ActionButtonState extends State<_ActionButton> {
 
   /// {event} Triggered when the user mouse pointer is in / out button pointer area.
   void onHover(bool $in) {
-    setState(() {
-      state = $in ? InputStates.hovered : InputStates.none;
-    });
+    setState(() {});
   }
 
   /// Evaluates if the current [_ActionButton] can be executed by the user.
@@ -109,16 +103,9 @@ final class _ActionButtonState extends State<_ActionButton> {
 
   @override
   Widget build(BuildContext context) {
-    InputControlTheming theming = state.evaluateTheme(themeData.categoryLayoutRibbonActionButton);
+    Color back = Colors.red;
 
-    Color back = canExecute ? theming.background! : themeData.controlDisabled.back;
-    if (!canExecute && state == InputStates.hovered) {
-      back = back.withValues(
-        alpha: .7,
-      );
-    }
-
-    Color fore = canExecute ? theming.foreground! : themeData.controlDisabled.fore;
+    Color fore = Colors.yellow;
 
     return PointerArea(
       cursor: isLoading ? MouseCursor.defer : SystemMouseCursors.click,
@@ -135,7 +122,7 @@ final class _ActionButtonState extends State<_ActionButton> {
               visible: !isLoading,
               replacement: LoadingIndicator(
                 fit: BoxFit.fitHeight,
-                foreColor: theming.foreground!,
+                foreColor: Colors.orange,
               ),
               child: Padding(
                 padding: const EdgeInsets.symmetric(

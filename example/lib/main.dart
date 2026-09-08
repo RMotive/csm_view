@@ -57,8 +57,8 @@ final class PakageExampleSandbox extends PackageSandboxViewBase<ViewPackageTheme
   @override
   List<ViewPackageThemeBase> bootstrapTheming() {
     return <ViewPackageThemeBase>[
-      CSMViewThemeLight(),
       CSMViewThemeDark(),
+      CSMViewThemeLight(),
     ];
   }
 
