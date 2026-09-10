@@ -49,7 +49,7 @@ final class NavigationLayout extends ViewLayoutBase implements INavigationLayout
   Widget compose(BuildContext buildContext, Size windowSize, Size pageSize) {
     final INavigationLayoutHeaderUserData? userData = this.userData ?? userDataBuilder?.call();
 
-    return ResponsiveWidget(
+    return ResponsiveLayout(
       onLarge: _NavigationLayoutLargeView(
         page: page,
         appLogo: appLogo,
