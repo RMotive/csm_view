@@ -1,5 +1,4 @@
-import 'package:csm_client_core/csm_client_core.dart';
-import 'package:flutter/widgets.dart';
+part of '../entity_table.dart';
 
 /// {model} class.
 ///

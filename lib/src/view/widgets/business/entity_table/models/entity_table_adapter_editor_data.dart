@@ -1,6 +1,4 @@
-import 'package:csm_client_core/csm_client_core.dart';
-import 'package:csm_view/csm_view.dart';
-import 'package:flutter/widgets.dart';
+part of '../entity_table.dart';
 
 /// Represents [EntityTableAdapterEditor] data to interact with the inner [Widget].
 final class EntityTableAdapterEditorData<TEntity extends IEntity<TEntity>> {

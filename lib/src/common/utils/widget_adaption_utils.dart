@@ -1,5 +1,4 @@
 import 'package:csm_view/csm_view.dart';
-import 'package:csm_view/src/common/utils/platform_utils.dart';
 import 'package:flutter/foundation.dart';
 
 /// Utilities class that provides methods for [Widget] adaption.

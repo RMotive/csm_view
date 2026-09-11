@@ -23,7 +23,7 @@ final class UpdateEntityDialogEntry extends PackageSandboxItemBase<ViewPackageTh
           showDialog(
             context: buildContext,
             builder: (BuildContext context) {
-              return UpdateEntityDialog<EntityEx>(
+              return EntityDeltaViewDialog<EntityEx>(
                 differences: <ObjectDifference>[
                   // --> String example difference
                   ObjectDifference(
@@ -49,7 +49,11 @@ final class UpdateEntityDialogEntry extends PackageSandboxItemBase<ViewPackageTh
                     <ObjectDifference>[
                       // --> Nested Entity Value Difference
                       ObjectDifference(
-                        PropertyInfo('Nested Property', String, 'old Value 2'),
+                        PropertyInfo(
+                          'Nested Property',
+                          String,
+                          'old Value 2',
+                        ),
                         'old Value 2',
                         'New Value 2',
                         null,

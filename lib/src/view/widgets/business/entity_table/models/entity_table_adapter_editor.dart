@@ -1,8 +1,4 @@
-import 'package:csm_client_core/csm_client_core.dart';
-import 'package:csm_view/csm_view.dart';
-import 'package:flutter/material.dart';
-
-export 'entity_table_adapter_editor_data.dart';
+part of '../entity_table.dart';
 
 /// Represents an [EntityTable] editor mode configuration.
 ///

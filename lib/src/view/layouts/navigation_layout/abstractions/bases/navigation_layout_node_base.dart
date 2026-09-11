@@ -1,5 +1,4 @@
-import 'package:csm_view/csm_view.dart';
-import 'package:flutter/material.dart';
+part of '../../navigation_layout.dart';
 
 /// Represents a navigation layout node, drawing a button to access the page at the menu.
 abstract class NavigationLayoutNodeBase implements INavigationLayoutNode {

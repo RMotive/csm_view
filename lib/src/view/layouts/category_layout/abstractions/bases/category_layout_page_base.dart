@@ -1,4 +1,4 @@
-import 'package:csm_view/csm_view.dart';
+part of './../../category_layout.dart';
 
 /// Represents a [CategoryLayout] page.
 abstract class CategoryLayoutPageBase implements ICategoryLayoutPage {

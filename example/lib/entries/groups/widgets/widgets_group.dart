@@ -1,6 +1,5 @@
 import 'package:csm_view/csm_view.dart';
 import 'package:example/entries/groups/widgets/checkbox_input_entry.dart';
-import 'package:example/entries/groups/widgets/enum_selector.entry.dart';
 import 'package:example/entries/groups/widgets/form_input_group_entry.dart';
 import 'package:example/entries/groups/widgets/property_group_viewer_entry.dart';
 import 'package:example/entries/groups/widgets/property_viewer_entry.dart';
@@ -19,7 +18,6 @@ final class WidgetsGroup extends PackageSandboxGroupBase<ViewPackageThemeBase> {
           },
           sandboxItems: <IPackageSandboxItem<ViewPackageThemeBase>>[
             CheckboxInputEntry(),
-            EnumSelectorEntry(),
             FormInputGroupEntry(),
             PropertyViewerEntry(),
             PropertyGroupViewerEntry(),

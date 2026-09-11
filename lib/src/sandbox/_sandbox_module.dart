@@ -23,3 +23,8 @@ export 'widgets/package_sandbox_welcome_entry_card_dashboard.dart';
 export 'package_sandbox_item.dart';
 export 'package_sandbox_group.dart';
 export 'package_sandbox_configurable_item.dart';
+
+// > Exporting content.
+// >> Exporting [/themes]
+export 'themes/package_sandbox_theme_dark.dart';
+export 'themes/package_sandbox_theme_light.dart';

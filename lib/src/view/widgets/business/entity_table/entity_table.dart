@@ -4,23 +4,22 @@ import 'package:csm_client_core/csm_client_core.dart';
 import 'package:csm_view/csm_view.dart' hide LayoutBuilder;
 import 'package:flutter/material.dart';
 
-// > Exporting content
-export 'ientity_table_adapter.dart';
-export 'models/entity_table_adapter_deleter.dart';
-export 'models/entity_table_adapter_editor.dart';
-export 'models/entity_table_column_data.dart';
-export 'widgets/entity_table_adapter_viewer.dart';
+// > Encapsulating [/models]
+part 'models/entity_table_column_data.dart';
+part 'models/entity_table_adapter_editor.dart';
+part 'models/entity_table_adapter_deleter.dart';
+part 'models/entity_table_adapter_editor_data.dart';
 
-part '../../../../dep_widgets/abstractions/bases/entity_table_adapter_base.dart';
-part '_entity_table_refresh_notifier.dart';
+// > Encapsulating [/widgets]
 part 'widgets/_entity_table_content.dart';
 part 'widgets/_entity_table_drawer.dart';
+part 'widgets/_entity_table_header.dart';
 part 'widgets/_entity_table_drawer_action.dart';
-part 'widgets/_entity_table_drawer_content.dart';
 part 'widgets/_entity_table_drawer_editor.dart';
 part 'widgets/_entity_table_drawer_header.dart';
+part 'widgets/entity_table_adapter_viewer.dart';
+part 'widgets/_entity_table_drawer_content.dart';
 part 'widgets/_entity_table_error_indicator.dart';
-part 'widgets/_entity_table_header.dart';
 part 'widgets/_entity_table_loading_indicator.dart';
 
 /// Default column width.
@@ -28,6 +27,80 @@ const double _kColumnWidth = 200;
 
 /// Default details drawer width
 const double _kDetailsWidth = 400;
+
+/// Represents an [EntityTable] refresh request notifier.
+final class _EntityTableRefreshNotifier extends ChangeNotifier {
+  /// Notify listeners to refresh.
+  void refresh() {
+    notifyListeners();
+  }
+}
+
+/// Represents an [IEntity] based table adapter configuration.
+abstract interface class IEntityTableAdapter<TEntity extends IEntity<TEntity>> {
+  /// Creates a new instance.
+  const IEntityTableAdapter();
+
+  /// Composes the auth token to use for direct {csm} services comunication.
+  FutureOr<String> composeAuth();
+
+  /// Adds a callback action triggered when the [refresh] operation has been called.
+  ///
+  /// [callback] action callback to subscribe to notifier handle.
+  void listenRefresh(VoidCallback callback);
+
+  /// Refreshes the [EntityTable] instance adapted.
+  void refresh();
+
+  /// Disposes [IEntityTableAdapter] instance resources.
+  void dispose();
+
+  /// Composes the conifgurations adapted for {Edition} [EntityTable] behavior.
+  EntityTableAdapterEditor<TEntity>? composeEditor();
+
+  /// Composes the conifgurations adapted for {Deeltion} [EntityTable] behavior.
+  EntityTableAdapterDeleter<TEntity>? composeDeleter();
+
+  /// Composes the view details drawer at the [EntityTable].
+  Widget composeViewer(BuildContext buildContext, TEntity entity);
+}
+
+/// Represents an [IEntity] based table adapter configuration.
+abstract class EntityTableAdapterBase<TEntity extends IEntity<TEntity>> implements IEntityTableAdapter<TEntity> {
+  /// Internal reference for [refresh] notification to listeners.
+  final _EntityTableRefreshNotifier _refreshNotifier = _EntityTableRefreshNotifier();
+
+  /// Creates a new [EntityTableAdapterBase] instance.
+  EntityTableAdapterBase();
+
+  @override
+  @mustCallSuper
+  void listenRefresh(VoidCallback callback) {
+    _refreshNotifier.addListener(callback);
+  }
+
+  @override
+  @mustCallSuper
+  void dispose() {
+    _refreshNotifier.dispose();
+  }
+
+  @override
+  void refresh() {
+    _refreshNotifier.refresh();
+  }
+
+  @override
+  FutureOr<String> composeAuth();
+
+  /// Composes the conifgurations adapted for {Edition} [EntityTable] behavior.
+  @override
+  EntityTableAdapterEditor<TEntity>? composeEditor() => null;
+
+  /// Composes the conifgurations adapted for {Deeltion} [EntityTable] behavior.
+  @override
+  EntityTableAdapterDeleter<TEntity>? composeDeleter() => null;
+}
 
 /// {widget} class.
 ///

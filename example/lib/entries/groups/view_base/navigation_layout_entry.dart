@@ -54,7 +54,7 @@ final class NavigationLayoutEntry extends PackageSandboxItemBase<ViewPackageThem
       ),
       homeRouteData: homeRouteData,
       page: SizedBox(
-        child: CreateEntityForm<EntityEx, IServiceEx>(
+        child: EntityCreateForm<EntityEx, IServiceEx>(
           factory: () => EntityEx(),
           authFactory: (BuildContext context) => '',
           recordDesigner: (EntityEx entity, bool selected, bool valid) {
@@ -72,7 +72,7 @@ final class NavigationLayoutEntry extends PackageSandboxItemBase<ViewPackageThem
               ],
             );
           },
-          formDesigner: (CreateEntityFormRecordReactor<EntityEx>? itemState, ScrollController scrollController) {
+          formDesigner: (EntityCreateFormRecordReactor<EntityEx>? itemState, ScrollController scrollController) {
             return Column(
               children: <Widget>[
                 /// properties.

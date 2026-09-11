@@ -1,3 +1,3 @@
-//! Exporting modules
-export 'category_layout/_category_layout_module.dart';
-export 'navigation_layout/_navigation_layout_module.dart';
+// > Exporting content.
+export 'category_layout/category_layout.dart';
+export 'navigation_layout/navigation_layout.dart';

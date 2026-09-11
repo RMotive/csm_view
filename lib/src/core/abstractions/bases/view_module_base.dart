@@ -6,9 +6,6 @@ import 'package:csm_view/src/core/routing/abstractions/interfaces/irouting_graph
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart' hide Router;
 
-part '../../../dep_widgets/_view_module_welcome.dart';
-part '../../../dep_widgets/_view_module_size.dart';
-
 /// Represents a solution { View } module.
 abstract class ViewModuleBase extends StatefulWidget {
   /// Whether the view displays context sizing frame.
@@ -195,6 +192,79 @@ final class _ThemeManagerUpdaterState extends State<_ThemeManagerUpdater> {
         });
       },
       child: widget.child,
+    );
+  }
+}
+
+/// Private [Widget] for [_ThemeManagerUpdater] used to display the frame size indicator when [_ThemeManagerUpdater.useSizingFrame] and [kDebugMode] are true.
+final class _ViewModuleSize extends StatelessWidget {
+  /// Creates a new instance.
+  const _ViewModuleSize();
+
+  @override
+  Widget build(BuildContext context) {
+    Size frameSize = MediaQuery.sizeOf(context);
+    IThemeData currentTheme = ThemingUtils.get(context);
+
+    return Text(
+      frameSize.toString(),
+      style: TextStyle(
+        fontSize: 16,
+        backgroundColor: Colors.transparent,
+        decoration: TextDecoration.none,
+        color: currentTheme.frame,
+        fontStyle: FontStyle.italic,
+      ),
+    );
+  }
+}
+
+/// A page that displays a welcome to the users when they just opens
+/// the view.
+final class _ViewModuleWelcome extends StatelessWidget {
+  const _ViewModuleWelcome();
+
+  @override
+  Widget build(BuildContext context) {
+    final String system = !kIsWeb ? Platform.operatingSystemVersion : 'browser';
+
+    return ColoredBox(
+      color: Colors.blueGrey,
+      child: Column(
+        spacing: 24,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          const Image(
+            image: AssetImage(
+              'assets/business/business_icon.png',
+              package: 'csm_view',
+            ),
+            width: 124,
+            height: 124,
+          ),
+          const Text('Welcome to your CSM application!'),
+          const Text(
+            'Checkout documentation at CDN source.',
+            style: TextStyle(
+              color: Colors.amber,
+            ),
+          ),
+          RichText(
+            text: TextSpan(
+              text: 'Running on: ',
+              style: const TextStyle(fontSize: 16),
+              children: <InlineSpan>[
+                TextSpan(
+                  text: '[${defaultTargetPlatform.name} | ($system)]',
+                  style: const TextStyle(
+                    color: kIsWeb ? Colors.orange : Colors.lightGreen,
+                  ),
+                ),
+              ],
+            ),
+          )
+        ],
+      ),
     );
   }
 }

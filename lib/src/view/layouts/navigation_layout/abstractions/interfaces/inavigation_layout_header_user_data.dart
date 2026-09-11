@@ -1,3 +1,5 @@
+part of '../../navigation_layout.dart';
+
 /// Represents solution user displayable data.
 abstract interface class INavigationLayoutHeaderUserData {
   /// User name.

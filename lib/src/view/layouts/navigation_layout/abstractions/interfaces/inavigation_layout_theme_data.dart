@@ -1,4 +1,4 @@
-import 'package:csm_view/csm_view.dart';
+part of '../../navigation_layout.dart';
 
 /// Represents a themed data that uses the { CSM } foundation { Navigation Layour }.
 abstract interface class INavigationLayoutThemeData implements IThemeData {

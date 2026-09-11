@@ -1,5 +1,4 @@
-import 'package:csm_client_core/csm_client_core.dart';
-import 'package:flutter/material.dart';
+part of '../entity_table.dart';
 
 /// Represents an [EntityTable] deletion mode configuration.
 ///

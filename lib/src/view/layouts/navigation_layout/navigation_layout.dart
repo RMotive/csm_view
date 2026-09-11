@@ -1,15 +1,33 @@
 import 'package:csm_view/csm_view.dart' hide LayoutBuilder;
 import 'package:flutter/material.dart' hide Router, Route;
 
-part '_navigation_layout_menu_reactor.dart';
+// > Encapsulating [/abstractions]
+// >> Encapsulating [/abstractions/interfaces]
+part 'abstractions/interfaces/inavigation_layout.dart';
+part 'abstractions/interfaces/inavigation_layout_node.dart';
+part 'abstractions/interfaces/inavigation_layout_theme_data.dart';
+part 'abstractions/interfaces/inavigation_layout_header_user_data.dart';
+// >> Encapsulating [/abstractions/bases]
 part 'abstractions/bases/_navigation_layout_view_base.dart';
-part 'widgets/_navigation_layout_,menu_button.dart';
+part 'abstractions/bases/navigation_layout_node_base.dart';
+
+// > Encapsulating [/models]
+part 'models/navigation_layout_node.dart';
+part 'models/navigation_layout_header_user_data.dart';
+
+// > Encapsulating [/routing]
+part 'routing/navigation_layout_routing_graph_data.dart';
+
+// > Encapsulating [/widgets]
+part 'widgets/_navigation_layout_menu.dart';
 part 'widgets/_navigation_layout_header.dart';
+part 'widgets/_navigation_layout_small_view.dart';
+part 'widgets/_navigation_layout_large_view.dart';
+part 'widgets/_navigation_layout_menu_button.dart';
 part 'widgets/_navigation_layout_header_user_button.dart';
 part 'widgets/_navigation_layout_header_user_button_menu.dart';
-part 'widgets/_navigation_layout_large_view,.dart';
-part 'widgets/_navigation_layout_menu.dart';
-part 'widgets/_navigation_layout_small_view.dart';
+// >> Encapsulating [/widgets/reactors]
+part 'widgets/reactors/_navigation_layout_menu_reactor.dart';
 
 /// Draws a complex { View } navigation layout that handles main application sections navigation, theming management and user data / management access.
 final class NavigationLayout extends ViewLayoutBase implements INavigationLayout {

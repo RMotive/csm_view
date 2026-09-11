@@ -1,4 +1,4 @@
-import 'package:csm_view/csm_view.dart';
+part of '../../category_layout.dart';
 
 /// Represents a themed data that uses the { CSM } foundation { Category Layout }.
 abstract interface class ICategoryLayoutThemeData implements IThemeData {

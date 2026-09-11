@@ -1,4 +1,4 @@
-import 'package:flutter/widgets.dart';
+part of '../entity_table.dart';
 
 /// Draws the [EntityTable] entity details view widget
 final class EntityTableViewer extends StatelessWidget {

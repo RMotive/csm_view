@@ -1,5 +1,4 @@
-import 'package:csm_view/csm_view.dart';
-import 'package:flutter/material.dart';
+part of '../../navigation_layout.dart';
 
 /// Represents a { View } navigation layout.
 abstract interface class INavigationLayout {
