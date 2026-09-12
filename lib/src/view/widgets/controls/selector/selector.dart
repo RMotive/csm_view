@@ -13,14 +13,14 @@ enum SelectorStyles {
 
 /// A [Widget] that allows to select single or multiple items along given options.
 final class Selector<TValue> extends StatelessWidget implements ISelectorWidget<TValue> {
-  /// View style.
+  /// Control style.
   final SelectorStyles style;
-
-  /// Selectable values.
-  final List<NamedValue<TValue>> values;
 
   /// Spacing between values.
   final double? spacing;
+
+  /// Selectable values.
+  final List<NamedValue<TValue>> values;
 
   /// Event callback when [SelectorCards] value selection has changed. Will provide
   /// the new selected value [newSelected] and [prevSelected] value.
@@ -39,7 +39,7 @@ final class Selector<TValue> extends StatelessWidget implements ISelectorWidget<
   final SelectorCardsConfig<TValue>? cardsConfig;
 
   /// Creates a new instance.
-  const Selector({
+  Selector({
     super.key,
     required this.values,
     this.spacing,
@@ -53,8 +53,35 @@ final class Selector<TValue> extends StatelessWidget implements ISelectorWidget<
         );
 
   /// Creates a new instance from [ISelectorEnum] values.
-  static Selector<TEnum> fromEnum<TEnum extends ISelectorEnum>(List<TEnum> values) {
+  /// 
+  /// [values] Selection value options.
+  ///
+  /// [spacing] Spacing between values.
+  ///
+  /// [style] control style.
+  ///
+  /// [onSingleSelection] Event callback when [SelectorCards] value selection has changed. Will provide
+  /// the new selected value [newSelected] and [prevSelected] value.
+  ///
+  /// [onMultiSelection] Event callback when [SelectorCards] values selection has changed. Will provide
+  /// the new selected values [newSelection], the previous selection values [prevSelection] and
+  /// the difference between the [newSelection] and [prevSelection] as [delta].
+  static Selector<TEnum> fromEnum<TEnum extends ISelectorEnum>({
+    required List<TEnum> values,
+    double? spacing,
+    SelectorCardsConfig<TEnum>? cardsConfig,
+    SelectorStyles style = SelectorStyles.cards,
+    Function(TEnum? newSelected, TEnum? prevSelected)? onSingleSelection,
+    Function(List<TEnum> newSelection, List<TEnum> prevSelection, [List<TEnum>? delta])? onMultiSelection,
+  }) {
+    assert(values.isNotEmpty, 'Given values cannot be');
+
     return Selector<TEnum>(
+      style: style,
+      spacing: spacing,
+      cardsConfig: cardsConfig,
+      onMultiSelection: onMultiSelection,
+      onSingleSelection: onSingleSelection,
       values: values.map(
         (TEnum value) {
           return NamedValue<TEnum>(value.name, value);
