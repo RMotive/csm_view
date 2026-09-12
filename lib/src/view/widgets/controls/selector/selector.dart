@@ -52,44 +52,6 @@ final class Selector<TValue> extends StatelessWidget implements ISelectorWidget<
           'Specific selector style configurations is required',
         );
 
-  /// Creates a new instance from [ISelectorEnum] values.
-  /// 
-  /// [values] Selection value options.
-  ///
-  /// [spacing] Spacing between values.
-  ///
-  /// [style] control style.
-  ///
-  /// [onSingleSelection] Event callback when [SelectorCards] value selection has changed. Will provide
-  /// the new selected value [newSelected] and [prevSelected] value.
-  ///
-  /// [onMultiSelection] Event callback when [SelectorCards] values selection has changed. Will provide
-  /// the new selected values [newSelection], the previous selection values [prevSelection] and
-  /// the difference between the [newSelection] and [prevSelection] as [delta].
-  static Selector<TEnum> fromEnum<TEnum extends ISelectorEnum>({
-    required List<TEnum> values,
-    double? spacing,
-    SelectorCardsConfig<TEnum>? cardsConfig,
-    SelectorStyles style = SelectorStyles.cards,
-    Function(TEnum? newSelected, TEnum? prevSelected)? onSingleSelection,
-    Function(List<TEnum> newSelection, List<TEnum> prevSelection, [List<TEnum>? delta])? onMultiSelection,
-  }) {
-    assert(values.isNotEmpty, 'Given values cannot be');
-
-    return Selector<TEnum>(
-      style: style,
-      spacing: spacing,
-      cardsConfig: cardsConfig,
-      onMultiSelection: onMultiSelection,
-      onSingleSelection: onSingleSelection,
-      values: values.map(
-        (TEnum value) {
-          return NamedValue<TEnum>(value.name, value);
-        },
-      ).toList(),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     if (style == SelectorStyles.cards && cardsConfig != null) {
